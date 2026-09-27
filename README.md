@@ -2,9 +2,13 @@
 
 Open-source Kloudy protocol and SDK. This is the public surface for developers building with Kloudy.
 
-## What this is
+## Lane (delegation)
 
-The open layer of Kloudy: the protocol, schemas, and SDKs that let anyone build on top of the Kloudy network. The closed core (directory, vault, hosted runtime, concierge, ads) lives in [kloudy-core](https://github.com/Gio300/kloudy-core) and is not public.
+This repo owns the **open protocol and no-API-key access layer** only: the session model, action log, kloudy.json card schema, connector spec (MCP, FHIR, CLI, SDK), and reference client libraries. This is the middleman surface — developers get SDK/MCP/CLI access through Kloudy without managing their own API keys or approvals.
+
+It does **not** own: the browser product (Gio300/kloudy), the routing engine (Gio300/Project-Black-Box), the glasses UI (Gio300/kloudy-to-glasses), the closed core (Gio300/kloudy-core), or cross-repo contracts (Gio300/kloudy-shared).
+
+**Start here:** read Gio300/kloudy-shared/delegation-map.md, then Gio300/kloudy-shared/inbox/2026-09-27-kloudy-as-middleman.md. Build only inside this repo; if a task belongs elsewhere, log it to kloudy-shared/inbox and stop.
 
 ## What's here
 
@@ -16,7 +20,7 @@ The open layer of Kloudy: the protocol, schemas, and SDKs that let anyone build 
 
 ## What's not here
 
-- The directory, credential vault, hosted cloud runtime, concierge routing, and ad system. Those are private in kloudy-core.
+- The directory, credential vault, hosted cloud runtime, concierge routing, and ad system. Those are private in [kloudy-core](https://github.com/Gio300/kloudy-core) and are not public.
 - The browser product itself. That lives in Gio300/kloudy.
 - The routing engine. That lives in Gio300/Project-Black-Box.
 
