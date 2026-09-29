@@ -1,33 +1,27 @@
-# Kloudy Open
+# kloudy-open — public protocol
 
-Open-source Kloudy protocol and SDK. This is the public surface for developers building with Kloudy.
+Open SDK, session/action schemas, CLI/npm/slash docs for outsiders.
 
-## Lane (delegation)
+## Ownership (binding — kloudy-shared/contracts/ownership.md)
 
-This repo owns the **open protocol and no-API-key access layer** only: the session model, action log, kloudy.json card schema, connector spec (MCP, FHIR, CLI, SDK), and reference client libraries. This is the middleman surface — developers get SDK/MCP/CLI access through Kloudy without managing their own API keys or approvals.
+- **kloudy-open** owns: public protocol, SDK, CLI install docs, npm package docs, slash-command docs, MCP Registry publish.
+- Does NOT own: product UIs, secrets, engine internals, browser chrome.
 
-It does **not** own: the browser product (Gio300/kloudy), the routing engine (Gio300/Project-Black-Box), the glasses UI (Gio300/kloudy-to-glasses), the closed core (Gio300/kloudy-core), or cross-repo contracts (Gio300/kloudy-shared).
+## MCP Registry
 
-**Start here:** read Gio300/kloudy-shared/delegation-map.md, then Gio300/kloudy-shared/inbox/2026-09-27-kloudy-as-middleman.md. Build only inside this repo; if a task belongs elsewhere, log it to kloudy-shared/inbox and stop.
+The registry is a **catalog** — metadata, names, endpoints. It is NOT an API to every MCP.
+Kloudy still connects each MCP through its own auth (vault + temporary tokens).
 
-## What's here
+Publish flow: `mcp-publisher init` → authenticate (GitHub OAuth, `io.github.Gio300/*` namespace) → `server.json` → publish npm package → `mcp-publisher publish`.
 
-- **Session model** — how a bot session is opened, driven, and closed.
-- **Action log** — the record of every action a bot takes.
-- **kloudy.json card schema** — the site card format for bot-friendly surfaces.
-- **Connector spec** — how external tools (MCP, FHIR, CLI, SDK) plug in.
-- **SDK** — reference client libraries for the protocol.
+## CLI / npm / slash
 
-## What's not here
+- `npm install -g kloudy` → binary on PATH + slash-command files dropped into IDE commands folders.
+- `/kloudy` in Cursor/Claude Code/etc. triggers `kloudy install` (vault login, MCP entry written).
+- Docs for outsiders: one command, zero config.
 
-- The directory, credential vault, hosted cloud runtime, concierge routing, and ad system. Those are private in [kloudy-core](https://github.com/Gio300/kloudy-core) and are not public.
-- The browser product itself. That lives in Gio300/kloudy.
-- The routing engine. That lives in Gio300/Project-Black-Box.
+## Edge cases
 
-## Status
-
-- [ ] Session model spec
-- [ ] Action log format
-- [ ] kloudy.json schema
-- [ ] Connector spec
-- [ ] Reference SDK (TypeScript)
+- No secrets in public docs.
+- No product UI claims.
+- Registry listing is the GEO credibility signal — usage is the citation engine.
