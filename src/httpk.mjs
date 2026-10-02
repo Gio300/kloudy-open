@@ -1,0 +1,33 @@
+import {randomUUID} from 'node:crypto';
+import {KloudyError} from './client.mjs';
+const fail=(code,message)=>{throw new KloudyError(code,message);};
+export class HttpkClient {
+ constructor({endpoint,token,state={},save=async()=>{},mode='autonomous',fetcher=fetch}){
+  let u;try{u=new URL(endpoint);}catch{}
+  if(!u||u.username||u.password||u.search||u.hash||!(u.protocol==='https:'||u.protocol==='http:'&&['localhost','127.0.0.1','[::1]'].includes(u.hostname)))fail('invalid_origin','Use an HTTPS or loopback HTTPK endpoint.');
+  if(typeof token!=='string'||!token||/[\r\n]/.test(token))fail('connection_unavailable','A scoped user connection is required.');
+  this.endpoint=u.href;this.token=token;this.state=state;this.save=save;this.mode=mode;this.fetcher=fetcher;
+ }
+ async rpc(method,params={}){
+  const body=JSON.stringify({jsonrpc:'2.0',id:randomUUID(),method,params});if(Buffer.byteLength(body)>8192)fail('too_large','HTTPK request exceeds the engine limit.');
+  let response;try{response=await this.fetcher(this.endpoint,{method:'POST',redirect:'error',signal:AbortSignal.timeout(20000),headers:{authorization:'Bearer '+this.token,'content-type':'application/json',accept:'application/json, text/event-stream','mcp-protocol-version':'2025-06-18',...(this.state.sessionId?{'mcp-session-id':this.state.sessionId}:{})},body});}catch{fail('engine_unavailable','No retry was made. Check the same selection receipt before repeating an action.');}
+  let size=0;const chunks=[];for await(const chunk of response.body){size+=chunk.length;if(size>524288)fail('invalid_response','Engine response too large.');chunks.push(chunk);}
+  let json;try{json=JSON.parse(Buffer.concat(chunks).toString());}catch{fail('invalid_response','The endpoint did not return MCP JSON.');}
+  if(!response.ok||json.error)fail('httpk_request_failed','The engine rejected this request. No retry or approval was fabricated.');
+  return json.result;
+ }
+ async session(){if(this.state.sessionId&&this.state.interactionMode!==this.mode)fail('mode_not_supported','Saved session mode does not match this client.');if(!this.state.sessionId){const opened=await this.rpc('initialize',{protocolVersion:'2025-06-18',clientInfo:{name:'kloudy-open',version:'0.3.0'},capabilities:{}});if(typeof opened.session_id!=='string'||opened.interaction_mode!==this.mode)fail('mode_not_supported','Credential surface does not match this client mode.');this.state.sessionId=opened.session_id;this.state.interactionMode=opened.interaction_mode;await this.save(this.state);}return this.state.sessionId;}
+ async introduce(project_context){await this.session();const result=await this.rpc('kloudy/intent',{idempotency_key:randomUUID(),input:{type:'text',text:'Kloudy',project_context}});if(result.state!=='greeting'||result.greeting?.version!=='bbe.attach.v1')fail('invalid_response','Expected the engine attach greeting.');return result.greeting;}
+ async ask(goal,{candidates=[]}={}){
+  if(typeof goal!=='string'||!goal.trim()||[...goal].length>500)fail('invalid_input','Use a goal of 1–500 characters.');
+  if(candidates.length)fail('unsupported_discovery','The hosted Notes development adapter does not accept external discovery candidates.');
+  await this.session();if(this.state.receiptSelection){const current=await this.status();if(!['completed','failed','cancelled','ready','unavailable','greeting'].includes(current.state))fail('pending_request','Finish the active action first.');}
+  const choice=await this.rpc('kloudy/intent',{idempotency_key:randomUUID(),input:{type:'text',text:goal}});
+  if(!Array.isArray(choice.tools)||choice.tools.length>1)fail('invalid_response','Expected at most one engine-selected tool.');
+  this.state.selection=choice.tools.length?{id:choice.selection_id,tool:choice.tools[0],arguments:choice.arguments}:null;await this.save(this.state);
+  return {schema:'kloudy.toolbox/1',sessionId:this.state.sessionId,toolbox:{status:choice.tools.length?'ready':'empty',tools:choice.tools,reason:choice.reason||null,measurements:{definitionsEmitted:choice.tools.length}},arguments:choice.arguments,...(choice.greeting?{greeting:choice.greeting}:{})};
+ }
+ async call(name,inputs){await this.session();const selected=this.state.selection;if(!selected||selected.tool.name!==name)fail('not_selected','Ask for this tool first.');this.state.receiptSelection=selected.id;await this.save(this.state);const response=await this.rpc('tools/call',{name,arguments:inputs,_meta:{selection_id:selected.id}});this.state.selection=null;await this.save(this.state);return response.structuredContent;}
+ async status(){if(!this.state.receiptSelection)return {state:'idle',mode:this.mode};await this.session();return this.rpc('kloudy/receipt',{selection_id:this.state.receiptSelection});}
+ async decide(decision,revision){if(!this.state.receiptSelection)fail('no_request','No action is pending.');if(decision==='cancel')return this.rpc('kloudy/cancel',{selection_id:this.state.receiptSelection});if(decision==='approve'&&this.mode==='confirm')return this.rpc('kloudy/confirm',{selection_id:this.state.receiptSelection,revision,decision:'approve',source:'tap'});fail('autonomous_only','The CLI does not offer a second approval gate.');}
+}

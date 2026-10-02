@@ -7,8 +7,8 @@ One CLI, one MCP, tools appear when needed. CLI, MCP and the Node.js SDK use the
 Node.js 20 or newer is required. The tested package is available directly from Kloudy; it has not been published to the npm or MCP registries.
 
 ```sh
-npm install -g https://kloudy.ai/downloads/kloudy-open-0.2.0.tgz
-kloudy help
+npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.0.tgz
+kloudy
 ```
 
 From a source checkout: `npm ci`, `npm test`, `npm link` (or `node bin/kloudy.mjs help`). There is no install-time script that edits your IDE.
@@ -29,13 +29,19 @@ kloudy cancel --connection /private/connection.json
 ## One MCP in the IDE
 
 ```sh
-kloudy install --project /your/project --connection /private/connection.json
-# Or select a supported host explicitly:
-kloudy install --project /your/project --ide cursor --connection /private/connection.json
-kloudy mcp --connection /private/connection.json
+kloudy                         # introduce Kloudy and this project; ask once to install
+kloudy introduce --decision no # stay chat-only
+kloudy install --ide codex     # explicit consent; user-level installation
+kloudy install --ide cursor --connection /private/connection.json
+# Once a hosted MCP endpoint and scoped user grant are provisioned:
+kloudy install --ide codex --url https://kloudy.ai/mcp --token-env KLOUDY_MCP_TOKEN
 ```
 
-The installer detects existing Cursor, Claude Code and VS Code project folders. It adds one `kloudy` MCP entry, preserves other entries, backs up a changed configuration, and leaves a conflicting existing Kloudy entry untouched. Cursor and Claude receive `/kloudy` command text. VS Code uses its MCP tools interface. JSONC/non-JSON files are left unchanged. Other MCP-compatible IDEs can configure the `kloudy mcp` stdio command directly. Host approval/trust policies remain in force.
+One user installation covers projects. Cursor, Claude Code, VS Code and Codex receive their own supported **user-level** MCP config, without modifying project files. The installer preserves other entries, backs up changes, and leaves conflicting Kloudy entries untouched. Codex TOML comments are preserved. JSONC/non-JSON configs are left unchanged. Cursor and Claude receive a user slash command; every MCP host receives a `kloudy` prompt and default introduction operation. Host approval/trust policies remain in force. The local installation record is not an account or permission grant.
+
+Bare `kloudy`, `Kloudy`, `/kloudy`, and `ask Kloudy` in this CLI return a project-aware introduction before opening an engine session. The MCP tool does the same for `introduce` or an exact attach intent. It classifies known manifest names/dependencies, looks up at most three relevant public catalog names, and asks one install/connect question. Catalog candidates are explicitly non-executable until granted. It never reads `.env`, source contents or another project's checkpoint. With an HTTPK connection, the introduction comes from the real engine's `bbe.attach.v1` intent payload. Without a reachable account/session, the client provides a clearly marked deterministic public-catalog fallback. An unconfigured IDE cannot discover a CLI just from an ordinary chat word: install the MCP adapter first, then invoke the tool or `/kloudy` prompt.
+
+The remote option stores only a bearer **environment-variable reference**. `https://kloudy.ai/mcp` now serves authenticated MCP alongside its human guide. The current hosted engine is a Notes-only development tenant with expiring operator-issued grants; it is not open customer registration. The default local stdio adapter works without hosting. With no explicit connection path, all three clients use `~/.kloudy/connection.json`, the same user session across projects.
 
 The MCP tool list initially has one `kloudy` entry. An `ask` operation adds only the selected tool as `selected_<engine-name>`. Selecting a new task replaces it; running it clears the selection. Status/cancellation use the Kloudy entry and the same engine request. Model-visible outputs never contain the bearer.
 
@@ -73,10 +79,18 @@ node scripts/prove.mjs --connection /private/test-connection.json --candidates /
 
 The proof writes `.cache/live-engine-proof.json` without credentials. A completed synthetic Notes result is not a claim of hosted registration, live provider discovery or unrelated integrations.
 
-Protocol references: [MCP SDK](https://ts.sdk.modelcontextprotocol.io/), [Cursor project MCP](https://prod.cursor.com/help/customization/mcp), [Claude project MCP](https://support.claude.com/en/articles/14554922-claude-code-user-faq), [VS Code MCP](https://code.visualstudio.com/docs/agent-customization/mcp-servers). Private coordination source: Gio300/kloudy-shared session-routing and passive-narrowing contracts.
+Protocol references: [MCP SDK](https://ts.sdk.modelcontextprotocol.io/), [Cursor MCP](https://prod.cursor.com/help/customization/mcp), [Claude MCP](https://code.claude.com/docs/en/mcp), [VS Code MCP](https://code.visualstudio.com/docs/agent-customization/mcp-servers). Private coordination source: Gio300/kloudy-shared session-routing and passive-narrowing contracts.
 
-## Approval defaults (0.2.0)
+## Approval defaults
 
 CLI and IDE MCP are autonomous: the host permission policy and scoped engine grant govern execution. There is no CLI approve command or confirm option. The SDK accepts `mode: 'autonomous'` (default) or `mode: 'confirm'`; for example `withConnection(file, work, {mode: 'confirm'})` for a trusted confirm-mode embed. Do not use CLI-issued credentials for a browser embed. The engine binds the surface to the grant; clients cannot mint or relabel credentials.
 
 The client verifies engine mode acknowledgment before routing. An older engine that still returns `awaiting_approval` in autonomous mode produces `engine_autonomy_not_supported`; it never fabricates a tap or calls approval automatically. Upgrade the engine or cancel that request. Hosted OAuth, credential refresh and public MCP deployment remain owned engine/Core capabilities.
+
+## Hosted HTTPK (0.3.0)
+
+A private connection may contain `endpoint: "https://kloudy.ai/mcp"`, `access_token` and `expires_at`, obtained through the owning grant service. The same CLI/MCP/SDK adapter then uses the deployed engine's HTTPK protocol. No user key belongs in this README, an install command or a prompt. The hosted development engine currently understands Notes actions such as `save note: ...` and `read note ID`; external discovery candidates are explicitly rejected on this limited transport.
+
+A standard remote MCP host sees one `kloudy` tool. `introduce` gets the engine greeting; `ask` returns the selected singular tool and exact arguments; `call` carries that selection; `status`/`cancel` use its receipt. The adapter forwards authority to Blackbox and never invents approvals, risk classifications, model retries or provider access. The hosted protocol is MCP 2025-06-18; the pinned official SDK negotiates it.
+
+`node scripts/prove-hosted.mjs` uses an in-memory, expiring test grant and a temporary user config to prove the real public MCP handshake, engine greeting, one selected tool, completed Notes receipt, idempotent replay and SDK readback. It does not claim a visual IDE session or the provider-model failure ladder was tested. Those remaining checks are recorded in Shared.

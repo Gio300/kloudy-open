@@ -4,15 +4,18 @@ import {withConnection} from '../src/connection.mjs';
 import {serveMcp} from '../src/mcp.mjs';
 import {createWrapper} from '../src/wrap.mjs';
 import {install} from '../src/install.mjs';
-const args=process.argv.slice(2),command=args.shift()||'help';
+import {introduce,isAttachIntent} from '../src/introduce.mjs';
+const args=process.argv.slice(2),command=args.shift()||'introduce';
 function option(name){const index=args.indexOf('--'+name);if(index<0)return null;if(index===args.length-1||args[index+1].startsWith('--'))throw new Error('Option value required');const value=args[index+1];args.splice(index,2);return value;}
 const output=value=>process.stdout.write(JSON.stringify(value,null,2)+'\n');
 try{
  if(args.includes('--mode')||args.includes('--revision')||command==='approve')throw new Error('CLI is autonomous-only');
  const connection=option('connection')||process.env.KLOUDY_CONNECTION;
+ const project=option('project')||process.cwd(),decision=option('decision');
  if(command==='help'||command==='--help'){
-  console.log('Ask for Kloudy. One CLI, one MCP, tools appear when needed.\n\nkloudy ask "goal" --connection FILE [--candidates FILE]\nkloudy call NAME --inputs FILE --connection FILE\nkloudy status --connection FILE\nkloudy cancel --connection FILE\nkloudy mcp --connection FILE\nkloudy install --project DIR [--ide cursor|claude|vscode] [--connection FILE]\nkloudy wrap --config FILE [--port 8796]\nkloudy login\n\nRegister with email + short 2FA through the Core account service. Existing engine connections remain usable. Hosted registration is not supplied by this client package.');
- }else if(command==='install'){output(await install({project:option('project')||process.cwd(),ide:option('ide')||'auto',connection}));}
+  console.log('Ask for Kloudy. One CLI, one MCP, tools appear when needed.\n\nkloudy ask "goal" --connection FILE [--candidates FILE]\nkloudy call NAME --inputs FILE --connection FILE\nkloudy status --connection FILE\nkloudy cancel --connection FILE\nkloudy mcp --connection FILE\nkloudy introduce [--project DIR] [--decision yes|no]\nkloudy install [--ide cursor|claude|vscode|codex] [--url HTTPS_URL] [--token-env NAME] [--connection FILE]\nkloudy wrap --config FILE [--port 8796]\nkloudy login\n\nRegister with email + short 2FA through the Core account service. Existing engine connections remain usable. Hosted registration is not supplied by this client package.');
+ }else if(command==='introduce'||isAttachIntent(command)||(command==='ask'&&isAttachIntent(args.join(' ')))){if(decision&&!['yes','no'].includes(decision))throw Error('Choose yes or no');if(decision==='yes')output(await install({ide:option('ide')||'auto',connection,url:option('url')||undefined,tokenEnv:option('token-env')||undefined}));else output(await introduce({project,decision,connection}));}
+ else if(command==='install'){option('project');output(await install({ide:option('ide')||'auto',connection,url:option('url')||undefined,tokenEnv:option('token-env')||undefined}));}
  else if(command==='mcp'){await serveMcp(connection);}
  else if(command==='wrap'){
   const file=option('config'),port=Number(option('port')||8796);if(!file||!Number.isSafeInteger(port)||port<1024||port>65535)throw new Error('Invalid wrapper options');
