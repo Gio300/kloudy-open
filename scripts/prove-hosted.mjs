@@ -26,12 +26,12 @@ try{
  const callArgs={operation:'call',selection_id:choice.selection_id,name:choice.tools[0].name,arguments:choice.arguments};
  const called=await client.callTool({name:'kloudy',arguments:callArgs});assert.equal(called.isError,false);assert.equal(called.structuredContent.approval,null);
  let receipt;for(let i=0;i<12;i++){receipt=(await client.callTool({name:'kloudy',arguments:{operation:'status',selection_id:choice.selection_id}})).structuredContent;if(receipt.state==='completed')break;await new Promise(r=>setTimeout(r,400));}
- assert.equal(receipt.state,'completed');assert.equal(receipt.result.text,text);assert.equal(receipt.tool_calls,1);
+ assert.equal(receipt.state,'completed');assert.equal(receipt.action,'notes.create');assert.equal(receipt.risk_tier,'high');assert.equal(receipt.receipt_version,'httpk/2');assert.equal(receipt.result.text,text);assert.equal(receipt.tool_calls,1);
  const replay=(await client.callTool({name:'kloudy',arguments:callArgs})).structuredContent;assert.equal(replay.receipt_hash,receipt.receipt_hash);
  // The Node SDK/CLI HTTPK adapter uses the same actual public engine.
  const sdk=new HttpkClient({endpoint,token:credential.access_token});const greeting=await sdk.introduce({languages:['javascript'],manifests:['package.json']});assert.equal(greeting.version,'bbe.attach.v1');
  const read=await sdk.ask('read note '+receipt.result.note_id);assert.equal(read.toolbox.tools.length,1);await sdk.call(read.toolbox.tools[0].name,read.arguments);let got;for(let i=0;i<12;i++){got=await sdk.status();if(got.state==='completed')break;await new Promise(r=>setTimeout(r,400));}assert.equal(got.result.text,text);
- const proof={checkedAt:new Date().toISOString(),endpoint,cleanUserConfig:true,actualIDEUI:false,standardMcpClient:true,engineGreeting:true,remoteDoorCount:1,singularToolCount:1,completed:true,idempotentReplay:true,sdkReadback:true,receipt,credentialExpiresAt:credential.expires_at,developmentOnly:true,modelRetryTested:false};
+ const proof={checkedAt:new Date().toISOString(),endpoint,cleanUserConfig:true,actualIDEUI:false,standardMcpClient:true,engineGreeting:true,remoteDoorCount:1,singularToolCount:1,completed:true,idempotentReplay:true,sdkReadback:true,receipt,credentialExpiresAt:credential.expires_at,developmentOnly:true,modelRetryTested:false,terminalActionRisk:true};
  await mkdir('.cache',{recursive:true});await writeFile('.cache/hosted-proof.json',JSON.stringify(proof,null,2)+'\n');
  console.log(JSON.stringify({endpoint,cleanUserConfig:true,engineGreeting:true,singularToolCount:1,completed:true,sdkReadback:true,receiptHash:receipt.receipt_hash,actualIDEUI:false}));
 }finally{await client.close();await rm(home,{recursive:true,force:true});}
