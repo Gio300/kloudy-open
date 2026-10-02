@@ -19,12 +19,11 @@ try{
  await mcp.connect(transport);const listed=await mcp.listTools();assert.equal(listed.tools.length,2);
  assert.equal(listed.tools[0].name,'kloudy');assert.equal(listed.tools[1].name,'selected_'+toolbox.toolbox.tools[0].name);
  const called=await mcp.callTool({name:listed.tools[1].name,arguments:{text:'Synthetic Kloudy Open acceptance note. No provider call.'}});
- assert.equal(called.isError,undefined);assert.equal(called.structuredContent.state,'awaiting_approval');
- const pending=await withConnection(connection,client=>client.status());assert.equal(pending.request_id,called.structuredContent.request_id);assert.equal(pending.state,'awaiting_approval');
- cli('approve','--revision',pending.approval.revision);
+ assert.equal(called.isError,undefined);assert.ok(['queued','running','completed'].includes(called.structuredContent.state));
+ const current=await withConnection(connection,client=>client.status());assert.equal(current.request_id,called.structuredContent.request_id);assert.equal(current.approval,null);
  const deadline=Date.now()+20000;
  do{completed=cli('status');if(['completed','failed','cancelled'].includes(completed.state))break;await new Promise(resolve=>setTimeout(resolve,250));}while(Date.now()<deadline);
  assert.equal(completed.state,'completed');
- const proof={checkedAt:new Date().toISOString(),realEngine:true,syntheticMetadata:true,cliDefinitions:toolbox.toolbox.tools.length,mcpTools:['kloudy',listed.tools[1].name],sameSessionAcrossClients:true,approvalRequired:true,explicitSyntheticApproval:true,state:completed.state,providerCalls:0};
+ const proof={checkedAt:new Date().toISOString(),realEngine:true,syntheticMetadata:true,cliDefinitions:toolbox.toolbox.tools.length,mcpTools:['kloudy',listed.tools[1].name],sameSessionAcrossClients:true,approvalMode:'autonomous',extraApprovalCalls:0,explicitSyntheticTestAuthorization:true,state:completed.state,providerCalls:0};
  await mkdir('.cache',{recursive:true});await writeFile('.cache/live-engine-proof.json',JSON.stringify(proof,null,2)+'\n');console.log(JSON.stringify(proof,null,2));
 }finally{await mcp.close();}

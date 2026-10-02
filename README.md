@@ -7,7 +7,7 @@ One CLI, one MCP, tools appear when needed. CLI, MCP and the Node.js SDK use the
 Node.js 20 or newer is required. The tested package is available directly from Kloudy; it has not been published to the npm or MCP registries.
 
 ```sh
-npm install -g https://kloudy.ai/downloads/kloudy-open-0.1.0.tgz
+npm install -g https://kloudy.ai/downloads/kloudy-open-0.2.0.tgz
 kloudy help
 ```
 
@@ -21,8 +21,6 @@ An existing scoped Blackbox connection can be supplied through a private connect
 kloudy ask "Build an app to create private notes" --connection /private/connection.json --candidates discovery-cards.json
 kloudy call bbe_notes_create --connection /private/connection.json --inputs note-inputs.json
 kloudy status --connection /private/connection.json
-# Review the returned exact action, then deliberately approve its current revision:
-kloudy approve --connection /private/connection.json --revision REVISION
 kloudy cancel --connection /private/connection.json
 ```
 
@@ -39,7 +37,7 @@ kloudy mcp --connection /private/connection.json
 
 The installer detects existing Cursor, Claude Code and VS Code project folders. It adds one `kloudy` MCP entry, preserves other entries, backs up a changed configuration, and leaves a conflicting existing Kloudy entry untouched. Cursor and Claude receive `/kloudy` command text. VS Code uses its MCP tools interface. JSONC/non-JSON files are left unchanged. Other MCP-compatible IDEs can configure the `kloudy mcp` stdio command directly. Host approval/trust policies remain in force.
 
-The MCP tool list initially has one `kloudy` entry. An `ask` operation adds only the selected tool as `selected_<engine-name>`. Selecting a new task replaces it; running it clears the selection. Approval/status/cancellation use the Kloudy entry and the same engine request. Model-visible outputs never contain the bearer.
+The MCP tool list initially has one `kloudy` entry. An `ask` operation adds only the selected tool as `selected_<engine-name>`. Selecting a new task replaces it; running it clears the selection. Status/cancellation use the Kloudy entry and the same engine request. Model-visible outputs never contain the bearer.
 
 ## SDK
 
@@ -67,7 +65,7 @@ MCP transport compatibility is pinned to the official SDK 1.31.0 and its 2025-11
 
 `npm test` covers real HTTP/stdio round trips, selected-tool isolation, auth/origin rejection, crash handling, shared SDK behavior, explicit approval and safe IDE installation.
 
-The real-engine acceptance script uses a separately provisioned local Blackbox instance and synthetic public metadata, never a mock engine. It exercises CLI → MCP → SDK → exact approval → completed Notes result. It intentionally requires an explicit test flag:
+The real-engine acceptance script uses a separately provisioned local Blackbox instance and synthetic public metadata, never a mock engine. It exercises CLI → MCP → SDK → autonomous completed Notes result, with no extra approval call. It intentionally requires an explicit test flag:
 
 ```sh
 node scripts/prove.mjs --connection /private/test-connection.json --candidates /path/to/test-cards.json --approve-synthetic
@@ -76,3 +74,9 @@ node scripts/prove.mjs --connection /private/test-connection.json --candidates /
 The proof writes `.cache/live-engine-proof.json` without credentials. A completed synthetic Notes result is not a claim of hosted registration, live provider discovery or unrelated integrations.
 
 Protocol references: [MCP SDK](https://ts.sdk.modelcontextprotocol.io/), [Cursor project MCP](https://prod.cursor.com/help/customization/mcp), [Claude project MCP](https://support.claude.com/en/articles/14554922-claude-code-user-faq), [VS Code MCP](https://code.visualstudio.com/docs/agent-customization/mcp-servers). Private coordination source: Gio300/kloudy-shared session-routing and passive-narrowing contracts.
+
+## Approval defaults (0.2.0)
+
+CLI and IDE MCP are autonomous: the host permission policy and scoped engine grant govern execution. There is no CLI approve command or confirm option. The SDK accepts `mode: 'autonomous'` (default) or `mode: 'confirm'`; for example `withConnection(file, work, {mode: 'confirm'})` for a trusted confirm-mode embed. Do not use CLI-issued credentials for a browser embed. The engine binds the surface to the grant; clients cannot mint or relabel credentials.
+
+The client verifies engine mode acknowledgment before routing. An older engine that still returns `awaiting_approval` in autonomous mode produces `engine_autonomy_not_supported`; it never fabricates a tap or calls approval automatically. Upgrade the engine or cancel that request. Hosted OAuth, credential refresh and public MCP deployment remain owned engine/Core capabilities.

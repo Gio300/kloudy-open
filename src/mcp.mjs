@@ -2,9 +2,9 @@ import {Server} from '@modelcontextprotocol/sdk/server/index.js';
 import {StdioServerTransport} from '@modelcontextprotocol/sdk/server/stdio.js';
 import {ListToolsRequestSchema,CallToolRequestSchema} from '@modelcontextprotocol/sdk/types.js';
 import {withConnection} from './connection.mjs';
-const gateway={name:'kloudy',description:'Ask for Kloudy. Discover a singular tool through the same engine session. No automatic execution or approval.',inputSchema:{type:'object',properties:{operation:{type:'string',enum:['ask','status','approve','cancel']},goal:{type:'string'},candidates:{type:'array',maxItems:16,items:{type:'object'}},lane:{type:'string',enum:['non_medical','medical']},revision:{type:'string'}},required:['operation'],additionalProperties:false}};
+const gateway={name:'kloudy',description:'Ask for Kloudy. Select one tool through the same engine. Autonomous by default; the IDE permission system controls tool calls and the engine enforces authorization.',inputSchema:{type:'object',properties:{operation:{type:'string',enum:['ask','status','cancel']},goal:{type:'string'},candidates:{type:'array',maxItems:16,items:{type:'object'}},lane:{type:'string',enum:['non_medical','medical']}},required:['operation'],additionalProperties:false}};
 export function createMcpServer({useClient}){
-  const server=new Server({name:'kloudy',version:'0.1.0'},{capabilities:{tools:{listChanged:true}}});
+  const server=new Server({name:'kloudy',version:'0.2.0'},{capabilities:{tools:{listChanged:true}}});
   server.setRequestHandler(ListToolsRequestSchema,async()=>{
     let selected;try{selected=await useClient(client=>client.state.selection?.tool);}catch{}
     return {tools:[gateway,...(selected?[{...selected,name:'selected_'+selected.name}]:[])]};
@@ -17,7 +17,7 @@ export function createMcpServer({useClient}){
         if(request.params.name!=='kloudy')throw new Error('Unknown tool');
         if(input.operation==='ask')return client.ask(input.goal,{candidates:input.candidates||[],lane:input.lane||'non_medical'});
         if(input.operation==='status')return client.status();
-        if(['approve','cancel'].includes(input.operation))return client.decide(input.operation,input.revision);
+        if(input.operation==='cancel')return client.decide('cancel');
         throw new Error('Unsupported operation');
       });
       // Prompt the host to fetch the newly selected singular tool, not a server dump.

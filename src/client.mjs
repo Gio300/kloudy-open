@@ -42,14 +42,19 @@ export function projectToolbox(receipt){
   return {status:tools.length?'ready':'empty',tools,reason:tools.length?'One engine-selected tool.':String(box?.reason||'no_match').slice(0,100),measurements:{candidatesRead:n.measurements?.candidates_read??null,definitionsEmitted:tools.length}};
 }
 export class KloudyClient {
-  constructor({transport,state={},save=async()=>{}}){if(typeof transport!=='function')fail('registration_required','Registration and a scoped engine connection are required.');this.transport=transport;this.state=state;this.save=save;this.busy=false;}
+  constructor({transport,state={},save=async()=>{},mode='autonomous'}){if(typeof transport!=='function')fail('registration_required','Registration and a scoped engine connection are required.');if(!['autonomous','confirm'].includes(mode))fail('invalid_mode','Choose autonomous or confirm.');this.mode=mode;this.transport=transport;this.state=state;this.save=save;this.busy=false;}
   async exclusive(work){if(this.busy)fail('busy','Wait for the current operation.');this.busy=true;try{return await work();}finally{this.busy=false;}}
   async request(method,path,body,limit=4096){if(body&&Buffer.byteLength(JSON.stringify(body))>limit)fail('too_large','Request exceeds the engine limit.');return this.transport(method,path,body);}
   async session(){
     if(!this.state.sessionId){const opened=await this.request('POST','/sessions',{idempotency_key:randomUUID(),front_door:'kloudy'});id(opened.session_id);this.state.sessionId=opened.session_id;await this.save(this.state);}
-    const current=await this.request('GET','/sessions/'+id(this.state.sessionId));
+    let current=await this.request('GET','/sessions/'+id(this.state.sessionId));
     if(current.state==='closed')fail('session_closed','This session is closed. Register or reconnect a fresh session.');
     if(!Number.isSafeInteger(current.revision)||current.revision<0)fail('invalid_response','Invalid engine session revision.');
+    if(current.interaction_mode!==this.mode){
+      await this.request('POST',`/sessions/${id(this.state.sessionId)}/mode`,{idempotency_key:randomUUID(),expected_revision:current.revision,mode:this.mode,source:'typed'});
+      current=await this.request('GET','/sessions/'+id(this.state.sessionId));
+      if(current.interaction_mode!==this.mode||!Number.isSafeInteger(current.revision)||current.revision<0)fail('mode_not_supported','The engine has not acknowledged this surface’s approval mode. No tool was invoked.');
+    }
     return current;
   }
   async ask(goal,{candidates=[],lane='non_medical'}={}){return this.exclusive(async()=>{
@@ -80,10 +85,10 @@ export class KloudyClient {
     const receipt=await this.request('POST',`/sessions/${id(this.state.sessionId)}/escalate`,{idempotency_key:randomUUID(),expected_revision:current.revision,narrowing_key:selected.key,inputs});
     id(receipt.request_id);this.state.requestId=receipt.request_id;this.state.selection=null;await this.save(this.state);return this.status();
   });}
-  async status(){if(!this.state.requestId)return {state:'idle',sessionId:this.state.sessionId||null};return this.request('GET','/requests/'+id(this.state.requestId));}
+  async status(){if(!this.state.requestId)return {state:'idle',mode:this.mode,sessionId:this.state.sessionId||null};const receipt=await this.request('GET','/requests/'+id(this.state.requestId));return {...receipt,...(this.mode==='autonomous'&&receipt.state==='awaiting_approval'?{mode:'autonomous',blocked:{code:'engine_autonomy_not_supported',message:'The engine still requires a separate approval for this action. No approval was fabricated. Cancel or check the engine deployment.'}}:{})};}
   async decide(decision,revision){return this.exclusive(async()=>{
     if(!this.state.requestId)fail('no_request','No action is pending in this session.');
-    if(decision==='approve'){if(typeof revision!=='string'||!revision||revision.length>256)fail('approval_required','Read the exact action and supply its approval revision.');await this.request('POST',`/requests/${id(this.state.requestId)}/approve`,{revision,decision:'approve'});}
+    if(decision==='approve'){if(this.mode!=='confirm')fail('autonomous_only','This client does not offer a second approval gate.');if(typeof revision!=='string'||!revision||revision.length>256)fail('approval_required','Read the exact action and supply its approval revision.');await this.request('POST',`/requests/${id(this.state.requestId)}/approve`,{revision,decision:'approve'});}
     else if(decision==='cancel')await this.request('POST',`/requests/${id(this.state.requestId)}/cancel`,{});
     else fail('invalid_input','Choose approve or cancel.');
     return this.status();

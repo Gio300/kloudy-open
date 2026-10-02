@@ -21,7 +21,7 @@ export async function install({project=process.cwd(),ide='auto',connection}){
   const next=JSON.stringify(value,null,2)+'\n';
   await mkdir(dirname(path),{recursive:true});
   if(old!==next){if(old!==undefined)await copyFile(path,path+'.kloudy-backup-'+randomUUID());const tmp=path+'.'+randomUUID()+'.tmp';await writeFile(tmp,next,{mode:0o600,flag:'wx'});await rename(tmp,path);}
-  if(host.slash){const slash=join(root,host.slash);await mkdir(dirname(slash),{recursive:true});try{await writeFile(slash,'Ask for Kloudy. Use the kloudy MCP entry for the user’s task. Read the returned Toolbox; call only the selected tool. Exact engine approvals stay explicit. Never print service credentials. If registration or discovery is unavailable, report that dependency instead of inventing tools.\n',{flag:'wx',mode:0o600});}catch(error){if(error.code!=='EEXIST')throw error;}}
+  if(host.slash){const slash=join(root,host.slash);await mkdir(dirname(slash),{recursive:true});try{await writeFile(slash,'Ask for Kloudy. Use the kloudy MCP entry for the user’s task. Read the returned Toolbox; call only the selected tool. Autonomous mode follows the IDE permission ceiling; the engine enforces the user grant. Never manufacture a second approval or bypass a denial. Never print service credentials. If registration or discovery is unavailable, report that dependency instead of inventing tools.\n',{flag:'wx',mode:0o600});}catch(error){if(error.code!=='EEXIST')throw error;}}
   results.push({ide:name,state:old===next?'already_installed':'installed',path});
  }
  return {product:'Kloudy',results,...(!results.length?{next:'No supported project configuration detected. Specify --ide cursor, claude or vscode, or configure your MCP host with kloudy mcp.'}:{})};
