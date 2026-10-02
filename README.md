@@ -4,10 +4,10 @@ One CLI, one MCP, tools appear when needed. CLI, MCP and the Node.js SDK use the
 
 ## Install and run
 
-Node.js 20 or newer is required. The tested package is available directly from Kloudy; it has not been published to the npm or MCP registries.
+Node.js 20 or newer is required. The tested package is available directly from Kloudy; the source package is distributed by Kloudy, and the hosted door has an MCP Registry listing. It is not an npm registry publication.
 
 ```sh
-npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.0.tgz
+npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.1.tgz
 kloudy
 ```
 
@@ -94,3 +94,19 @@ A private connection may contain `endpoint: "https://kloudy.ai/mcp"`, `access_to
 A standard remote MCP host sees one `kloudy` tool. `introduce` gets the engine greeting; `ask` returns the selected singular tool and exact arguments; `call` carries that selection; `status`/`cancel` use its receipt. The adapter forwards authority to Blackbox and never invents approvals, risk classifications, model retries or provider access. The hosted protocol is MCP 2025-06-18; the pinned official SDK negotiates it.
 
 `node scripts/prove-hosted.mjs` uses an in-memory, expiring test grant and a temporary user config to prove the real public MCP handshake, engine greeting, one selected tool, completed Notes receipt, idempotent replay and SDK readback. It does not claim a visual IDE session or the provider-model failure ladder was tested. Those remaining checks are recorded in Shared.
+
+## Selected Toolboxes — 0.3.1
+
+With a scoped HTTPK connection, each ask returns its engine selection_id. Collect 1–16 distinct IDs from that same session. Assembly is passive: no model, action or approval runs.
+
+```sh
+kloudy ask "read note NOTE_ID" --connection /private/httpk.json
+kloudy ask "save note: proposed draft" --connection /private/httpk.json
+# Put only the returned selection IDs into selections.json as a JSON array.
+kloudy assemble --selections selections.json --connection /private/httpk.json
+kloudy call TOOL_NAME --selection SELECTION_ID --inputs exact-inputs.json --connection /private/httpk.json
+```
+
+SDK: client.assemble(ids), then client.call(name, exactArguments, {selectionId}). Local MCP and the public hosted MCP keep one kloudy gateway with operation assemble and selection_ids; operation call uses the exact selection_id, name and arguments. Assembly returns deduplicated tools and exact per-selection metadata, so two selections of one tool retain their distinct arguments. The engine validates ownership, grant scope and per-action authorization. No bulk execution or blind retry is added. Legacy local-engine connections retain their previous single-selection interface and explicitly reject HTTPK-only assembly.
+
+This consumes deployed BBE 0.3.36. Executable sources are registered Notes today, not arbitrary external MCP/SDK wrappers. Permanent grants and dormant-connection lifecycle still follow the owning GlassBreak/provider services.
