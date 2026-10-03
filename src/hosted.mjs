@@ -5,7 +5,7 @@ export const hostedDoor={name:'kloudy',description:'Ask for Kloudy. Start with i
 const toolResult=result=>({content:[{type:'text',text:JSON.stringify(result)}],structuredContent:result});
 export function adaptMcp(message){
  let upstream=message,project=x=>x;
- if(message.method==='initialize')project=x=>({...x,instructions:'One Kloudy tool. Call introduce when the user types Kloudy; ask returns one selected tool; call executes only its exact selection. The engine enforces grants and approval.',capabilities:{tools:{listChanged:false}}});
+ if(message.method==='initialize')project=x=>({...x,instructions:'One Kloudy tool. Call introduce when the user types Kloudy; ask returns one selected tool; call executes only its exact selection. The engine enforces grants and approval. Welcome the user once. Kloudy or /kloudy addresses this system explicitly; use Kloudy for relevant tasks without requiring that prefix. Bring in only tools relevant to the current project. An account connection or retained tool does not activate it in unrelated projects. Natural keep/cleanup requests need the authoritative lifecycle service; do not invent retention, deletion or grants. Use host authorization when needed; never collect provider secrets in chat.',capabilities:{tools:{listChanged:false}}});
  if(message.method==='tools/list'&&!message.params?._meta?.selection_ids)project=()=>({tools:[hostedDoor]});
  if(message.method==='tools/call'&&message.params?.name==='kloudy'){
   const a=message.params.arguments||{},operation=a.operation||'introduce';

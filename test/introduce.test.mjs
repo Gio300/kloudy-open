@@ -13,7 +13,8 @@ test('clean workspace greeting names relevant catalog tools without reading secr
  const greeting=await introduce({project,home,fetcher:async url=>{requested=url;return Response.json({items:[{name:'Dendro React'}]});}});
  assert.equal(greeting.intent,'attach-and-introduce');assert.equal(greeting.project.kind,'React');assert.equal(greeting.tools[0].name,'Dendro React');assert.equal(greeting.tools[0].executable,false);assert.equal(greeting.question,'Do you want to install Kloudy?');assert.match(requested,/q=react$/);assert.doesNotMatch(JSON.stringify(greeting),/secret|Br0C0de|checkpoint/);
  assert.equal((await introduce({project:home,home,decision:'no',fetcher:()=>assert.fail('empty folder needs no catalog request')})).state,'chat_only');
- await install({home,ide:'cursor',platform:'linux'});const again=await introduce({project,home,fetcher:async()=>Response.json({items:[]})});assert.match(again.question,/already installed/);
+ await install({home,ide:'cursor',platform:'linux'});const again=await introduce({project,home,fetcher:async()=>Response.json({items:[]})});assert.equal(again.question,null);assert.equal(again.requiresConsent,false);assert.match(again.usage.addressing,/without that prefix/);
+ const attached=await introduce({project,home:project,hostAttached:true,fetcher:async()=>Response.json({items:[]})});assert.equal(attached.question,null);assert.equal(attached.state,'installed');assert.equal(attached.engineGreeting,'connection_unavailable');
  for(const phrase of ['Kloudy','/kloudy','KLOUDY.'])assert.equal(isAttachIntent(phrase),true);assert.equal(isAttachIntent('What is the status of a different project?'),false);
 });
 test('MCP attach intent and prompt greet before attempting a missing engine session',async()=>{

@@ -5,7 +5,7 @@ One CLI, one MCP, tools appear when needed. CLI, MCP and the Node.js SDK use the
 ## Build a first app without an account
 
 ```sh
-npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.3.tgz
+npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.4.tgz
 kloudy init my-kloudy-app
 cd my-kloudy-app
 npm install
@@ -22,7 +22,7 @@ Developer guide and availability: https://kloudy.ai/build. Customer self-registr
 Node.js 20 or newer is required. The tested package is available directly from Kloudy; the source package is distributed by Kloudy, and the hosted door has an MCP Registry listing. It is not an npm registry publication.
 
 ```sh
-npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.3.tgz
+npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.4.tgz
 kloudy
 ```
 
@@ -124,10 +124,16 @@ kloudy call TOOL_NAME --selection SELECTION_ID --inputs exact-inputs.json --conn
 
 SDK: client.assemble(ids), then client.call(name, exactArguments, {selectionId}). Local MCP and the public hosted MCP keep one kloudy gateway with operation assemble and selection_ids; operation call uses the exact selection_id, name and arguments. Assembly returns deduplicated tools and exact per-selection metadata, so two selections of one tool retain their distinct arguments. The engine validates ownership, grant scope and per-action authorization. No bulk execution or blind retry is added. Legacy local-engine connections retain their previous single-selection interface and explicitly reject HTTPK-only assembly.
 
-This consumes deployed BBE 0.3.36. Executable sources are registered Notes today, not arbitrary external MCP/SDK wrappers. Permanent grants and dormant-connection lifecycle still follow the owning GlassBreak/provider services.
+This consumes deployed BBE 0.3.46. Executable sources are registered Notes today, not arbitrary external MCP/SDK wrappers. Permanent grants and dormant-connection lifecycle still follow the owning GlassBreak/provider services.
 
 ## Explicit confirmation for embedded browser hosts
 
-Open 0.3.3 adds `HttpkClient.confirm({selectionId, token, decision: 'approve', source: 'tap'})` for an existing confirm-mode connection. Pass the exact pending `approval.token`, or its integer `revision` instead, never both. Preserve the actual approval source (`tap`, `typed`, `os-voice`); do not label model text or external content as a user's approval. The engine still enforces risk, source, expiry and request binding. Autonomous IDE/CLI behavior is unchanged.
+Open 0.3.4 adds `HttpkClient.confirm({selectionId, token, decision: 'approve', source: 'tap'})` for an existing confirm-mode connection. Pass the exact pending `approval.token`, or its integer `revision` instead, never both. Preserve the actual approval source (`tap`, `typed`, `os-voice`); do not label model text or external content as a user's approval. The engine still enforces risk, source, expiry and request binding. Autonomous IDE/CLI behavior is unchanged.
 
 The same public MCP gateway accepts `operation: 'confirm'`, `selection_id`, `decision: 'approve'`, `source`, and exactly one of `token` or `revision`. Missing binding/source fails closed. `scripts/prove-confirmation.mjs` verifies a real bounded Base read, wrong-token denial, zero execution before approval and receipt replay using an existing finite grant from memory. No provider key is distributed.
+
+## IDE experience — 0.3.4
+
+An already attached MCP host receives a welcome and current-project guidance, not another install question. Kloudy or /kloudy explicitly addresses the service; the IDE may use the same tools for relevant tasks without a prefix. The current task selects a small toolbox; a persistent account connection does not load its tools into every project.
+
+The host guidance describes natural keep/cleanup requests and the authoritative lifecycle boundary. It does not pretend that saved mixed-tool workflows, dormant pruning, permanent grants, OAuth signup or user-key transfer have already shipped. Those require the existing engine/Core/GlassBreak interfaces. No synthetic authorization button or password/code collection is added. Kloudy.ai is the use/research surface; building remains in the user's IDE or Bot Boozle.
