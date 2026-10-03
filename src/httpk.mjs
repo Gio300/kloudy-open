@@ -1,4 +1,5 @@
 import {confirmationParams} from './hosted.mjs';
+import {queryInput,queryResult} from './query.mjs';
 import {randomUUID} from 'node:crypto';
 import {KloudyError} from './client.mjs';
 const fail=(code,message)=>{throw new KloudyError(code,message);};
@@ -17,8 +18,9 @@ export class HttpkClient {
   if(!response.ok||json.error)fail('httpk_request_failed','The engine rejected this request. No retry or approval was fabricated.');
   return json.result;
  }
- async session(){if(this.state.sessionId&&this.state.interactionMode!==this.mode)fail('mode_not_supported','Saved session mode does not match this client.');if(!this.state.sessionId){const opened=await this.rpc('initialize',{protocolVersion:'2025-06-18',clientInfo:{name:'kloudy-open',version:'0.3.4'},capabilities:{}});if(typeof opened.session_id!=='string'||opened.interaction_mode!==this.mode)fail('mode_not_supported','Credential surface does not match this client mode.');this.state.sessionId=opened.session_id;this.state.interactionMode=opened.interaction_mode;await this.save(this.state);}return this.state.sessionId;}
+ async session(){if(this.state.sessionId&&this.mode!=='auto'&&this.state.interactionMode!==this.mode)fail('mode_not_supported','Saved session mode does not match this client.');if(!this.state.sessionId){const opened=await this.rpc('initialize',{protocolVersion:'2025-06-18',clientInfo:{name:'kloudy-open',version:'0.3.10'},capabilities:{}});if(typeof opened.session_id!=='string'||!['autonomous','confirm'].includes(opened.interaction_mode)||(this.mode!=='auto'&&opened.interaction_mode!==this.mode))fail('mode_not_supported','Credential surface does not match this client mode.');this.state.sessionId=opened.session_id;this.state.interactionMode=opened.interaction_mode;await this.save(this.state);}return this.state.sessionId;}
  async introduce(project_context){await this.session();const result=await this.rpc('kloudy/intent',{idempotency_key:randomUUID(),input:{type:'text',text:'Kloudy',project_context}});if(result.state!=='greeting'||result.greeting?.version!=='bbe.attach.v1')fail('invalid_response','Expected the engine attach greeting.');return result.greeting;}
+ async query(need,options={}){const input=queryInput(need,options);await this.session();return queryResult(await this.rpc('kloudy/query',input),input.limit);}
  async ask(goal,{candidates=[]}={}){
   if(typeof goal!=='string'||!goal.trim()||[...goal].length>500)fail('invalid_input','Use a goal of 1–500 characters.');
   if(candidates.length)fail('unsupported_discovery','The hosted Notes development adapter does not accept external discovery candidates.');
@@ -36,6 +38,6 @@ export class HttpkClient {
  }
  async call(name,inputs,{selectionId}={}){await this.session();const selected=this.state.selection;if(!selectionId&&(!selected||selected.tool.name!==name))fail('not_selected','Ask for this tool first.');const id=selectionId||selected.id;if(typeof id!=='string'||!id||id.length>128)fail('invalid_input','Use an exact engine selection ID.');this.state.receiptSelection=id;await this.save(this.state);const response=await this.rpc('tools/call',{name,arguments:inputs,_meta:{selection_id:id}});if(selected?.id===id)this.state.selection=null;await this.save(this.state);return response.structuredContent;}
  async status(){if(!this.state.receiptSelection)return {state:'idle',mode:this.mode};await this.session();return this.rpc('kloudy/receipt',{selection_id:this.state.receiptSelection});}
- async confirm({selectionId,token,revision,source,decision}){if(this.mode!=='confirm')fail('autonomous_only','This client does not offer an approval gate.');const params=confirmationParams({selection_id:selectionId||this.state.receiptSelection,token,revision,source,decision});await this.session();return this.rpc('kloudy/confirm',params);}
+ async confirm({selectionId,token,revision,source,decision}){if(this.mode!=='confirm'&&!(this.mode==='auto'&&this.state.interactionMode==='confirm'))fail('autonomous_only','This client does not offer an approval gate.');const params=confirmationParams({selection_id:selectionId||this.state.receiptSelection,token,revision,source,decision});await this.session();return this.rpc('kloudy/confirm',params);}
  async decide(decision,revision){if(!this.state.receiptSelection)fail('no_request','No action is pending.');if(decision==='cancel')return this.rpc('kloudy/cancel',{selection_id:this.state.receiptSelection});if(decision==='approve'&&this.mode==='confirm')return this.confirm({revision,decision:'approve',source:'tap'});fail('autonomous_only','The CLI does not offer a second approval gate.');}
 }

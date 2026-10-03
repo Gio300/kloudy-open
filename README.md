@@ -5,7 +5,7 @@ One CLI, one MCP, tools appear when needed. CLI, MCP and the Node.js SDK use the
 ## Build a first app without an account
 
 ```sh
-npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.4.tgz
+npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.10.tgz
 kloudy init my-kloudy-app
 cd my-kloudy-app
 npm install
@@ -19,10 +19,10 @@ Developer guide and availability: https://kloudy.ai/build. Customer self-registr
 
 ## Install and run
 
-Node.js 20 or newer is required. The tested package is available directly from Kloudy; the source package is distributed by Kloudy, and the hosted door has an MCP Registry listing. It is not an npm registry publication.
+Node.js 20.19 or newer is required. The tested package is available directly from Kloudy; the source package is distributed by Kloudy, and the hosted door has an MCP Registry listing. It is not an npm registry publication.
 
 ```sh
-npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.4.tgz
+npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.10.tgz
 kloudy
 ```
 
@@ -72,7 +72,7 @@ console.log(result.toolbox); // zero or one engine-selected definition
 
 `KloudyClient` and `httpTransport` are also exported for trusted Node/native hosts with their own credential storage. Never embed a provider token in browser code. Voice, text, exchange, listing and hosting tool packs use this same ask/call boundary as their capabilities are registered; this client does not claim those providers are all live.
 
-The connection adapter stores only session/selection/request references in a private local checkpoint. CLI, MCP and SDK using the same connection file share that checkpoint. A lock prevents simultaneous mutation; no blind mutation retry is performed. If a process is forcibly killed, first verify it is stopped, then remove the empty `kloudy-open-session.json.lock` directory next to its connection file. Do not remove a lock held by a live client. Backend expiry, reauthorization, cross-device delegation and HTTPK token refresh remain engine/Core operations.
+The connection adapter stores only session/selection/request references in a private local checkpoint. CLI, MCP and SDK using the same connection file share that checkpoint. A lock prevents simultaneous mutation; no blind mutation retry is performed. If a process is forcibly killed, first verify it is stopped, then remove the empty `kloudy-open-session-<connection-hash>.json.lock` directory next to its connection file. Do not remove a lock held by a live client. Backend expiry, reauthorization, cross-device delegation and HTTPK token refresh remain engine/Core operations.
 
 ## Local HTTPK wrapper
 
@@ -137,3 +137,65 @@ The same public MCP gateway accepts `operation: 'confirm'`, `selection_id`, `dec
 An already attached MCP host receives a welcome and current-project guidance, not another install question. Kloudy or /kloudy explicitly addresses the service; the IDE may use the same tools for relevant tasks without a prefix. The current task selects a small toolbox; a persistent account connection does not load its tools into every project.
 
 The host guidance describes natural keep/cleanup requests and the authoritative lifecycle boundary. It does not pretend that saved mixed-tool workflows, dormant pruning, permanent grants, OAuth signup or user-key transfer have already shipped. Those require the existing engine/Core/GlassBreak interfaces. No synthetic authorization button or password/code collection is added. Kloudy.ai is the use/research surface; building remains in the user's IDE or Bot Boozle.
+# SDF yield layer
+
+`kloudy convert https://example.com` extracts a public page through Kloudy's bounded reader without a model call. Add `--resolution standard` for more detail; compact cards default to at most 8,192 UTF-8 JSON bytes. Try the same converter at [kloudy.ai/build](https://kloudy.ai/build#convert).
+
+```js
+import {convertPage, convertPages} from '@kloudy/open/public';
+import {validateSDF} from '@kloudy/open/sdf';
+
+const card = await convertPage('https://example.com');
+console.log(validateSDF(card), card.summary.brief);
+const list = await convertPages(['https://example.com', 'https://example.com/missing']);
+console.log(list.cards, list.reports); // Each unreadable source is reported.
+```
+
+MCP's single `kloudy` door also accepts `operation: "convert", url` or `operation: "yield_list", urls` (1–8). No account is needed for these public reads. The engine owns KLDY query matching and ranking. This client returns content and per-source conversion reports, never a ranked recommendation or permission to execute tools.
+
+Cards validate against the unmodified SDF v0.2 root schema pinned to `sdfprotocol/sdf@e4619ad0b951ced8542692c6b624cb86794cb863` and the additional Kloudy webpage profile. This upstream machine-readable schema differs from its website examples: it uses `sdf:<sha256>`, `summary.brief`, `source.fetched_at`, and section `title`/`summary`. Schemas and upstream MIT notice ship in `schemas/` and at [kloudy.ai/schemas/sdf-webpage-v1.schema.json](https://kloudy.ai/schemas/sdf-webpage-v1.schema.json). `article.x-kloudy-webpage` is our explicit extractive subtype, not a claim that an arbitrary page is a news article. Empty entities mean no semantic entity extraction was performed.
+
+The `extensions["x-kloudy"]` object declares informational-only behavior, no capabilities, resolution, truncation, and unverified ownership/publication. Validation proves structure, not factual accuracy or source ownership. Source content remains untrusted. The reader does not sign in, run page scripts, bypass access controls, or guarantee extraction of text hidden behind JavaScript. Errors are reported instead. Compact output can exceed the size of an already-tiny source; no universal savings percentage is claimed.
+
+Unknown protocol/profile versions are rejected. Breaking card changes require a new profile major version; optional compatible additions keep the version. Card identity binds source URL and raw source hash. Retrieval timestamps can change without changing identity. Existing browser support for the older documented `sdf_`/`one_line` display format remains available.
+
+## Saved mixed strings
+
+The private local `~/.kloudy/sources.json` maps trusted aliases to existing HTTPK connection files. `kind` describes the registered provider adapter; this does not create a missing SDK/CLI/MCP adapter or grant credentials.
+
+```json
+{"notes":{"kind":"mcp","connection":"notes-connection.json"},"catalog":{"kind":"sdk","connection":"catalog-connection.json"},"build":{"kind":"cli","connection":"build-connection.json"}}
+```
+
+Save a selection file containing only references and goals, for example `[{"source":"notes","kind":"mcp","goal":"Read my notes"},{"source":"catalog","kind":"sdk","goal":"Find this resource"}]`.
+
+```sh
+kloudy strings save workspace --selections choices.json
+kloudy strings use workspace
+kloudy strings call workspace --tool s0_bbe_notes_read --inputs inputs.json
+kloudy strings keep workspace
+kloudy strings list
+kloudy strings prune
+kloudy strings remove workspace
+```
+
+`use` reselects through each source and returns up to eight distinct tools with source-bound call routes. It never automatically executes the tools. The engine validates exact owned selections at call time; a changed session requires reselection. Strings are project-scoped and stored privately, with no provider credentials or schema dumps. An explicit `prune` removes non-kept choices idle for 30 days. Normal reuse never silently deletes a saved configuration. Authoritative production-phase dormancy events are a separate Core/engine integration. This removes local saved choices, not shared provider keys. `keep` preserves reuse intent; it does **not** mint a permanent grant. GlassBreak service wiring remains an external dependency.
+
+SDK: `StringStore`/`localStrings` from `@kloudy/open/strings`. MCP operations: `strings_save`, `strings_list`, `strings_use`, `strings_call`, `strings_keep`, `strings_remove`, `strings_prune` with `string_name`, `choices`, and, for calls, `name` and `arguments`. Mixed-adapter composition is covered by fixtures; production execution still requires each source's registered adapter and current grant.
+
+## Inline action approval
+
+The stdio MCP server negotiates MCP Apps support. Supported hosts receive a resource with the engine's exact summary, risk and expiry, plus Approve/Cancel buttons. App-only tickets bind an exact engine selection; the engine approval token stays out of model-visible content. Expired, reused and missing tickets fail closed. Approval dispatch is not silently retried after an ambiguous failure. Restarting the server invalidates its ephemeral tickets; fetch the current engine state again.
+
+This is action consent, not customer OAuth. Unsupported hosts do not gain an inline button by returning Markdown. The host must support MCP Apps and its app-only tool visibility rules. CLI autonomous behavior remains unchanged. Tests cover the protocol exchange and exact confirmation binding; acceptance in every third-party IDE and the hosted remote MCP surface is separate work.
+
+
+## Yield and query boundary
+
+`kloudy convert URL` and `convertPage` return SDF content; `kloudy query "need"` and `HttpkClient.query` ask Blackbox for ranked card references. Search grants no permission. The SDK `sdfIndex(cards, {discoveredVia: 'geo'})` from `@kloudy/open/query` prepares bounded metadata for the existing operator-only engine import; it does not upload, register a tool, or grant access. Supply the actual SEO/GEO provenance, never guess it. `content_sha256` is the raw source body hash. Empty capability IDs deliberately avoid inferring tool access from prose.
+
+Compact cards fit **750 cl100k_base tokens**, measured over compact JSON including attribution and metadata, and at most 8 KiB UTF-8. The tokenizer runs locally with bundled ranks; no model or tokenizer service is called. Token counts vary across model families. Standard resolution is explicitly larger. Oversized attribution fails with a readable report rather than losing the source URL. Updated content gets a new deterministic ID; fetching the same source keeps its ID. The schema remains pinned to SDF 0.2.0 plus `kloudy.sdf.webpage/1`; unsupported versions fail validation. An index lifetime is distinct from long-term content recheck policy.
+
+Type Kloudy in a connected IDE to receive the same old-school cloud welcome. Dot and Grok Boi use this same normal door. The host still must install/attach the client first and controls how text visuals and MCP Apps are rendered. Bot Boozle is the native ecosystem IDE; this client does not claim to deploy its sentence-navigation UI.
+
+A string deduplicates tool definitions, not owned selections. If two choices select the same tool with different arguments, both exact selection IDs remain in `routes`/`selections`; pass `--selection ID` on CLI calls or `{selectionId}` to `StringStore.call`. An ambiguous call fails without executing. MCP uses `selection_id`.

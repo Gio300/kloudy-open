@@ -9,12 +9,15 @@ export async function withConnection(file,work,{mode='autonomous'}={}){
   file||=resolve(homedir(),'.kloudy','connection.json');
   let c;try{c=JSON.parse(await readFile(file,'utf8'));}catch{throw new KloudyError('connection_unavailable','The scoped connection file is unavailable.');}
   const transport=c.endpoint?null:httpTransport({origin:c.origin,token:c.access_token});
-  const stateFile=resolve(dirname(file),'kloudy-open-session.json'),lock=stateFile+'.lock';
+  const owner=createHash('sha256').update((c.endpoint||c.origin)+'\n'+(c.client_id||c.access_token)).digest('hex');
+  const stateFile=resolve(dirname(file),'kloudy-open-session-'+owner.slice(0,24)+'.json'),lock=stateFile+'.lock';
   try{await mkdir(lock,{mode:0o700});}catch{throw new KloudyError('connection_busy','Another Kloudy client owns this session. Retry after it exits; stale lock recovery is documented.');}
   try{
-    const owner=createHash('sha256').update((c.endpoint||c.origin)+'\n'+(c.client_id||c.access_token)).digest('hex');
-    let state={owner};try{const saved=JSON.parse(await readFile(stateFile,'utf8'));if(saved.owner===owner)state=saved;}catch(error){if(error.code!=='ENOENT')throw new KloudyError('invalid_state','Saved session could not be read.');}
+    let state={owner};try{const saved=JSON.parse(await readFile(stateFile,'utf8'));if(saved.owner===owner)state=saved;}catch(error){if(error.code!=='ENOENT')throw new KloudyError('invalid_state','Saved session could not be read.');
+      // Reuse only the matching legacy checkpoint; never overwrite another source.
+      try{const legacy=JSON.parse(await readFile(resolve(dirname(file),'kloudy-open-session.json'),'utf8'));if(legacy.owner===owner)state=legacy;}catch(legacyError){if(legacyError.code!=='ENOENT')throw new KloudyError('invalid_state','Legacy session could not be read.');}
+    }
     const save=async value=>{const temp=stateFile+'.'+randomUUID()+'.tmp';await writeFile(temp,JSON.stringify(value),{mode:0o600,flag:'wx'});await rename(temp,stateFile);};
-    return await work(c.endpoint?new HttpkClient({endpoint:c.endpoint,token:c.access_token,state,save,mode}):new KloudyClient({transport,state,save,mode}));
+    return await work(c.endpoint?new HttpkClient({endpoint:c.endpoint,token:c.access_token,state,save,mode}):new KloudyClient({transport,state,save,mode:mode==='auto'?'autonomous':mode}));
   }finally{await rmdir(lock);}
 }

@@ -1,0 +1,10 @@
+import {App} from '@modelcontextprotocol/ext-apps';
+const app=new App({name:'Kloudy approval',version:'0.3.10'}),$=id=>document.getElementById(id);let pending=null,busy=false;
+function state(value){$('status').textContent=value;}
+function render(result){pending=result._meta?.kloudyApproval||null;$('approve').disabled=true;$('cancel').disabled=true;
+ if(!pending){state(result.isError?'This request could not finish. Check its status in Kloudy.':result.structuredContent?.state||'No action is waiting for approval.');return;}
+ $('summary').textContent=typeof pending.summary==='string'?pending.summary:JSON.stringify(pending.summary,null,2);$('risk').textContent='Risk: '+String(pending.risk_tier??'unspecified');$('expiry').textContent='Expires '+new Date(pending.expires_at*1000).toLocaleTimeString();
+ if(pending.expires_at*1000<=Date.now()){state('Expired. Ask Kloudy to refresh this request.');return;}state('Review this exact action before deciding.');$('approve').disabled=false;$('cancel').disabled=false;
+}
+async function decide(decision){if(busy||!pending)return;if(pending.expires_at*1000<=Date.now()){state('Expired. Ask Kloudy to refresh this request.');$('approve').disabled=true;$('cancel').disabled=true;return;}busy=true;$('approve').disabled=true;$('cancel').disabled=true;state(decision==='approve'?'Sending your approval…':'Cancelling…');try{const result=await app.callServerTool({name:'kloudy_approval',arguments:{ticket:pending.ticket,decision}});state(result.isError?'The decision could not be confirmed. Check the engine receipt before retrying.':result.structuredContent?.state||'Decision received. Check Kloudy for the result.');}catch{state('The response was interrupted. Check the engine receipt before retrying.');}finally{pending=null;busy=false;}}
+app.ontoolresult=render;$('approve').addEventListener('click',()=>decide('approve'));$('cancel').addEventListener('click',()=>decide('cancel'));app.connect().catch(()=>state('This view needs a connected MCP Apps host. No approval was submitted.'));

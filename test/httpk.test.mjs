@@ -3,6 +3,13 @@ import assert from 'node:assert/strict';
 import {HttpkClient} from '../src/httpk.mjs';
 import {adaptMcp} from '../src/hosted.mjs';
 
+test('hosted query forwards discovery scope without executing or assembling tools',()=>{
+ const input={operation:'query',goal:'public documentation',scope:{discovered_via:['seo']},limit:2};
+ const {upstream,project}=adaptMcp({method:'tools/call',params:{name:'kloudy',arguments:input}});
+ assert.equal(upstream.method,'kloudy/query');assert.deepEqual(upstream.params,{version:'kldy.query/1',need:input.goal,scope:input.scope,limit:2});
+ assert.equal(project({state:'no_match',matches:[]}).structuredContent.state,'no_match');
+});
+
 test('confirmation requires exact binding and explicit user source without fabricating approval',async()=>{
  const approval={operation:'confirm',selection_id:'selected',token:'exact-pending-token',decision:'approve',source:'tap'};
  const message=a=>({jsonrpc:'2.0',id:1,method:'tools/call',params:{name:'kloudy',arguments:a}});

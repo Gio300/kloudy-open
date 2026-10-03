@@ -1,11 +1,11 @@
 {
   "name": "@kloudy/open",
-  "version": "0.3.4",
+  "version": "0.3.10",
   "description": "Ask for Kloudy: CLI, MCP and SDK clients for the same scoped engine session.",
   "type": "module",
   "license": "Apache-2.0",
   "engines": {
-    "node": ">=20"
+    "node": ">=20.19.0"
   },
   "bin": {
     "kloudy": "bin/kloudy.mjs"
@@ -17,7 +17,10 @@
     "./session": "./src/connection.mjs",
     "./httpk": "./src/httpk.mjs",
     "./hosted": "./src/hosted.mjs",
-    "./public": "./src/public.mjs"
+    "./public": "./src/public.mjs",
+    "./strings": "./src/strings.mjs",
+    "./sdf": "./src/sdf.mjs",
+    "./query": "./src/query.mjs"
   },
   "files": [
     "bin",
@@ -31,11 +34,19 @@
     "test": "node --test test/*.test.mjs",
     "check": "node --check bin/kloudy.mjs && node --check src/client.mjs && npm test",
     "start": "node bin/kloudy.mjs",
-    "proof": "node scripts/prove.mjs"
+    "proof": "node scripts/prove.mjs",
+    "build:approval": "node scripts/build-approval.mjs"
   },
   "dependencies": {
+    "@modelcontextprotocol/ext-apps": "2.0.3",
     "@modelcontextprotocol/sdk": "1.31.0",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "js-tiktoken": "1.0.21",
     "smol-toml": "1.9.0",
     "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
   }
 }

@@ -2,7 +2,7 @@ import {mkdir,writeFile} from 'node:fs/promises';
 import {resolve,join} from 'node:path';
 import {KloudyError} from './client.mjs';
 export const starterFiles={
- 'package.json':JSON.stringify({name:'my-kloudy-app',version:'1.0.0',private:true,type:'module',engines:{node:'>=20'},scripts:{start:'node app.mjs',card:'node card.mjs',toolbox:'node toolbox.mjs'},dependencies:{'@kloudy/open':'https://kloudy.ai/downloads/kloudy-open-0.3.4.tgz'}},null,2)+'\n',
+ 'package.json':JSON.stringify({name:'my-kloudy-app',version:'1.0.0',private:true,type:'module',engines:{node:'>=20.19.0'},scripts:{start:'node app.mjs',card:'node card.mjs',toolbox:'node toolbox.mjs'},dependencies:{'@kloudy/open':'https://kloudy.ai/downloads/kloudy-open-0.3.10.tgz'}},null,2)+'\n',
  'app.mjs':`import {readPublicPage} from '@kloudy/open/public';
 try {
  const page=await readPublicPage(process.argv[2]||'https://example.com');
