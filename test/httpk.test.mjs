@@ -3,6 +3,21 @@ import assert from 'node:assert/strict';
 import {HttpkClient} from '../src/httpk.mjs';
 import {adaptMcp} from '../src/hosted.mjs';
 
+test('confirmation requires exact binding and explicit user source without fabricating approval',async()=>{
+ const approval={operation:'confirm',selection_id:'selected',token:'exact-pending-token',decision:'approve',source:'tap'};
+ const message=a=>({jsonrpc:'2.0',id:1,method:'tools/call',params:{name:'kloudy',arguments:a}});
+ const result=adaptMcp(message(approval));
+ assert.equal(result.upstream.method,'kloudy/confirm');
+ assert.deepEqual(result.upstream.params,{selection_id:'selected',token:'exact-pending-token',decision:'approve',source:'tap'});
+ for(const bad of [{...approval,source:undefined},{...approval,source:'model'},{...approval,decision:undefined},{...approval,revision:1},{...approval,token:undefined}])assert.throws(()=>adaptMcp(message(bad)),/invalid_confirmation/);
+ const revision={...approval,token:undefined,revision:7,source:'typed'};
+ assert.equal(adaptMcp(message(revision)).upstream.params.revision,7);
+ const seen=[],client=new HttpkClient({endpoint:'https://kloudy.ai/mcp',token:'synthetic',mode:'confirm',state:{sessionId:'session',interactionMode:'confirm',receiptSelection:'selected'},fetcher:async(_,options)=>{seen.push(JSON.parse(options.body));return Response.json({result:{state:'running'}});}});
+ await client.confirm({token:approval.token,decision:'approve',source:'tap'});
+ assert.deepEqual(seen[0].params,result.upstream.params);assert.equal(seen.length,1);
+ client.mode='autonomous';await assert.rejects(()=>client.confirm(approval),/approval gate/);assert.equal(seen.length,1);
+});
+
 test('assembly forwards only explicit IDs, preserves arguments, and never calls a tool',async()=>{
  const ids=['first-read','first-write','second-write'],seen=[];
  const selections=ids.map((id,i)=>({selection_id:id,arguments:{text:`value ${i}`},state:'ready'}));

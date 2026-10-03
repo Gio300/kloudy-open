@@ -2,12 +2,27 @@
 
 One CLI, one MCP, tools appear when needed. CLI, MCP and the Node.js SDK use the same scoped Blackbox session. This repository contains the public client adapters and local HTTPK wrapper, not the private router, vault or account service.
 
+## Build a first app without an account
+
+```sh
+npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.3.tgz
+kloudy init my-kloudy-app
+cd my-kloudy-app
+npm install
+npm start
+npm run card -- /world
+```
+
+`init` creates a new folder and refuses to overwrite an existing one. `kloudy read https://example.com` and `kloudy card /world` also work directly. These are real public reads, with no model or account call; shared rate limits and website restrictions apply. The public Node exports are `readPublicPage` and `readCard` from `@kloudy/open/public`. Source HTML stays data, never executable UI. The starter’s separate toolbox example requires an existing private connection and selects definitions without executing them.
+
+Developer guide and availability: https://kloudy.ai/build. Customer self-registration is separate from these working public examples.
+
 ## Install and run
 
 Node.js 20 or newer is required. The tested package is available directly from Kloudy; the source package is distributed by Kloudy, and the hosted door has an MCP Registry listing. It is not an npm registry publication.
 
 ```sh
-npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.1.tgz
+npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.3.tgz
 kloudy
 ```
 
@@ -41,7 +56,7 @@ One user installation covers projects. Cursor, Claude Code, VS Code and Codex re
 
 Bare `kloudy`, `Kloudy`, `/kloudy`, and `ask Kloudy` in this CLI return a project-aware introduction before opening an engine session. The MCP tool does the same for `introduce` or an exact attach intent. It classifies known manifest names/dependencies, looks up at most three relevant public catalog names, and asks one install/connect question. Catalog candidates are explicitly non-executable until granted. It never reads `.env`, source contents or another project's checkpoint. With an HTTPK connection, the introduction comes from the real engine's `bbe.attach.v1` intent payload. Without a reachable account/session, the client provides a clearly marked deterministic public-catalog fallback. An unconfigured IDE cannot discover a CLI just from an ordinary chat word: install the MCP adapter first, then invoke the tool or `/kloudy` prompt.
 
-The remote option stores only a bearer **environment-variable reference**. `https://kloudy.ai/mcp` now serves authenticated MCP alongside its human guide. The current hosted engine is a Notes-only development tenant with expiring operator-issued grants; it is not open customer registration. The default local stdio adapter works without hosting. With no explicit connection path, all three clients use `~/.kloudy/connection.json`, the same user session across projects.
+The remote option stores only a bearer **environment-variable reference**. `https://kloudy.ai/mcp` now serves authenticated MCP alongside its human guide. The current hosted engine is a finite development service with separately scoped Notes and bounded Base chain-head read clients; it is not open customer registration. The default local stdio adapter works without hosting. With no explicit connection path, all three clients use `~/.kloudy/connection.json`, the same user session across projects.
 
 The MCP tool list initially has one `kloudy` entry. An `ask` operation adds only the selected tool as `selected_<engine-name>`. Selecting a new task replaces it; running it clears the selection. Status/cancellation use the Kloudy entry and the same engine request. Model-visible outputs never contain the bearer.
 
@@ -110,3 +125,9 @@ kloudy call TOOL_NAME --selection SELECTION_ID --inputs exact-inputs.json --conn
 SDK: client.assemble(ids), then client.call(name, exactArguments, {selectionId}). Local MCP and the public hosted MCP keep one kloudy gateway with operation assemble and selection_ids; operation call uses the exact selection_id, name and arguments. Assembly returns deduplicated tools and exact per-selection metadata, so two selections of one tool retain their distinct arguments. The engine validates ownership, grant scope and per-action authorization. No bulk execution or blind retry is added. Legacy local-engine connections retain their previous single-selection interface and explicitly reject HTTPK-only assembly.
 
 This consumes deployed BBE 0.3.36. Executable sources are registered Notes today, not arbitrary external MCP/SDK wrappers. Permanent grants and dormant-connection lifecycle still follow the owning GlassBreak/provider services.
+
+## Explicit confirmation for embedded browser hosts
+
+Open 0.3.3 adds `HttpkClient.confirm({selectionId, token, decision: 'approve', source: 'tap'})` for an existing confirm-mode connection. Pass the exact pending `approval.token`, or its integer `revision` instead, never both. Preserve the actual approval source (`tap`, `typed`, `os-voice`); do not label model text or external content as a user's approval. The engine still enforces risk, source, expiry and request binding. Autonomous IDE/CLI behavior is unchanged.
+
+The same public MCP gateway accepts `operation: 'confirm'`, `selection_id`, `decision: 'approve'`, `source`, and exactly one of `token` or `revision`. Missing binding/source fails closed. `scripts/prove-confirmation.mjs` verifies a real bounded Base read, wrong-token denial, zero execution before approval and receipt replay using an existing finite grant from memory. No provider key is distributed.
