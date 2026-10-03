@@ -1,11 +1,12 @@
 import {HttpkClient} from './httpk.mjs';
+import {observeClient} from './activity.mjs';
 import {readFile,writeFile,rename,mkdir,rmdir} from 'node:fs/promises';
 import {dirname,resolve} from 'node:path';
 import {createHash,randomUUID} from 'node:crypto';
 import {homedir} from 'node:os';
 import {KloudyClient,KloudyError,httpTransport} from './client.mjs';
 
-export async function withConnection(file,work,{mode='autonomous'}={}){
+export async function withConnection(file,work,{mode='autonomous',onActivity}={}){
   file||=resolve(homedir(),'.kloudy','connection.json');
   let c;try{c=JSON.parse(await readFile(file,'utf8'));}catch{throw new KloudyError('connection_unavailable','The scoped connection file is unavailable.');}
   const transport=c.endpoint?null:httpTransport({origin:c.origin,token:c.access_token});
@@ -18,6 +19,7 @@ export async function withConnection(file,work,{mode='autonomous'}={}){
       try{const legacy=JSON.parse(await readFile(resolve(dirname(file),'kloudy-open-session.json'),'utf8'));if(legacy.owner===owner)state=legacy;}catch(legacyError){if(legacyError.code!=='ENOENT')throw new KloudyError('invalid_state','Legacy session could not be read.');}
     }
     const save=async value=>{const temp=stateFile+'.'+randomUUID()+'.tmp';await writeFile(temp,JSON.stringify(value),{mode:0o600,flag:'wx'});await rename(temp,stateFile);};
-    return await work(c.endpoint?new HttpkClient({endpoint:c.endpoint,token:c.access_token,state,save,mode}):new KloudyClient({transport,state,save,mode:mode==='auto'?'autonomous':mode}));
+    const client=c.endpoint?new HttpkClient({endpoint:c.endpoint,token:c.access_token,state,save,mode}):new KloudyClient({transport,state,save,mode:mode==='auto'?'autonomous':mode});
+    return await work(onActivity?observeClient(client,onActivity):client);
   }finally{await rmdir(lock);}
 }

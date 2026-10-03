@@ -5,7 +5,7 @@ One CLI, one MCP, tools appear when needed. CLI, MCP and the Node.js SDK use the
 ## Build a first app without an account
 
 ```sh
-npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.10.tgz
+npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.11.tgz
 kloudy init my-kloudy-app
 cd my-kloudy-app
 npm install
@@ -22,7 +22,7 @@ Developer guide and availability: https://kloudy.ai/build. Customer self-registr
 Node.js 20.19 or newer is required. The tested package is available directly from Kloudy; the source package is distributed by Kloudy, and the hosted door has an MCP Registry listing. It is not an npm registry publication.
 
 ```sh
-npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.10.tgz
+npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.11.tgz
 kloudy
 ```
 
@@ -199,3 +199,20 @@ Compact cards fit **750 cl100k_base tokens**, measured over compact JSON includi
 Type Kloudy in a connected IDE to receive the same old-school cloud welcome. Dot and Grok Boi use this same normal door. The host still must install/attach the client first and controls how text visuals and MCP Apps are rendered. Bot Boozle is the native ecosystem IDE; this client does not claim to deploy its sentence-navigation UI.
 
 A string deduplicates tool definitions, not owned selections. If two choices select the same tool with different arguments, both exact selection IDs remain in `routes`/`selections`; pass `--selection ID` on CLI calls or `{selectionId}` to `StringStore.call`. An ambiguous call fails without executing. MCP uses `selection_id`.
+
+## IDE activity indicator
+
+Version 0.3.11 supplies the public host adapter `@kloudy/open/activity` and stylesheet `@kloudy/open/status-indicator.css`. A compatible host mounts the purple orb with Kloudy above it in its own status surface. Load the stylesheet with your app bundler, then:
+
+```js
+import {mountStatusIndicator, observeClient} from '@kloudy/open/activity';
+const indicator = mountStatusIndicator(statusBarElement);
+const visibleClient = observeClient(client, event => indicator.update(event));
+await visibleClient.call(selectedTool, inputs);
+// When this status surface closes:
+indicator.dispose();
+```
+
+Node hosts can use `withConnection(file, work, {onActivity})` and forward these bounded events over their existing trusted webview bridge. Events contain only schema/source/sequence/state/operation, never tool inputs, tokens or receipts. Pending work pulses; approval waits hold still; completed calls settle; failures visibly report failure. Concurrent reads keep the indicator busy until all outstanding work returns. Observer failures cannot retry or break an engine call. Reduced motion is honored.
+
+Native hosts may feed listening/speaking events only while their real OS voice operation is active. This client never records speech. Generic MCP cannot inject an orb into an arbitrary IDE status bar: actual integration in Bot Boozle or another IDE requires that host to mount the adapter. The preview at `node scripts/preview-indicator.mjs` labels its state buttons as simulations; it is not proof of deployment in every IDE.

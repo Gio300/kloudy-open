@@ -1,5 +1,5 @@
 import {App} from '@modelcontextprotocol/ext-apps';
-const app=new App({name:'Kloudy approval',version:'0.3.10'}),$=id=>document.getElementById(id);let pending=null,busy=false;
+const app=new App({name:'Kloudy approval',version:'0.3.11'}),$=id=>document.getElementById(id);let pending=null,busy=false;
 function state(value){$('status').textContent=value;}
 function render(result){pending=result._meta?.kloudyApproval||null;$('approve').disabled=true;$('cancel').disabled=true;
  if(!pending){state(result.isError?'This request could not finish. Check its status in Kloudy.':result.structuredContent?.state||'No action is waiting for approval.');return;}
