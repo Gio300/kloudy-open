@@ -5,7 +5,7 @@ One CLI, one MCP, tools appear when needed. CLI, MCP and the Node.js SDK use the
 ## Build a first app without an account
 
 ```sh
-npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.13.tgz
+npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.14.tgz
 kloudy init my-kloudy-app
 cd my-kloudy-app
 npm install
@@ -22,7 +22,7 @@ Developer guide and availability: https://kloudy.ai/build. Customer self-registr
 Node.js 20.19 or newer is required. The tested package is available directly from Kloudy; the source package is distributed by Kloudy, and the hosted door has an MCP Registry listing. It is not an npm registry publication.
 
 ```sh
-npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.13.tgz
+npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.14.tgz
 kloudy
 ```
 
@@ -218,3 +218,33 @@ Node hosts can use `withConnection(file, work, {onActivity})` and forward these 
 Native hosts may feed listening/speaking events only while their real OS voice operation is active. This client never records speech. Generic MCP cannot inject an orb into an arbitrary IDE status bar: actual integration in Bot Boozle or another IDE requires that host to mount the adapter. The preview at `node scripts/preview-indicator.mjs` labels its state buttons as simulations; it is not proof of deployment in every IDE.
 
 Wallet preview: `kloudy wallet balance --connection FILE` or `kloudy wallet top_up --amount 10.00 --connection FILE`. The SDK exposes `HttpkClient.wallet({operation, amount_usd})`; MCP uses the same single Kloudy tool with `operation: wallet`. These call the existing `kloudy/wallet` method. A preview never signs a transfer, starts payment or asserts a usable balance. Transfer adapters remain engine capabilities; no separate HTTPK or private signing key is added. Terminal activity uses stderr only when attached to a TTY.
+
+
+### Chain, wallet, BWW and hosting (BBE 0.3.48)
+
+All operations reuse the same initialized HTTPK session and scoped customer grant.
+`client.action(name, inputs, {idempotencyKey})` selects exactly one tool. It does
+not execute, approve, sign or broadcast. Use the returned tool/arguments with
+`client.call`, then inspect the receipt; retain the same key after an uncertain
+selection response. Supported product actions: `chain.head`, `wallet.prepare`,
+`bww.fetch`, `bww.publish`. BWW publication is owner-scoped storage, not public
+customer hosting. The provider opts into HTML; callers request it explicitly.
+
+```sh
+kloudy action chain.head --inputs head.json --idempotency-key inspect-1 --connection FILE
+kloudy wallet-connect ethereum --connection FILE
+kloudy hosting --connection FILE
+kloudy hosting --budget-micros 100000000 --connection FILE
+```
+
+`head.json` is `{"chain":"ethereum"}`. SDK equivalents are
+`walletConnection('ethereum')` and `hosting({budgetUsdMicros:100000000})`.
+MCP uses the existing `kloudy` tool with `operation: action`, `wallet_connection`
+or `hosting`. Budget values are integer USD micros. Preserve the authoritative
+`customer_budget_active`, `tax_included` and enforcement fields: a development
+meter budget is not an active full customer spending limit. Wallet connection
+returns namespace requirements, not a QR or ownership proof. The surface SDK
+creates pairing using its configured project ID. The user's wallet signs each
+transaction; API credentials are not wallet private keys. No cross-chain
+settlement is claimed by these adapters. Public customer grant exchange,
+fee-recipient configuration and Reown live pairing remain deployment gates.

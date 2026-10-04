@@ -2,6 +2,7 @@ import {confirmationParams} from './hosted.mjs';
 import {queryInput,queryResult} from './query.mjs';
 import {randomUUID} from 'node:crypto';
 import {KloudyError} from './client.mjs';
+import {actionInput,hostingParams,connectionParams,stableIntentKey} from './product-actions.mjs';
 const fail=(code,message)=>{throw new KloudyError(code,message);};
 export class HttpkClient {
  constructor({endpoint,token,state={},save=async()=>{},mode='autonomous',fetcher=fetch}){
@@ -18,7 +19,7 @@ export class HttpkClient {
   if(!response.ok||json.error)fail('httpk_request_failed','The engine rejected this request. No retry or approval was fabricated.');
   return json.result;
  }
- async session(){if(this.state.sessionId&&this.mode!=='auto'&&this.state.interactionMode!==this.mode)fail('mode_not_supported','Saved session mode does not match this client.');if(!this.state.sessionId){const opened=await this.rpc('initialize',{protocolVersion:'2025-06-18',clientInfo:{name:'kloudy-open',version:'0.3.13'},capabilities:{}});if(typeof opened.session_id!=='string'||!['autonomous','confirm'].includes(opened.interaction_mode)||(this.mode!=='auto'&&opened.interaction_mode!==this.mode))fail('mode_not_supported','Credential surface does not match this client mode.');this.state.sessionId=opened.session_id;this.state.interactionMode=opened.interaction_mode;await this.save(this.state);}return this.state.sessionId;}
+ async session(){if(this.state.sessionId&&this.mode!=='auto'&&this.state.interactionMode!==this.mode)fail('mode_not_supported','Saved session mode does not match this client.');if(!this.state.sessionId){const opened=await this.rpc('initialize',{protocolVersion:'2025-06-18',clientInfo:{name:'kloudy-open',version:'0.3.14'},capabilities:{}});if(typeof opened.session_id!=='string'||!['autonomous','confirm'].includes(opened.interaction_mode)||(this.mode!=='auto'&&opened.interaction_mode!==this.mode))fail('mode_not_supported','Credential surface does not match this client mode.');this.state.sessionId=opened.session_id;this.state.interactionMode=opened.interaction_mode;await this.save(this.state);}return this.state.sessionId;}
  async introduce(project_context){await this.session();const result=await this.rpc('kloudy/intent',{idempotency_key:randomUUID(),input:{type:'text',text:'Kloudy',project_context}});if(result.state!=='greeting'||result.greeting?.version!=='bbe.attach.v1')fail('invalid_response','Expected the engine attach greeting.');return result.greeting;}
  async query(need,options={}){const input=queryInput(need,options);await this.session();return queryResult(await this.rpc('kloudy/query',input),input.limit);}
  async wallet({operation='balance',amount_usd}={}){
@@ -30,8 +31,14 @@ export class HttpkClient {
  async ask(goal,{candidates=[]}={}){
   if(typeof goal!=='string'||!goal.trim()||[...goal].length>500)fail('invalid_input','Use a goal of 1–500 characters.');
   if(candidates.length)fail('unsupported_discovery','The hosted Notes development adapter does not accept external discovery candidates.');
+  return this.selectInput({type:'text',text:goal});
+ }
+ async action(action,inputs,{idempotencyKey=randomUUID()}={}){return this.selectInput(actionInput(action,inputs),stableIntentKey(idempotencyKey));}
+ async walletConnection(chain){const params=connectionParams(chain);await this.session();return this.rpc('kloudy/wallet/connection',params);}
+ async hosting({budgetUsdMicros}={}){const params=hostingParams(budgetUsdMicros);await this.session();return this.rpc('kloudy/hosting',params);}
+ async selectInput(input,idempotencyKey=randomUUID()){
   await this.session();if(this.state.receiptSelection){const current=await this.status();if(!['completed','failed','cancelled','ready','unavailable','greeting'].includes(current.state))fail('pending_request','Finish the active action first.');}
-  const choice=await this.rpc('kloudy/intent',{idempotency_key:randomUUID(),input:{type:'text',text:goal}});
+  const choice=await this.rpc('kloudy/intent',{idempotency_key:idempotencyKey,input});
   if(!Array.isArray(choice.tools)||choice.tools.length>1)fail('invalid_response','Expected at most one engine-selected tool.');
   this.state.selection=choice.tools.length?{id:choice.selection_id,tool:choice.tools[0],arguments:choice.arguments}:null;await this.save(this.state);
   return {schema:'kloudy.toolbox/1',sessionId:this.state.sessionId,selection_id:choice.selection_id,toolbox:{status:choice.tools.length?'ready':'empty',tools:choice.tools,reason:choice.reason||null,measurements:{definitionsEmitted:choice.tools.length}},arguments:choice.arguments,...(choice.greeting?{greeting:choice.greeting}:{})};
