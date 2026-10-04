@@ -1,0 +1,54 @@
+npm notice
+npm notice 📦  kloudy@0.4.1
+npm notice Tarball Contents
+npm notice 11.4kB LICENSE
+npm notice 924B MCP-DEFAULT.md
+npm notice 32.8kB README.md
+npm notice 2.5kB bin/entry.mjs
+npm notice 9.4kB bin/kloudy.mjs
+npm notice 1.9kB package.json
+npm notice 13.9kB schemas/sdf-document-0.2.schema.json
+npm notice 1.1kB schemas/SDF-LICENSE.txt
+npm notice 3.7kB schemas/sdf-webpage-v1.schema.json
+npm notice 3.0kB src/activity.mjs
+npm notice 640.0kB src/approval-ui.mjs
+npm notice 2.8kB src/approval.mjs
+npm notice 10.6kB src/client.mjs
+npm notice 2.2kB src/connection.mjs
+npm notice 4.7kB src/conversation.mjs
+npm notice 4.9kB src/editor-install.mjs
+npm notice 1.2kB src/host-interface.mjs
+npm notice 6.6kB src/hosted.mjs
+npm notice 9.7kB src/httpk.mjs
+npm notice 5.8kB src/install.mjs
+npm notice 5.9kB src/introduce.mjs
+npm notice 11.1kB src/mcp.mjs
+npm notice 6.1kB src/models.mjs
+npm notice 1.9kB src/product-actions.mjs
+npm notice 4.2kB src/public.mjs
+npm notice 4.1kB src/query.mjs
+npm notice 2.1kB src/remote.mjs
+npm notice 611B src/replies.mjs
+npm notice 583B src/reply-templates.json
+npm notice 1.4kB src/sdf-budget.mjs
+npm notice 1.0kB src/sdf.mjs
+npm notice 4.0kB src/starter.mjs
+npm notice 1.3kB src/status-indicator.css
+npm notice 7.7kB src/strings.mjs
+npm notice 805B src/terminal-status.mjs
+npm notice 555B src/welcome.mjs
+npm notice 4.4kB src/wrap.mjs
+npm notice Tarball Details
+npm notice name: kloudy
+npm notice version: 0.4.1
+npm notice filename: kloudy-0.4.1.tgz
+npm notice package size: 191.0 kB
+npm notice unpacked size: 827.1 kB
+npm notice shasum: 29ec86302ba995b4e21c088999a9280013fb0e8a
+npm notice integrity: sha512-wSwRv7b4Sanku[...]yOFTag99yFMsg==
+npm notice total files: 37
+npm notice
+npm notice Publishing to https://registry.npmjs.org with tag latest and public access
+npm notice Your package is being processed and may take a few minutes to become available.
++ kloudy@0.4.1
+

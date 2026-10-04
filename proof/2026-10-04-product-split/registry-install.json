@@ -1,0 +1,20 @@
+{
+  "version": "0.4.1",
+  "registryInstalled": true,
+  "environment": "Fresh temporary Windows profile, npm cache and install directory; not a separate physical machine",
+  "installExitCode": 0,
+  "installOutput": "\nadded 103 packages in 4s\n",
+  "versionOutput": "0.4.1",
+  "noArgsOutput": "Kloudy · Add to your editor\nFree public discovery. Account actions require an authorized Kloudy key.\nNo supported editor configuration found. Open https://kloudy.ai/install for one-click Cursor and VS Code links.\n",
+  "realUserConfigurationsChanged": [],
+  "configuredFixtureClients": [
+    "Cursor",
+    "VS Code",
+    "Claude Desktop",
+    "Claude Code",
+    "Windsurf",
+    "Codex"
+  ],
+  "otherServersPreserved": true,
+  "conversationExport": true
+}
