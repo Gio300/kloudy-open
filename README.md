@@ -5,7 +5,7 @@ One CLI, one MCP, tools appear when needed. CLI, MCP and the Node.js SDK use the
 ## Build a first app without an account
 
 ```sh
-npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.11.tgz
+npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.13.tgz
 kloudy init my-kloudy-app
 cd my-kloudy-app
 npm install
@@ -22,7 +22,7 @@ Developer guide and availability: https://kloudy.ai/build. Customer self-registr
 Node.js 20.19 or newer is required. The tested package is available directly from Kloudy; the source package is distributed by Kloudy, and the hosted door has an MCP Registry listing. It is not an npm registry publication.
 
 ```sh
-npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.11.tgz
+npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.13.tgz
 kloudy
 ```
 
@@ -216,3 +216,5 @@ indicator.dispose();
 Node hosts can use `withConnection(file, work, {onActivity})` and forward these bounded events over their existing trusted webview bridge. Events contain only schema/source/sequence/state/operation, never tool inputs, tokens or receipts. Pending work pulses; approval waits hold still; completed calls settle; failures visibly report failure. Concurrent reads keep the indicator busy until all outstanding work returns. Observer failures cannot retry or break an engine call. Reduced motion is honored.
 
 Native hosts may feed listening/speaking events only while their real OS voice operation is active. This client never records speech. Generic MCP cannot inject an orb into an arbitrary IDE status bar: actual integration in Bot Boozle or another IDE requires that host to mount the adapter. The preview at `node scripts/preview-indicator.mjs` labels its state buttons as simulations; it is not proof of deployment in every IDE.
+
+Wallet preview: `kloudy wallet balance --connection FILE` or `kloudy wallet top_up --amount 10.00 --connection FILE`. The SDK exposes `HttpkClient.wallet({operation, amount_usd})`; MCP uses the same single Kloudy tool with `operation: wallet`. These call the existing `kloudy/wallet` method. A preview never signs a transfer, starts payment or asserts a usable balance. Transfer adapters remain engine capabilities; no separate HTTPK or private signing key is added. Terminal activity uses stderr only when attached to a TTY.

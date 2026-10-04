@@ -1,5 +1,5 @@
 // Public host adapter: operation state only. Never emits arguments, receipts or secrets.
-const METHODS=new Set(['introduce','ask','query','assemble','call','status','confirm','decide']);
+const METHODS=new Set(['wallet','introduce','ask','query','assemble','call','status','confirm','decide']);
 export function observeClient(client,onActivity){
  if(!client||typeof onActivity!=='function')throw TypeError('Provide a Kloudy client and activity listener.');
  let active=0,sequence=0;

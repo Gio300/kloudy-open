@@ -18,9 +18,15 @@ export class HttpkClient {
   if(!response.ok||json.error)fail('httpk_request_failed','The engine rejected this request. No retry or approval was fabricated.');
   return json.result;
  }
- async session(){if(this.state.sessionId&&this.mode!=='auto'&&this.state.interactionMode!==this.mode)fail('mode_not_supported','Saved session mode does not match this client.');if(!this.state.sessionId){const opened=await this.rpc('initialize',{protocolVersion:'2025-06-18',clientInfo:{name:'kloudy-open',version:'0.3.11'},capabilities:{}});if(typeof opened.session_id!=='string'||!['autonomous','confirm'].includes(opened.interaction_mode)||(this.mode!=='auto'&&opened.interaction_mode!==this.mode))fail('mode_not_supported','Credential surface does not match this client mode.');this.state.sessionId=opened.session_id;this.state.interactionMode=opened.interaction_mode;await this.save(this.state);}return this.state.sessionId;}
+ async session(){if(this.state.sessionId&&this.mode!=='auto'&&this.state.interactionMode!==this.mode)fail('mode_not_supported','Saved session mode does not match this client.');if(!this.state.sessionId){const opened=await this.rpc('initialize',{protocolVersion:'2025-06-18',clientInfo:{name:'kloudy-open',version:'0.3.13'},capabilities:{}});if(typeof opened.session_id!=='string'||!['autonomous','confirm'].includes(opened.interaction_mode)||(this.mode!=='auto'&&opened.interaction_mode!==this.mode))fail('mode_not_supported','Credential surface does not match this client mode.');this.state.sessionId=opened.session_id;this.state.interactionMode=opened.interaction_mode;await this.save(this.state);}return this.state.sessionId;}
  async introduce(project_context){await this.session();const result=await this.rpc('kloudy/intent',{idempotency_key:randomUUID(),input:{type:'text',text:'Kloudy',project_context}});if(result.state!=='greeting'||result.greeting?.version!=='bbe.attach.v1')fail('invalid_response','Expected the engine attach greeting.');return result.greeting;}
  async query(need,options={}){const input=queryInput(need,options);await this.session();return queryResult(await this.rpc('kloudy/query',input),input.limit);}
+ async wallet({operation='balance',amount_usd}={}){
+  if(!['balance','top_up'].includes(operation)||operation==='balance'&&amount_usd!==undefined||operation==='top_up'&&(typeof amount_usd!=='string'||!/^\d{1,6}(?:\.\d{1,2})?$/.test(amount_usd)||Number(amount_usd)<=0))fail('invalid_input','Use wallet balance or top_up with a positive decimal amount_usd string.');
+  await this.session();const result=await this.rpc('kloudy/wallet',{operation,...(operation==='top_up'?{amount_usd}:{})});
+  if(result?.version!=='bbe.wallet/1'||!['quote_only','provider_not_connected'].includes(result.state)||result.payment_started!==false||result.funds_held_by_engine!==false||result.amount_due!=null)fail('invalid_response','Expected a non-payable engine wallet preview. No payment was approved.');
+  return result;
+ }
  async ask(goal,{candidates=[]}={}){
   if(typeof goal!=='string'||!goal.trim()||[...goal].length>500)fail('invalid_input','Use a goal of 1–500 characters.');
   if(candidates.length)fail('unsupported_discovery','The hosted Notes development adapter does not accept external discovery candidates.');

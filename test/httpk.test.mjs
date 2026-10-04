@@ -64,3 +64,8 @@ test('HTTPK client keeps one selection and checks receipt after an uncertain cal
  assert.equal((await client.status()).state,'completed');assert.equal(calls,1);assert.equal(received.at(-1).params.selection_id,'b'.repeat(32));
  const wrong=new HttpkClient({endpoint:'https://kloudy.ai/mcp',token:'private',mode:'confirm',fetcher});await assert.rejects(()=>wrong.session(),/surface/);
 });
+test('hosted MCP wallet uses the same single HTTPK and cannot request transfer execution',()=>{
+ const message=arguments_=>({method:'tools/call',params:{name:'kloudy',arguments:arguments_}});
+ const result=adaptMcp(message({operation:'wallet',wallet_operation:'top_up',amount_usd:'10.00'}));assert.equal(result.upstream.method,'kloudy/wallet');assert.deepEqual(result.upstream.params,{operation:'top_up',amount_usd:'10.00'});
+ assert.throws(()=>adaptMcp(message({operation:'wallet',wallet_operation:'transfer'})));assert.throws(()=>adaptMcp(message({operation:'wallet',wallet_operation:'top_up',amount_usd:'-1'})));
+});

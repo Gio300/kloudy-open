@@ -2,7 +2,8 @@ import {mkdir,writeFile} from 'node:fs/promises';
 import {resolve,join} from 'node:path';
 import {KloudyError} from './client.mjs';
 export const starterFiles={
- 'package.json':JSON.stringify({name:'my-kloudy-app',version:'1.0.0',private:true,type:'module',engines:{node:'>=20.19.0'},scripts:{start:'node app.mjs',card:'node card.mjs',toolbox:'node toolbox.mjs'},dependencies:{'@kloudy/open':'https://kloudy.ai/downloads/kloudy-open-0.3.11.tgz'}},null,2)+'\n',
+ 'kloudy.json':JSON.stringify({version:'kloudy.project/1',deploymentTarget:'bww',html:'provider-opt-in',publication:'requires-authorized-hosting'},null,2)+'\n',
+ 'package.json':JSON.stringify({name:'my-kloudy-app',version:'1.0.0',private:true,type:'module',engines:{node:'>=20.19.0'},scripts:{start:'node app.mjs',card:'node card.mjs',toolbox:'node toolbox.mjs'},dependencies:{'@kloudy/open':'https://kloudy.ai/downloads/kloudy-open-0.3.13.tgz'}},null,2)+'\n',
  'app.mjs':`import {readPublicPage} from '@kloudy/open/public';
 try {
  const page=await readPublicPage(process.argv[2]||'https://example.com');
@@ -22,7 +23,7 @@ catch(error) { console.error(error.code+': '+error.message);process.exitCode=1; 
  '.gitignore':'node_modules/\n.env\n.env.*\n*connection*.json\n*session*.json\n',
  'README.md':`# Build with Kloudy
 
-Node.js 20+. Run npm install, then npm start. This reads https://example.com through Kloudy's public reader and prints source-attributed content. No account or model call is needed. Provider restrictions and shared rate limits apply.
+The default deployment target is the Bot Wide Web. kloudy.json records that choice; creating a starter does not publish anything or authorize hosting charges. HTML fragments are optional and controlled by the provider.\n\nNode.js 20+. Run npm install, then npm start. This reads https://example.com through Kloudy's public reader and prints source-attributed content. No account or model call is needed. Provider restrictions and shared rate limits apply.
 
 - npm start -- https://example.com: read a public page; source HTML is data, never executed.
 - npm run card -- /world: fetch the same bounded information card bots see.
