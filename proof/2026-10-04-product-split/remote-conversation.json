@@ -1,0 +1,17 @@
+{
+  "time": "2026-10-04T19:21:54.304Z",
+  "package": "kloudy@0.4.1",
+  "endpoint": "https://kloudy.ai/mcp",
+  "command": "npx --yes kloudy@0.4.1 mcp",
+  "customerDataUsed": false,
+  "checks": [
+    "published remote proxy initialized",
+    "one tool advertises conversation",
+    "append/read/sync passed",
+    "metadata-only replay",
+    "minimum gate not bypassed",
+    "stale revision rejected"
+  ],
+  "passed": true,
+  "stderr": ""
+}
