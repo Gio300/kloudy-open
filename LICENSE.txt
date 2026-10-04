@@ -1,0 +1,1 @@
+Kloudy website assets. Copyright TensorVerse. All rights reserved. The kloudy npm client package has its own Apache-2.0 license.
