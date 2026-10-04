@@ -6,7 +6,7 @@ import {ListToolsRequestSchema,CallToolRequestSchema} from '@modelcontextprotoco
 import {REMOTE} from './editor-install.mjs';
 export async function connectRemote({key=process.env.KLOUDY_MCP_TOKEN,fetcher=fetch}={}){
  if(key!==undefined&&!/^\S{20,512}$/.test(key))throw Error('Invalid key');
- const client=new Client({name:'kloudy',version:'0.4.0'},{capabilities:{}});
+ const client=new Client({name:'kloudy',version:'0.4.1'},{capabilities:{}});
  const transport=new StreamableHTTPClientTransport(new URL(REMOTE),{requestInit:{headers:key?{Authorization:'Bearer '+key}:{},redirect:'error'},fetch:(url,options)=>fetcher(url,{...options,redirect:'error'}),reconnectionOptions:{maxRetries:0}});
  try{await client.connect(transport,{timeout:25000});return client;}catch(e){await client.close().catch(()=>{});throw e;}
 }
@@ -17,7 +17,7 @@ export async function askRemote(question,options){
 }
 export async function serveRemote(options){
  const remote=await connectRemote(options);
- const server=new Server({name:'kloudy',version:'0.4.0'},{capabilities:{tools:{}},instructions:'Use Kloudy when mentioned, or to discover MCP tools and SDKs. Public discovery is free; account actions need an existing authorized key.'});
+ const server=new Server({name:'kloudy',version:'0.4.1'},{capabilities:{tools:{}},instructions:'Use Kloudy when mentioned, or to discover MCP tools and SDKs. Public discovery is free; account actions need an existing authorized key.'});
  server.setRequestHandler(ListToolsRequestSchema,req=>remote.listTools(req.params));
  server.setRequestHandler(CallToolRequestSchema,req=>remote.callTool(req.params,undefined,{timeout:25000}));
  server.onclose=()=>{void remote.close();};

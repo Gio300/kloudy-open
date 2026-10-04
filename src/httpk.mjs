@@ -1,3 +1,4 @@
+import {conversationParams,conversationResult} from './conversation.mjs';
 import {hostCapabilities,readHostInterface} from './host-interface.mjs';
 import {confirmationParams} from './hosted.mjs';
 import {queryInput,queryResult} from './query.mjs';
@@ -30,6 +31,7 @@ export class HttpkClient {
  }
  async introduce(project_context){await this.session();const result=await this.rpc('kloudy/intent',{idempotency_key:randomUUID(),input:{type:'text',text:'Kloudy',project_context}});if(result.state!=='greeting'||result.greeting?.version!=='bbe.attach.v1')fail('invalid_response','Expected the engine attach greeting.');return result.greeting;}
  async query(need,options={}){const input=queryInput(need,options);await this.session();return queryResult(await this.rpc('kloudy/query',input),input.limit);}
+ async conversation(operation,input){const params=conversationParams(operation,input);await this.session();return conversationResult(await this.rpc('kloudy/conversation/'+operation,params),params,operation);}
  async wallet({operation='balance',amount_usd}={}){
   if(!['balance','top_up'].includes(operation)||operation==='balance'&&amount_usd!==undefined||operation==='top_up'&&(typeof amount_usd!=='string'||!/^\d{1,6}(?:\.\d{1,2})?$/.test(amount_usd)||Number(amount_usd)<=0))fail('invalid_input','Use wallet balance or top_up with a positive decimal amount_usd string.');
   await this.session();const result=await this.rpc('kloudy/wallet',{operation,...(operation==='top_up'?{amount_usd}:{})});

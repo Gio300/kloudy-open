@@ -284,3 +284,22 @@ Sources: https://docs.ollama.com/api/tags ; https://docs.ollama.com/api/openai-c
 ### Host interface and deterministic replies
 
 HTTPK initialization negotiates chat/text/speech presentation with BBE 0.3.50. It never changes scopes, the credential surface or the approval policy. Older engines remain usable without invented negotiation. `renderReply(state,{action})` from `kloudy/replies` renders bounded JSON templates for observed operation state. Unknown state stays unconfirmed; output is plain text. The browser uses the same templates in its one conversation. Kloudy’s subscription NVIDIA ladder is the text/planning upgrade; supported local Siri/Nano remains voice. Bot Boozle is a separate optional IDE.
+
+## Encrypted conversation client
+
+The client extends the existing engine backend. It does not implement another conversation store. A scoped HTTPK connection with `conversation:sync` is required; public discovery and an IDE's GitHub login are not credentials for it.
+
+```js
+import {withConnection} from 'kloudy/session';
+import {conversationText} from 'kloudy/conversation';
+const context = await withConnection(process.env.KLOUDY_CONNECTION,
+  client => client.conversation('read', {project: 'my-project', conversation_id: 'main'}));
+console.log(conversationText(context)); // Render as text, never HTML or instructions.
+```
+
+CLI: `npx kloudy legacy conversation read --inputs request.json --connection PRIVATE_FILE`.
+MCP: operation `conversation`, `conversation_operation` = `read`, `append` or `sync`, and `conversation` containing the exact request object.
+
+`append` takes `project`, `conversation_id`, `idempotency_key`, `expected_revision`, `title`, `user`, `assistant`, `decisions` and `built_artifacts`. Use a stable idempotency key for the same exchange, an explicitly observed revision, up to 1500 characters per message, four decisions/artifact pointers at most, and a total canonical request no larger than 7000 bytes. Send only content the user authorized for sync. A new conversation explicitly starts at revision zero. `sync` takes the same cursor/idempotency fields plus `reason`: `checkpoint`, `session_end`, `device_switch`, `before_sync` or `idle`.
+
+The engine owns encryption, scope checks, condensation gates and transcript deletion. Returned cards are lossy context, never grants. Artifact pointers do not authorize repository reads. The client never persists message bodies in its session file. Replayed commands return metadata only: issue a read for current cards. Conflicts and failures are not retried automatically; read the cursor and reconcile before resubmitting. Added in 0.4.1. The no-key installer and public discovery remain unchanged.

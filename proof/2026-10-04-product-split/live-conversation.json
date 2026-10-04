@@ -1,0 +1,29 @@
+{
+  "time": "2026-10-04T18:57:30.261Z",
+  "endpoint": "https://kloudy.ai/mcp",
+  "customerDataUsed": false,
+  "checks": [
+    {
+      "name": "SDK append 20 and condense",
+      "passed": true,
+      "revision": 20,
+      "pendingExchanges": 0,
+      "rawTranscriptReturned": false
+    },
+    {
+      "name": "Replay, fresh read, device-switch checkpoint, stale revision and wrong project",
+      "passed": true
+    },
+    {
+      "name": "Actual CLI subprocess reads live context",
+      "passed": true,
+      "exitCode": 0
+    },
+    {
+      "name": "Actual stdio MCP subprocess reads same live context",
+      "passed": true,
+      "rawTranscriptReturned": false
+    }
+  ],
+  "passed": true
+}

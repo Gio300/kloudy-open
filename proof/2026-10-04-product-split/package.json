@@ -1,0 +1,201 @@
+[
+  {
+    "id": "kloudy@0.4.1",
+    "name": "kloudy",
+    "version": "0.4.1",
+    "size": 190957,
+    "unpackedSize": 827077,
+    "shasum": "29ec86302ba995b4e21c088999a9280013fb0e8a",
+    "integrity": "sha512-wSwRv7b4SankuoOifPRHpXSJu0r6vqJgrcD04miD9RNYm9GvdlTQLOPdnHS7UCMxaSKGXKyEryOFTag99yFMsg==",
+    "filename": "kloudy-0.4.1.tgz",
+    "files": [
+      {
+        "path": "LICENSE",
+        "size": 11358,
+        "mode": 420
+      },
+      {
+        "path": "MCP-DEFAULT.md",
+        "size": 924,
+        "mode": 420
+      },
+      {
+        "path": "README.md",
+        "size": 32839,
+        "mode": 420
+      },
+      {
+        "path": "bin/entry.mjs",
+        "size": 2468,
+        "mode": 420
+      },
+      {
+        "path": "bin/kloudy.mjs",
+        "size": 9397,
+        "mode": 420
+      },
+      {
+        "path": "package.json",
+        "size": 1899,
+        "mode": 420
+      },
+      {
+        "path": "schemas/sdf-document-0.2.schema.json",
+        "size": 13937,
+        "mode": 420
+      },
+      {
+        "path": "schemas/SDF-LICENSE.txt",
+        "size": 1091,
+        "mode": 420
+      },
+      {
+        "path": "schemas/sdf-webpage-v1.schema.json",
+        "size": 3742,
+        "mode": 420
+      },
+      {
+        "path": "src/activity.mjs",
+        "size": 3005,
+        "mode": 420
+      },
+      {
+        "path": "src/approval-ui.mjs",
+        "size": 640018,
+        "mode": 420
+      },
+      {
+        "path": "src/approval.mjs",
+        "size": 2798,
+        "mode": 420
+      },
+      {
+        "path": "src/client.mjs",
+        "size": 10625,
+        "mode": 420
+      },
+      {
+        "path": "src/connection.mjs",
+        "size": 2238,
+        "mode": 420
+      },
+      {
+        "path": "src/conversation.mjs",
+        "size": 4709,
+        "mode": 420
+      },
+      {
+        "path": "src/editor-install.mjs",
+        "size": 4887,
+        "mode": 420
+      },
+      {
+        "path": "src/host-interface.mjs",
+        "size": 1160,
+        "mode": 420
+      },
+      {
+        "path": "src/hosted.mjs",
+        "size": 6602,
+        "mode": 420
+      },
+      {
+        "path": "src/httpk.mjs",
+        "size": 9735,
+        "mode": 420
+      },
+      {
+        "path": "src/install.mjs",
+        "size": 5830,
+        "mode": 420
+      },
+      {
+        "path": "src/introduce.mjs",
+        "size": 5943,
+        "mode": 420
+      },
+      {
+        "path": "src/mcp.mjs",
+        "size": 11101,
+        "mode": 420
+      },
+      {
+        "path": "src/models.mjs",
+        "size": 6093,
+        "mode": 420
+      },
+      {
+        "path": "src/product-actions.mjs",
+        "size": 1865,
+        "mode": 420
+      },
+      {
+        "path": "src/public.mjs",
+        "size": 4185,
+        "mode": 420
+      },
+      {
+        "path": "src/query.mjs",
+        "size": 4100,
+        "mode": 420
+      },
+      {
+        "path": "src/remote.mjs",
+        "size": 2067,
+        "mode": 420
+      },
+      {
+        "path": "src/replies.mjs",
+        "size": 611,
+        "mode": 420
+      },
+      {
+        "path": "src/reply-templates.json",
+        "size": 583,
+        "mode": 420
+      },
+      {
+        "path": "src/sdf-budget.mjs",
+        "size": 1375,
+        "mode": 420
+      },
+      {
+        "path": "src/sdf.mjs",
+        "size": 1026,
+        "mode": 420
+      },
+      {
+        "path": "src/starter.mjs",
+        "size": 3997,
+        "mode": 420
+      },
+      {
+        "path": "src/status-indicator.css",
+        "size": 1323,
+        "mode": 420
+      },
+      {
+        "path": "src/strings.mjs",
+        "size": 7742,
+        "mode": 420
+      },
+      {
+        "path": "src/terminal-status.mjs",
+        "size": 805,
+        "mode": 420
+      },
+      {
+        "path": "src/welcome.mjs",
+        "size": 555,
+        "mode": 420
+      },
+      {
+        "path": "src/wrap.mjs",
+        "size": 4444,
+        "mode": 420
+      }
+    ],
+    "entryCount": 37,
+    "bundled": []
+  }
+]
