@@ -1,0 +1,12 @@
+{
+  "time": "2026-10-04T19:15:19.686Z",
+  "package": "kloudy@0.4.1",
+  "command": "npx --yes kloudy@0.4.1 mcp",
+  "freshWorkingDirectory": true,
+  "authenticated": false,
+  "passed": true,
+  "tools": [
+    "kloudy"
+  ],
+  "stderr": ""
+}

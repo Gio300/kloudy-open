@@ -1,0 +1,13 @@
+{
+  "time": "2026-10-04T19:10:25.784Z",
+  "package": "kloudy@0.4.1",
+  "endpoint": "https://kloudy.ai/mcp",
+  "command": "npx --yes kloudy@0.4.1 mcp",
+  "customerDataUsed": false,
+  "checks": [],
+  "passed": false,
+  "error": {
+    "name": "McpError",
+    "code": -32000
+  }
+}
