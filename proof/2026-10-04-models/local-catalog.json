@@ -1,0 +1,30 @@
+{
+  "schema": "kloudy.models/1",
+  "state": "reachable",
+  "compute": "local_endpoint",
+  "provider_bill": "user",
+  "inference_verified": false,
+  "models": [
+    {
+      "id": "nomic-embed-text:latest",
+      "status": "advertised"
+    },
+    {
+      "id": "qwen2.5:7b-instruct-q4_K_M",
+      "status": "advertised"
+    },
+    {
+      "id": "qwen2.5vl:7b",
+      "status": "advertised"
+    },
+    {
+      "id": "qwen3:32b",
+      "status": "advertised"
+    },
+    {
+      "id": "qwen2.5:7b",
+      "status": "advertised"
+    }
+  ],
+  "truncated": false
+}

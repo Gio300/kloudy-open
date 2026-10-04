@@ -1,0 +1,12 @@
+{
+  "schema": "kloudy.model-result/1",
+  "model": "qwen2.5:7b-instruct-q4_K_M",
+  "text": "Ready",
+  "compute": "local_endpoint",
+  "provider_bill": "user",
+  "usage": {
+    "prompt_tokens": 36,
+    "completion_tokens": 2,
+    "total_tokens": 38
+  }
+}

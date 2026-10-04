@@ -1,6 +1,6 @@
 {
   "name": "@kloudy/open",
-  "version": "0.3.14",
+  "version": "0.3.15",
   "description": "Ask for Kloudy: CLI, MCP and SDK clients for the same scoped engine session.",
   "type": "module",
   "license": "Apache-2.0",
@@ -22,7 +22,10 @@
     "./sdf": "./src/sdf.mjs",
     "./query": "./src/query.mjs",
     "./activity": "./src/activity.mjs",
-    "./status-indicator.css": "./src/status-indicator.css"
+    "./status-indicator.css": "./src/status-indicator.css",
+    "./models": "./src/models.mjs",
+    "./host-interface": "./src/host-interface.mjs",
+    "./replies": "./src/replies.mjs"
   },
   "files": [
     "bin",

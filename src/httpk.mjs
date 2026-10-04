@@ -1,3 +1,4 @@
+import {hostCapabilities,readHostInterface} from './host-interface.mjs';
 import {confirmationParams} from './hosted.mjs';
 import {queryInput,queryResult} from './query.mjs';
 import {randomUUID} from 'node:crypto';
@@ -5,11 +6,11 @@ import {KloudyError} from './client.mjs';
 import {actionInput,hostingParams,connectionParams,stableIntentKey} from './product-actions.mjs';
 const fail=(code,message)=>{throw new KloudyError(code,message);};
 export class HttpkClient {
- constructor({endpoint,token,state={},save=async()=>{},mode='autonomous',fetcher=fetch}){
+ constructor({endpoint,token,state={},save=async()=>{},mode='autonomous',fetcher=fetch,host}){
   let u;try{u=new URL(endpoint);}catch{}
   if(!u||u.username||u.password||u.search||u.hash||!(u.protocol==='https:'||u.protocol==='http:'&&['localhost','127.0.0.1','[::1]'].includes(u.hostname)))fail('invalid_origin','Use an HTTPS or loopback HTTPK endpoint.');
   if(typeof token!=='string'||!token||/[\r\n]/.test(token))fail('connection_unavailable','A scoped user connection is required.');
-  this.endpoint=u.href;this.token=token;this.state=state;this.save=save;this.mode=mode;this.fetcher=fetcher;
+  this.capabilities=hostCapabilities(host);this.hostInterface=readHostInterface(state.hostInterface??undefined);this.endpoint=u.href;this.token=token;this.state=state;this.save=save;this.mode=mode;this.fetcher=fetcher;
  }
  async rpc(method,params={}){
   const body=JSON.stringify({jsonrpc:'2.0',id:randomUUID(),method,params});if(Buffer.byteLength(body)>8192)fail('too_large','HTTPK request exceeds the engine limit.');
@@ -19,7 +20,14 @@ export class HttpkClient {
   if(!response.ok||json.error)fail('httpk_request_failed','The engine rejected this request. No retry or approval was fabricated.');
   return json.result;
  }
- async session(){if(this.state.sessionId&&this.mode!=='auto'&&this.state.interactionMode!==this.mode)fail('mode_not_supported','Saved session mode does not match this client.');if(!this.state.sessionId){const opened=await this.rpc('initialize',{protocolVersion:'2025-06-18',clientInfo:{name:'kloudy-open',version:'0.3.14'},capabilities:{}});if(typeof opened.session_id!=='string'||!['autonomous','confirm'].includes(opened.interaction_mode)||(this.mode!=='auto'&&opened.interaction_mode!==this.mode))fail('mode_not_supported','Credential surface does not match this client mode.');this.state.sessionId=opened.session_id;this.state.interactionMode=opened.interaction_mode;await this.save(this.state);}return this.state.sessionId;}
+ async session(){if(this.state.sessionId&&this.mode!=='auto'&&this.state.interactionMode!==this.mode)fail('mode_not_supported','Saved session mode does not match this client.');if(!this.state.sessionId){const opened=await this.rpc('initialize',{protocolVersion:'2025-06-18',clientInfo:{name:'kloudy-open',version:'0.3.15'},capabilities:this.capabilities});const negotiated=readHostInterface(opened.host_interface);if(typeof opened.session_id!=='string'||!['autonomous','confirm'].includes(opened.interaction_mode)||(this.mode!=='auto'&&opened.interaction_mode!==this.mode))fail('mode_not_supported','Credential surface does not match this client mode.');this.hostInterface=negotiated;this.state.hostInterface=negotiated;this.state.sessionId=opened.session_id;this.state.interactionMode=opened.interaction_mode;await this.save(this.state);}return this.state.sessionId;}
+ async negotiateHost(){
+  await this.session();
+  const result=await this.rpc('initialize',{protocolVersion:'2025-06-18',clientInfo:{name:'kloudy-open',version:'0.3.15'},capabilities:this.capabilities});
+  if(result.session_id!==this.state.sessionId||result.interaction_mode!==this.state.interactionMode)fail('host_session_changed','Host presentation negotiation changed the session. Reconnect explicitly.');
+  this.hostInterface=readHostInterface(result.host_interface);this.state.hostInterface=this.hostInterface;await this.save(this.state);
+  return {host_interface:this.hostInterface,authorization_changed:false};
+ }
  async introduce(project_context){await this.session();const result=await this.rpc('kloudy/intent',{idempotency_key:randomUUID(),input:{type:'text',text:'Kloudy',project_context}});if(result.state!=='greeting'||result.greeting?.version!=='bbe.attach.v1')fail('invalid_response','Expected the engine attach greeting.');return result.greeting;}
  async query(need,options={}){const input=queryInput(need,options);await this.session();return queryResult(await this.rpc('kloudy/query',input),input.limit);}
  async wallet({operation='balance',amount_usd}={}){

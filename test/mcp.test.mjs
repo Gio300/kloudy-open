@@ -3,6 +3,15 @@ import assert from 'node:assert/strict';
 import {InMemoryTransport} from '@modelcontextprotocol/sdk/inMemory.js';
 import {Client} from '@modelcontextprotocol/sdk/client/index.js';
 import {createMcpServer} from '../src/mcp.mjs';
+
+test('one MCP door discovers host-configured models without accepting a model-supplied endpoint',async()=>{
+ let lists=0;const server=createMcpServer({useClient:()=>{throw Error('No engine needed for local discovery');},models:()=>({list:async()=>{lists++;return {schema:'kloudy.models/1',models:[{id:'local:small',status:'advertised'}],inference_verified:false};}})});
+ const client=new Client({name:'model-proof',version:'1'}),[left,right]=InMemoryTransport.createLinkedPair();
+ try{await server.connect(left);await client.connect(right);assert.deepEqual((await client.listTools()).tools.map(x=>x.name),['kloudy']);
+  const valid=await client.callTool({name:'kloudy',arguments:{operation:'models_list'}});assert.equal(valid.structuredContent.models[0].id,'local:small');assert.equal(lists,1);
+  const invalid=await client.callTool({name:'kloudy',arguments:{operation:'models_list',url:'http://169.254.169.254'}});assert.equal(invalid.isError,true);assert.equal(lists,1);
+ }finally{await client.close();await server.close();}
+});
 test('MCP advertises one entry then only the selected singular tool',async()=>{
  const engine={state:{},ask:async()=>{engine.state.selection={tool:{name:'chosen',description:'Selected engine tool',inputSchema:{type:'object',properties:{}}}};return {toolbox:{tools:[engine.state.selection.tool]}};},call:async(name)=>({state:'awaiting_approval',name})};
  const server=createMcpServer({useClient:work=>work(engine)}),client=new Client({name:'proof',version:'1'}),[left,right]=InMemoryTransport.createLinkedPair();

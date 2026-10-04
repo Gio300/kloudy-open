@@ -248,3 +248,17 @@ creates pairing using its configured project ID. The user's wallet signs each
 transaction; API credentials are not wallet private keys. No cross-chain
 settlement is claimed by these adapters. Public customer grant exchange,
 fee-recipient configuration and Reown live pairing remain deployment gates.
+
+### Your own models and local compute
+
+`kloudy models list` reads the existing local Ollama model catalog without inference or downloads. `kloudy models run MODEL --prompt-file prompt.txt --max-tokens 128` makes one bounded request to an installed local model. Ollama cloud aliases are not treated as free local models. No account or key is required for installed local Ollama models; machine resources still belong to you. If Ollama is absent, use its official https://ollama.com/download installer. No model is silently downloaded.
+
+For your own LiteLLM/OpenAI-compatible gateway, configure `KLOUDY_MODEL_ENDPOINT` and `KLOUDY_MODEL_KEY_ENV` (the environment variable name containing the scoped virtual key). Use `--allow-provider-charge` for an explicitly requested provider-backed completion. Your provider bills you directly; this flag does not grant Kloudy a spending budget. Never put actual keys in URLs, arguments, source or chat. The SDK `ModelClient` accepts an asynchronous `resolveKey` for a host vault and reads it on every request. This supports an already managed key rotating without a client rewrite; it does not issue a key, create an account or implement GlassBreak itself.
+
+The single MCP door adds `models_list` using host environment configuration, with no endpoint or secret supplied by model arguments. It does not expose provider generation as an automatically billable tool. Listed models are advertised, not guaranteed compatible; a successful bounded completion provides inference evidence. The server must enforce provider budgets and authorization.
+
+Sources: https://docs.ollama.com/api/tags ; https://docs.ollama.com/api/openai-compatibility ; https://docs.litellm.ai/docs/proxy/virtual_keys .
+
+### Host interface and deterministic replies
+
+HTTPK initialization negotiates chat/text/speech presentation with BBE 0.3.50. It never changes scopes, the credential surface or the approval policy. Older engines remain usable without invented negotiation. `renderReply(state,{action})` from `@kloudy/open/replies` renders bounded JSON templates for observed operation state. Unknown state stays unconfirmed; output is plain text. The browser uses the same templates in its one conversation. Kloudy’s subscription NVIDIA ladder is the text/planning upgrade; supported local Siri/Nano remains voice. Bot Boozle is a separate optional IDE.

@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "mocked_hops": 0,
+  "session_unchanged": true,
+  "mode_unchanged": true,
+  "credential_minted": false,
+  "model_called": false,
+  "host_interface": {
+    "version": "kloudy.host-interface/1",
+    "conversation_renderer": "host",
+    "text_input": "host",
+    "duplicate_chat_required": false,
+    "duplicate_text_input_required": false,
+    "results": "inline_structured_receipt",
+    "approvals": "inline_exact_action",
+    "voice": {
+      "owner": "device_os",
+      "preferred": [
+        "siri",
+        "gemini_nano"
+      ],
+      "engine_audio_capture": false,
+      "engine_speech_synthesis": false,
+      "input": "text"
+    },
+    "subscription_text_planning": {
+      "provider": "nvidia",
+      "policy": "bounded_ladder",
+      "requires_entitlement": true,
+      "host_model_replaced": false
+    },
+    "bot_boozle": {
+      "separate_project": true,
+      "required": false
+    },
+    "authorization_changed": false
+  },
+  "authorization_changed": false
+}
