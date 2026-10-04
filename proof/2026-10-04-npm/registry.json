@@ -1,0 +1,11 @@
+{
+  "name": "kloudy",
+  "version": "0.4.0",
+  "mcpName": "io.github.Gio300/kloudy",
+  "registryStatus": 200,
+  "tarball": "https://registry.npmjs.org/kloudy/-/kloudy-0.4.0.tgz",
+  "integrity": "sha512-iP5V2tnPyhbB2mmUfNOudMXypB5KrpDoSR9KGlTGVLAZ9b5pmiBh9LkyJ9p5f19awcMh/Lm46x209y+DKztGWA==",
+  "maintainers": [
+    "patternaftererror"
+  ]
+}

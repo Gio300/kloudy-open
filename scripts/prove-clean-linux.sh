@@ -15,11 +15,11 @@ export npm_config_cache="$task_dir/npm-cache"
 export CODEX_HOME="$HOME/.codex"
 unset KLOUDY_MCP_TOKEN KLOUDY_CONNECTION NODE_AUTH_TOKEN NPM_TOKEN
 mkdir -p "$HOME"
-curl -fsSL https://kloudy.ai/downloads/kloudy-open-0.4.0.tgz -o kloudy.tgz
-npm install --prefix "$task_dir/runtime" --ignore-scripts "$task_dir/kloudy.tgz" > install.log 2>&1
+npm install --prefix "$task_dir/runtime" --ignore-scripts kloudy@0.4.0 --registry=https://registry.npmjs.org > install.log 2>&1
 export KLOUDY_TEST_ENTRY="$task_dir/runtime/node_modules/kloudy/bin/entry.mjs"
-node "$KLOUDY_TEST_ENTRY" --version
-node "$KLOUDY_TEST_ENTRY" > empty-home.log
+npx --yes kloudy@0.4.0 --version > npx-version.log
+cat npx-version.log
+npx --yes kloudy > empty-home.log
 node "$KLOUDY_TEST_ENTRY" find github MCP tools > question.json
 export KLOUDY_PROOF_DEST="$1"
 python3 - <<'PY'
@@ -36,7 +36,7 @@ for name,(path,key) in paths.items():
  p=home/path;p.parent.mkdir(parents=True,exist_ok=True)
  p.write_text('[mcp_servers.existing]\nurl="https://example.com/mcp"\n' if name=='Codex' else json.dumps({key:{'existing':{'command':'do-not-change'}}}))
 pid,fd=pty.fork()
-if pid==0:os.execvp('node',['node',os.environ['KLOUDY_TEST_ENTRY']])
+if pid==0:os.execvp('npx',['npx','--yes','kloudy'])
 out=b'';answered=0;deadline=time.time()+60
 while time.time()<deadline:
  if select.select([fd],[],[],1)[0]:
@@ -55,7 +55,7 @@ for name,(path,key) in paths.items():
  text_file=(home/path).read_text()
  assert 'existing' in text_file and 'kloudy' in text_file
  if name!='Codex':assert json.loads(text_file)[key]['existing']['command']=='do-not-change'
-proof={'environment':'isolated Linux Node runtime, empty HOME and fresh npm cache inside existing WSL; not a new VM','node':subprocess.check_output(['node','--version'],text=True).strip(),'package':'kloudy@0.4.0','source':'verified deployment tarball, not npm registry','empty_home_output':pathlib.Path('empty-home.log').read_text(),'fixture_install_output':text,'fixture_clients_configured':list(paths),'real_desktop_clients_modified':[],'question':json.loads(pathlib.Path('question.json').read_text()),'exit_code':0}
+proof={'environment':'isolated Linux Node runtime, empty HOME and fresh npm cache inside existing WSL; not a new VM','node':subprocess.check_output(['node','--version'],text=True).strip(),'package':'kloudy@0.4.0','source':'public npm registry: kloudy@0.4.0', 'npx_version':pathlib.Path('npx-version.log').read_text().strip(), 'npm_install_output':pathlib.Path('install.log').read_text(),'empty_home_output':pathlib.Path('empty-home.log').read_text(),'fixture_install_output':text,'fixture_clients_configured':list(paths),'real_desktop_clients_modified':[],'question':json.loads(pathlib.Path('question.json').read_text()),'exit_code':0}
 pathlib.Path(os.environ['KLOUDY_PROOF_DEST']).write_text(json.dumps(proof,indent=2))
 print(json.dumps({'exit_code':0,'fixture_clients':list(paths),'node':proof['node'],'real_desktop_clients_modified':[]}))
 PY

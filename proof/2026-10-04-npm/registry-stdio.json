@@ -1,0 +1,15 @@
+{
+  "source": "npm registry kloudy@0.4.0",
+  "platform": "Windows",
+  "freshCache": true,
+  "isolatedWorkingDirectory": true,
+  "initialization": true,
+  "listTools": [
+    "kloudy"
+  ],
+  "publicQuery": true,
+  "modelCalls": 0,
+  "privateCallDenied": true,
+  "exit_code": 0,
+  "stderr": ""
+}

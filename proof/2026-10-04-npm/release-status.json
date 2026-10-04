@@ -2,17 +2,45 @@
   "package": "kloudy",
   "version": "0.4.0",
   "mcpName": "io.github.Gio300/kloudy",
-  "registryPublished": false,
-  "publishAttempt": {"command": "npm publish --access public --ignore-scripts --json", "exitCode": 1, "error": "ENEEDAUTH"},
-  "testSuite": {"passed": 69, "failed": 0, "exitCode": 0},
+  "registryPublished": true,
+  "publishAttempt": {
+    "command": "npm publish --access public --tag latest --ignore-scripts --json",
+    "exitCode": 0,
+    "account": "patternaftererror",
+    "evidence": "npm-publish-result.json"
+  },
+  "testSuite": {
+    "passed": 69,
+    "failed": 0,
+    "exitCode": 0
+  },
   "staticSite": "https://gio300.github.io/kloudy-open/",
   "canonicalInstaller": "https://kloudy.ai/install",
   "download": "https://kloudy.ai/downloads/kloudy-open-0.4.0.tgz",
   "mcp": "https://kloudy.ai/mcp",
   "freeTier": "bounded public catalog discovery only; zero model calls; no private execution",
-  "githubOAuth": "implemented and unit-tested; application registration confirmation/client ID pending",
+  "githubOAuth": "Superseded by requested GitHub App; not registered or activated",
   "publicEngineKeyIssuance": "not connected",
   "smitheryListing": "not published; owner login/namespace pending",
   "realUserClientsConfigured": [],
-  "fixtureClientsConfigured": ["Cursor", "VS Code", "Claude Desktop", "Claude Code", "Windsurf", "Codex"]
+  "fixtureClientsConfigured": [
+    "Cursor",
+    "VS Code",
+    "Claude Desktop",
+    "Claude Code",
+    "Windsurf",
+    "Codex"
+  ],
+  "registryURL": "https://www.npmjs.com/package/kloudy",
+  "npmPublishExitCode": 0,
+  "blockers": [
+    "GitHub App requires owner sudo/MFA before registration, then explicit final Register confirmation",
+    "Smithery owner login and namespace still needed"
+  ],
+  "cleanRegistryProof": "clean-linux-registry.json",
+  "previousUnauthenticatedAttempt": {
+    "command": "npm publish --access public --ignore-scripts --json",
+    "exitCode": 1,
+    "error": "ENEEDAUTH"
+  }
 }

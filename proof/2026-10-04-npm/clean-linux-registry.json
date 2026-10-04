@@ -1,0 +1,92 @@
+{
+  "environment": "isolated Linux Node runtime, empty HOME and fresh npm cache inside existing WSL; not a new VM",
+  "node": "v22.23.3",
+  "package": "kloudy@0.4.0",
+  "source": "public npm registry: kloudy@0.4.0",
+  "npx_version": "0.4.0",
+  "npm_install_output": "\nadded 103 packages in 6s\n\n36 packages are looking for funding\n  run `npm fund` for details\nnpm notice\nnpm notice New major version of npm available! 10.9.9 -> 12.2.0\nnpm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0\nnpm notice To update run: npm install -g npm@12.2.0\nnpm notice\n",
+  "empty_home_output": "Kloudy \u00b7 Add to your editor\nFree public discovery. Account actions require an authorized Kloudy key.\nNo supported editor configuration found. Open https://kloudy.ai/install for one-click Cursor and VS Code links.\n",
+  "fixture_install_output": "\u2819\u2839\u2838\u283cKloudy \u00b7 Add to your editor\r\nFree public discovery. Account actions require an authorized Kloudy key.\r\nAdd Kloudy to Cursor? /tmp/kloudy-npm-proof-GY5whD/home/.cursor/mcp.json [y/N] y\r\r\nCursor: configured\r\nAdd Kloudy to VS Code? /tmp/kloudy-npm-proof-GY5whD/home/.config/Code/User/mcp.json [y/N] y\r\r\nVS Code: configured\r\nAdd Kloudy to Claude Desktop? /tmp/kloudy-npm-proof-GY5whD/home/.config/Claude/claude_desktop_config.json [y/N] y\r\r\nClaude Desktop: configured\r\nAdd Kloudy to Claude Code? /tmp/kloudy-npm-proof-GY5whD/home/.claude.json [y/N] y\r\r\nClaude Code: configured\r\nAdd Kloudy to Windsurf? /tmp/kloudy-npm-proof-GY5whD/home/.codeium/windsurf/mcp_config.json [y/N] y\r\r\nWindsurf: configured\r\nAdd Kloudy to Codex? /tmp/kloudy-npm-proof-GY5whD/home/.codex/config.toml [y/N] y\r\r\nCodex: configured\r\nExisting servers were preserved. Restart configured clients to connect.\r\n\u2819",
+  "fixture_clients_configured": [
+    "Cursor",
+    "VS Code",
+    "Claude Desktop",
+    "Claude Code",
+    "Windsurf",
+    "Codex"
+  ],
+  "real_desktop_clients_modified": [],
+  "question": {
+    "tier": "public",
+    "query": "github",
+    "items": [
+      {
+        "name": "GitHub",
+        "source": "mcp-registry",
+        "status": "live",
+        "score": 105,
+        "cost": "free",
+        "caps": [
+          "cap.code"
+        ],
+        "url": "https://github.com/github/github-mcp-server"
+      },
+      {
+        "name": "io.github.antvis/mcp-server-chart",
+        "source": "mcp-registry",
+        "status": "live",
+        "score": 105,
+        "cost": "free",
+        "caps": [
+          "cap.code"
+        ],
+        "url": "https://github.com/antvis/mcp-server-chart"
+      },
+      {
+        "name": "io.github.BetterDB-inc/monitor",
+        "source": "mcp-registry",
+        "status": "live",
+        "score": 105,
+        "cost": "free",
+        "caps": [
+          "cap.code",
+          "cap.llm"
+        ],
+        "url": "https://github.com/BetterDB-inc/monitor"
+      },
+      {
+        "name": "io.github.blazickjp/arxiv-mcp-server",
+        "source": "mcp-registry",
+        "status": "live",
+        "score": 105,
+        "cost": "free",
+        "caps": [
+          "cap.search",
+          "cap.code"
+        ],
+        "url": "https://github.com/blazickjp/arxiv-mcp-server"
+      },
+      {
+        "name": "io.github.brightdata/brightdata-mcp",
+        "source": "mcp-registry",
+        "status": "live",
+        "score": 105,
+        "cost": "free",
+        "caps": [
+          "cap.search",
+          "cap.code",
+          "cap.web",
+          "cap.data"
+        ],
+        "url": "https://github.com/brightdata/brightdata-mcp"
+      }
+    ],
+    "matched": 92889,
+    "revision": "13cc1e79a273671c40d769b0c473b21095325a45",
+    "evidence": "Heuristic metadata scores; not proof of a successful tool call.",
+    "model_calls": 0,
+    "executed": false,
+    "message": "Public discovery only. These entries do not grant access or prove a live connection."
+  },
+  "exit_code": 0
+}

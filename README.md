@@ -6,7 +6,7 @@ npx kloudy find github MCP tools
 npx kloudy mcp
 ```
 
-Node.js 20.19+ is required. Version 0.4.0 is the npm release candidate; registry publication is pending owner npm authentication. The tested tarball is available at https://kloudy.ai/downloads/kloudy-open-0.4.0.tgz once deployed.
+Node.js 20.19+ is required. Run `npx kloudy` to install, or `npx kloudy@0.4.0` to pin this release. A downloadable tarball is also available at https://kloudy.ai/downloads/kloudy-open-0.4.0.tgz.
 
 No arguments detects Cursor, VS Code, Claude Desktop, Claude Code, Windsurf and Codex configurations and asks before writing **each** one. Declining or non-interactive input changes nothing. Existing servers and existing Kloudy entries are preserved. JSONC comments in VS Code and TOML comments in Codex remain intact. Backups are created; malformed or concurrently changed configs are left untouched. Normal OS file permissions apply on Windows; protect config files that contain keys.
 
