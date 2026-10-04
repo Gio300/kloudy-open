@@ -1,0 +1,18 @@
+{
+  "package": "kloudy",
+  "version": "0.4.0",
+  "mcpName": "io.github.Gio300/kloudy",
+  "registryPublished": false,
+  "publishAttempt": {"command": "npm publish --access public --ignore-scripts --json", "exitCode": 1, "error": "ENEEDAUTH"},
+  "testSuite": {"passed": 69, "failed": 0, "exitCode": 0},
+  "staticSite": "https://gio300.github.io/kloudy-open/",
+  "canonicalInstaller": "https://kloudy.ai/install",
+  "download": "https://kloudy.ai/downloads/kloudy-open-0.4.0.tgz",
+  "mcp": "https://kloudy.ai/mcp",
+  "freeTier": "bounded public catalog discovery only; zero model calls; no private execution",
+  "githubOAuth": "implemented and unit-tested; application registration confirmation/client ID pending",
+  "publicEngineKeyIssuance": "not connected",
+  "smitheryListing": "not published; owner login/namespace pending",
+  "realUserClientsConfigured": [],
+  "fixtureClientsConfigured": ["Cursor", "VS Code", "Claude Desktop", "Claude Code", "Windsurf", "Codex"]
+}

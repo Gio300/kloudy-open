@@ -1,0 +1,7 @@
+{
+  "error": {
+    "code": "ENEEDAUTH",
+    "summary": "This command requires you to be logged in to https://registry.npmjs.org",
+    "detail": "You need to authorize this machine using `npm adduser`"
+  }
+}

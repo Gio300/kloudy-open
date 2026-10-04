@@ -1,3 +1,25 @@
+# Kloudy — add it to your editor
+
+```sh
+npx kloudy
+npx kloudy find github MCP tools
+npx kloudy mcp
+```
+
+Node.js 20.19+ is required. Version 0.4.0 is the npm release candidate; registry publication is pending owner npm authentication. The tested tarball is available at https://kloudy.ai/downloads/kloudy-open-0.4.0.tgz once deployed.
+
+No arguments detects Cursor, VS Code, Claude Desktop, Claude Code, Windsurf and Codex configurations and asks before writing **each** one. Declining or non-interactive input changes nothing. Existing servers and existing Kloudy entries are preserved. JSONC comments in VS Code and TOML comments in Codex remain intact. Backups are created; malformed or concurrently changed configs are left untouched. Normal OS file permissions apply on Windows; protect config files that contain keys.
+
+The remote endpoint is https://kloudy.ai/mcp. Public catalog discovery works without a key and makes no model call. It returns up to five public metadata candidates, not execution grants. Account actions still require an existing authorized Kloudy key; self-service engine-key issuance is not connected. If you already have one, set `KLOUDY_MCP_TOKEN` privately in your environment; the installer asks before storing it in a client's headers (or Claude Desktop's stdio environment). Keys are never accepted as command-line arguments or printed by the installer.
+
+`mcp` is a local stdio-to-Streamable-HTTP proxy; stdout contains MCP messages only. Direct questions and the proxy call the same remote server. No retries of tool calls. Network failures and invalid keys fail explicitly.
+
+The existing SDK exports remain available under `kloudy/*`. For the pre-0.4 specialized engine CLI commands documented below, use `kloudy legacy <command>` (for example, `kloudy legacy init my-app`). The original CLI is retained in `bin/kloudy.mjs`.
+
+One-click Cursor / VS Code setup: https://kloudy.ai/install. Browser deep links ask the editor to install; opening a link is not proof that installation completed. ChatGPT requires its directory program; this package does not modify ChatGPT. MCP Registry identity: `io.github.Gio300/kloudy`.
+
+## Earlier engine adapter documentation
+
 # Ask for Kloudy
 
 One CLI, one MCP, tools appear when needed. CLI, MCP and the Node.js SDK use the same scoped Blackbox session. This repository contains the public client adapters and local HTTPK wrapper, not the private router, vault or account service.
@@ -13,7 +35,7 @@ npm start
 npm run card -- /world
 ```
 
-`init` creates a new folder and refuses to overwrite an existing one. `kloudy read https://example.com` and `kloudy card /world` also work directly. These are real public reads, with no model or account call; shared rate limits and website restrictions apply. The public Node exports are `readPublicPage` and `readCard` from `@kloudy/open/public`. Source HTML stays data, never executable UI. The starter’s separate toolbox example requires an existing private connection and selects definitions without executing them.
+`init` creates a new folder and refuses to overwrite an existing one. `kloudy read https://example.com` and `kloudy card /world` also work directly. These are real public reads, with no model or account call; shared rate limits and website restrictions apply. The public Node exports are `readPublicPage` and `readCard` from `kloudy/public`. Source HTML stays data, never executable UI. The starter’s separate toolbox example requires an existing private connection and selects definitions without executing them.
 
 Developer guide and availability: https://kloudy.ai/build. Customer self-registration is separate from these working public examples.
 
@@ -63,7 +85,7 @@ The MCP tool list initially has one `kloudy` entry. An `ask` operation adds only
 ## SDK
 
 ```js
-import {withConnection} from '@kloudy/open/session';
+import {withConnection} from 'kloudy/session';
 const result = await withConnection('/private/connection.json', client =>
   client.ask('Find a tool for this task', {candidates, lane: 'non_medical'})
 );
@@ -142,8 +164,8 @@ The host guidance describes natural keep/cleanup requests and the authoritative 
 `kloudy convert https://example.com` extracts a public page through Kloudy's bounded reader without a model call. Add `--resolution standard` for more detail; compact cards default to at most 8,192 UTF-8 JSON bytes. Try the same converter at [kloudy.ai/build](https://kloudy.ai/build#convert).
 
 ```js
-import {convertPage, convertPages} from '@kloudy/open/public';
-import {validateSDF} from '@kloudy/open/sdf';
+import {convertPage, convertPages} from 'kloudy/public';
+import {validateSDF} from 'kloudy/sdf';
 
 const card = await convertPage('https://example.com');
 console.log(validateSDF(card), card.summary.brief);
@@ -181,7 +203,7 @@ kloudy strings remove workspace
 
 `use` reselects through each source and returns up to eight distinct tools with source-bound call routes. It never automatically executes the tools. The engine validates exact owned selections at call time; a changed session requires reselection. Strings are project-scoped and stored privately, with no provider credentials or schema dumps. An explicit `prune` removes non-kept choices idle for 30 days. Normal reuse never silently deletes a saved configuration. Authoritative production-phase dormancy events are a separate Core/engine integration. This removes local saved choices, not shared provider keys. `keep` preserves reuse intent; it does **not** mint a permanent grant. GlassBreak service wiring remains an external dependency.
 
-SDK: `StringStore`/`localStrings` from `@kloudy/open/strings`. MCP operations: `strings_save`, `strings_list`, `strings_use`, `strings_call`, `strings_keep`, `strings_remove`, `strings_prune` with `string_name`, `choices`, and, for calls, `name` and `arguments`. Mixed-adapter composition is covered by fixtures; production execution still requires each source's registered adapter and current grant.
+SDK: `StringStore`/`localStrings` from `kloudy/strings`. MCP operations: `strings_save`, `strings_list`, `strings_use`, `strings_call`, `strings_keep`, `strings_remove`, `strings_prune` with `string_name`, `choices`, and, for calls, `name` and `arguments`. Mixed-adapter composition is covered by fixtures; production execution still requires each source's registered adapter and current grant.
 
 ## Inline action approval
 
@@ -192,7 +214,7 @@ This is action consent, not customer OAuth. Unsupported hosts do not gain an inl
 
 ## Yield and query boundary
 
-`kloudy convert URL` and `convertPage` return SDF content; `kloudy query "need"` and `HttpkClient.query` ask Blackbox for ranked card references. Search grants no permission. The SDK `sdfIndex(cards, {discoveredVia: 'geo'})` from `@kloudy/open/query` prepares bounded metadata for the existing operator-only engine import; it does not upload, register a tool, or grant access. Supply the actual SEO/GEO provenance, never guess it. `content_sha256` is the raw source body hash. Empty capability IDs deliberately avoid inferring tool access from prose.
+`kloudy convert URL` and `convertPage` return SDF content; `kloudy query "need"` and `HttpkClient.query` ask Blackbox for ranked card references. Search grants no permission. The SDK `sdfIndex(cards, {discoveredVia: 'geo'})` from `kloudy/query` prepares bounded metadata for the existing operator-only engine import; it does not upload, register a tool, or grant access. Supply the actual SEO/GEO provenance, never guess it. `content_sha256` is the raw source body hash. Empty capability IDs deliberately avoid inferring tool access from prose.
 
 Compact cards fit **750 cl100k_base tokens**, measured over compact JSON including attribution and metadata, and at most 8 KiB UTF-8. The tokenizer runs locally with bundled ranks; no model or tokenizer service is called. Token counts vary across model families. Standard resolution is explicitly larger. Oversized attribution fails with a readable report rather than losing the source URL. Updated content gets a new deterministic ID; fetching the same source keeps its ID. The schema remains pinned to SDF 0.2.0 plus `kloudy.sdf.webpage/1`; unsupported versions fail validation. An index lifetime is distinct from long-term content recheck policy.
 
@@ -202,10 +224,10 @@ A string deduplicates tool definitions, not owned selections. If two choices sel
 
 ## IDE activity indicator
 
-Version 0.3.11 supplies the public host adapter `@kloudy/open/activity` and stylesheet `@kloudy/open/status-indicator.css`. A compatible host mounts the purple orb with Kloudy above it in its own status surface. Load the stylesheet with your app bundler, then:
+Version 0.3.11 supplies the public host adapter `kloudy/activity` and stylesheet `kloudy/status-indicator.css`. A compatible host mounts the purple orb with Kloudy above it in its own status surface. Load the stylesheet with your app bundler, then:
 
 ```js
-import {mountStatusIndicator, observeClient} from '@kloudy/open/activity';
+import {mountStatusIndicator, observeClient} from 'kloudy/activity';
 const indicator = mountStatusIndicator(statusBarElement);
 const visibleClient = observeClient(client, event => indicator.update(event));
 await visibleClient.call(selectedTool, inputs);
@@ -261,4 +283,4 @@ Sources: https://docs.ollama.com/api/tags ; https://docs.ollama.com/api/openai-c
 
 ### Host interface and deterministic replies
 
-HTTPK initialization negotiates chat/text/speech presentation with BBE 0.3.50. It never changes scopes, the credential surface or the approval policy. Older engines remain usable without invented negotiation. `renderReply(state,{action})` from `@kloudy/open/replies` renders bounded JSON templates for observed operation state. Unknown state stays unconfirmed; output is plain text. The browser uses the same templates in its one conversation. Kloudy’s subscription NVIDIA ladder is the text/planning upgrade; supported local Siri/Nano remains voice. Bot Boozle is a separate optional IDE.
+HTTPK initialization negotiates chat/text/speech presentation with BBE 0.3.50. It never changes scopes, the credential surface or the approval policy. Older engines remain usable without invented negotiation. `renderReply(state,{action})` from `kloudy/replies` renders bounded JSON templates for observed operation state. Unknown state stays unconfirmed; output is plain text. The browser uses the same templates in its one conversation. Kloudy’s subscription NVIDIA ladder is the text/planning upgrade; supported local Siri/Nano remains voice. Bot Boozle is a separate optional IDE.

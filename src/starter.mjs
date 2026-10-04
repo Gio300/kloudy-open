@@ -3,18 +3,18 @@ import {resolve,join} from 'node:path';
 import {KloudyError} from './client.mjs';
 export const starterFiles={
  'kloudy.json':JSON.stringify({version:'kloudy.project/1',deploymentTarget:'bww',html:'provider-opt-in',publication:'requires-authorized-hosting'},null,2)+'\n',
- 'package.json':JSON.stringify({name:'my-kloudy-app',version:'1.0.0',private:true,type:'module',engines:{node:'>=20.19.0'},scripts:{start:'node app.mjs',card:'node card.mjs',toolbox:'node toolbox.mjs'},dependencies:{'@kloudy/open':'https://kloudy.ai/downloads/kloudy-open-0.3.13.tgz'}},null,2)+'\n',
- 'app.mjs':`import {readPublicPage} from '@kloudy/open/public';
+ 'package.json':JSON.stringify({name:'my-kloudy-app',version:'1.0.0',private:true,type:'module',engines:{node:'>=20.19.0'},scripts:{start:'node app.mjs',card:'node card.mjs',toolbox:'node toolbox.mjs'},dependencies:{'kloudy':'https://kloudy.ai/downloads/kloudy-open-0.4.0.tgz'}},null,2)+'\n',
+ 'app.mjs':`import {readPublicPage} from 'kloudy/public';
 try {
  const page=await readPublicPage(process.argv[2]||'https://example.com');
  console.log(JSON.stringify({...page,body:page.body.slice(0,6000)},null,2));
 } catch(error) { console.error(error.code+': '+error.message);process.exitCode=1; }
 `,
- 'card.mjs':`import {readCard} from '@kloudy/open/public';
+ 'card.mjs':`import {readCard} from 'kloudy/public';
 try { console.log(JSON.stringify(await readCard(process.argv[2]||'/world'),null,2)); }
 catch(error) { console.error(error.code+': '+error.message);process.exitCode=1; }
 `,
- 'toolbox.mjs':`import {withConnection} from '@kloudy/open/session';
+ 'toolbox.mjs':`import {withConnection} from 'kloudy/session';
 // The native host/operator provides the existing scoped connection outside this project.
 // This selects definitions only. It never calls a tool automatically.
 try { const selected=await withConnection(process.env.KLOUDY_CONNECTION,client=>client.ask(process.argv[2]||'Find a tool to read my notes'));console.log(JSON.stringify(selected.toolbox,null,2)); }

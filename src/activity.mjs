@@ -14,3 +14,10 @@ export function mountStatusIndicator(root){
  wrap.className='kloudy-indicator';wrap.setAttribute('role','status');wrap.setAttribute('aria-label','Kloudy ready');label.textContent='Kloudy';label.className='kloudy-indicator-label';orb.className='kloudy-indicator-orb';orb.setAttribute('aria-hidden','true');wrap.append(label,orb);root.append(wrap);wrap.dataset.state='idle';
  return {update(event){if(event?.schema!=='kloudy.activity/1'||event.source!=='kloudy'||!['idle','thinking','waiting','error','listening','speaking'].includes(event.state))return;wrap.dataset.state=event.state;wrap.setAttribute('aria-label','Kloudy '+({idle:'ready',thinking:'working',waiting:'needs approval',error:'could not finish',listening:'listening through your device',speaking:'speaking through your device'}[event.state]));},dispose(){wrap.remove();}};
 }
+
+// Covers every actual MCP tool call, including public reads and model discovery.
+export function instrumentToolHandler(handler,onActivity=()=>{}){
+ let active=0,sequence=0;
+ const emit=state=>{try{onActivity({schema:'kloudy.activity/1',source:'kloudy',sequence:++sequence,state,operation:'tool_call'});}catch{}};
+ return async request=>{active++;emit('thinking');let state='error';try{const result=await handler(request);state=result?.isError?'error':result?._meta?.kloudyApproval?'waiting':['queued','running'].includes(result?.structuredContent?.state)?'thinking':'idle';return result;}finally{active--;emit(active?'thinking':state);}};
+}

@@ -1,0 +1,17 @@
+{
+  "checkedAt": "2026-10-04T08:01:15.633Z",
+  "exitCode": 0,
+  "stdioProxy": {
+    "initialized": true,
+    "tools": [
+      "kloudy"
+    ],
+    "publicQuery": true,
+    "privateCallDenied": true,
+    "stdoutProtocolOnly": true
+  },
+  "invalidKeyRejected": true,
+  "directQuestion": true,
+  "modelCalls": 0,
+  "stderr": ""
+}

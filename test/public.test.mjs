@@ -18,7 +18,7 @@ test('cards never become execution grants or permit arbitrary path traversal',as
 });
 test('starter creates runnable public examples and refuses to overwrite an existing project',async()=>{
  const parent=await mkdtemp(join(tmpdir(),'kloudy-starter-')),target=join(parent,'app');const result=await createStarter(target);
- assert.equal(result.status,'created');const pkg=JSON.parse(await readFile(join(target,'package.json')));assert.equal(pkg.scripts.start,'node app.mjs');assert.equal(pkg.dependencies['@kloudy/open'],'https://kloudy.ai/downloads/kloudy-open-0.3.13.tgz');
+ assert.equal(result.status,'created');const pkg=JSON.parse(await readFile(join(target,'package.json')));assert.equal(pkg.scripts.start,'node app.mjs');assert.equal(pkg.dependencies['kloudy'],'https://kloudy.ai/downloads/kloudy-open-0.4.0.tgz');
  const example=await readFile(join(target,'toolbox.mjs'),'utf8');assert.match(example,/client.ask/);assert.doesNotMatch(example,/client.call/);
  await assert.rejects(createStarter(target),e=>e.code==='directory_exists');assert.equal(JSON.parse(await readFile(join(target,'package.json'))).name,'my-kloudy-app');
 });
