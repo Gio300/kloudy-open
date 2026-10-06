@@ -3,7 +3,6 @@
   "displayName": "Kloudy",
   "description": "One Kloudy MCP with a live, private status indicator.",
   "version": "0.1.0",
-  "publisher": "Gio300",
   "license": "Apache-2.0",
   "engines": {
     "vscode": "^1.127.0"

@@ -1,0 +1,12 @@
+{
+  "domain": "kloudy.ai",
+  "txt": "v=MCPv1; k=ed25519; p=PZ788e4h9009SWGG0+aLStf+Bg2o88pOBApf5/PcpUI=",
+  "change": {
+    "Id": "/change/C00436043NRHO19ZQVYB5",
+    "Status": "PENDING",
+    "SubmittedAt": "2026-10-06T19:40:13.707000+00:00",
+    "Comment": "Kloudy MCP Registry domain ownership"
+  },
+  "otherTxtRecordsPreserved": 3,
+  "privateKeyStorage": "Keys Boi, Windows DPAPI CurrentUser"
+}

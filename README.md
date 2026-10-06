@@ -6,7 +6,7 @@ npx kloudy find github MCP tools
 npx kloudy mcp
 ```
 
-Node.js 20.19+ is required. Run `npx kloudy` to install, or `npx kloudy@0.4.2` to pin this release. A downloadable tarball is also available at https://kloudy.ai/downloads/kloudy-open-0.4.2.tgz.
+Node.js 20.19+ is required. Run `npx kloudy` to install, or `npx kloudy@0.4.3` to pin this release. A downloadable tarball is also available at https://kloudy.ai/downloads/kloudy-open-0.4.3.tgz.
 
 No arguments detects Cursor, VS Code, Claude Desktop, Claude Code, Windsurf and Codex configurations and asks before writing **each** one. Declining or non-interactive input changes nothing. Existing servers and existing Kloudy entries are preserved. JSONC comments in VS Code and TOML comments in Codex remain intact. Backups are created; malformed or concurrently changed configs are left untouched. Normal OS file permissions apply on Windows; protect config files that contain keys.
 
@@ -303,3 +303,5 @@ MCP: operation `conversation`, `conversation_operation` = `read`, `append` or `s
 `append` takes `project`, `conversation_id`, `idempotency_key`, `expected_revision`, `title`, `user`, `assistant`, `decisions` and `built_artifacts`. Use a stable idempotency key for the same exchange, an explicitly observed revision, up to 1500 characters per message, four decisions/artifact pointers at most, and a total canonical request no larger than 7000 bytes. Send only content the user authorized for sync. A new conversation explicitly starts at revision zero. `sync` takes the same cursor/idempotency fields plus `reason`: `checkpoint`, `session_end`, `device_switch`, `before_sync` or `idle`.
 
 The engine owns encryption, scope checks, condensation gates and transcript deletion. Returned cards are lossy context, never grants. Artifact pointers do not authorize repository reads. The client never persists message bodies in its session file. Replayed commands return metadata only: issue a read for current cards. Conflicts and failures are not retried automatically; read the cursor and reconcile before resubmitting. Added in 0.4.1. The no-key installer and public discovery remain unchanged.
+
+Official MCP Registry name: `ai.kloudy/kloudy`. Remote endpoint: https://kloudy.ai/mcp. Public discovery and Sample cards do not grant private tools or authorize spending.

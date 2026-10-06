@@ -1,3 +1,5 @@
+> Preserved work in progress: runtime source and tests are missing. This package is not built, published, or accepted in a host. A verified publisher must be configured before Marketplace publication.
+
 # Kloudy for VS Code
 
 Registers one Kloudy MCP and mounts a purple Kloudy indicator in the native status bar. It moves only during actual tool requests. Clicking opens the connection guide. Type Kloudy in a chat with this MCP enabled. The host owns chat, permission prompts and device voice. No model prompts, tool arguments, replies or credentials enter the activity channel.

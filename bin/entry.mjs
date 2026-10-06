@@ -13,7 +13,7 @@ try{
   else console.log('Existing servers were preserved. Restart configured clients to connect.');
   if(results.some(r=>r.state==='unchanged_error'))process.exitCode=1;
  }else if(args[0]==='mcp'&&args.length===1){await serveRemote();}
- else if(args[0]==='--version'){console.log('0.4.2');}
+ else if(args[0]==='--version'){console.log('0.4.3');}
  else if(['--help','help'].includes(args[0]))console.log('npx kloudy                 Add to detected editors (asks before each write)\nnpx kloudy <question>      Ask the public Kloudy MCP endpoint\nnpx kloudy mcp             Remote MCP over local stdio\nnpx kloudy legacy <args>   Existing SDK/engine CLI commands\n\nFree discovery needs no key. For authorized account actions set KLOUDY_MCP_TOKEN privately; never put a key in command arguments. Node 20.19+ required.');
  else if(args[0]==='legacy'){process.argv.splice(2,1);await import('./kloudy.mjs');}
  else{if(args[0]?.startsWith('--'))throw Error('Unknown option');const result=await askRemote(args.join(' '));for(const c of result.content||[])if(c.type==='text')process.stdout.write((process.env.KLOUDY_MCP_TOKEN?c.text.replaceAll(process.env.KLOUDY_MCP_TOKEN,'[redacted]'):c.text)+'\n');if(result.isError)process.exitCode=1;}
