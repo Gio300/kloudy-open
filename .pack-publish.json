@@ -1,0 +1,196 @@
+[
+  {
+    "id": "kloudy@0.4.0",
+    "name": "kloudy",
+    "version": "0.4.0",
+    "size": 187769,
+    "unpackedSize": 818874,
+    "shasum": "cd1558870f7c60be4e0cfb96cff159dc1cc7712f",
+    "integrity": "sha512-iP5V2tnPyhbB2mmUfNOudMXypB5KrpDoSR9KGlTGVLAZ9b5pmiBh9LkyJ9p5f19awcMh/Lm46x209y+DKztGWA==",
+    "filename": "kloudy-0.4.0.tgz",
+    "files": [
+      {
+        "path": "LICENSE",
+        "size": 11358,
+        "mode": 420
+      },
+      {
+        "path": "MCP-DEFAULT.md",
+        "size": 924,
+        "mode": 420
+      },
+      {
+        "path": "README.md",
+        "size": 30866,
+        "mode": 420
+      },
+      {
+        "path": "bin/entry.mjs",
+        "size": 2468,
+        "mode": 420
+      },
+      {
+        "path": "bin/kloudy.mjs",
+        "size": 9069,
+        "mode": 420
+      },
+      {
+        "path": "package.json",
+        "size": 1851,
+        "mode": 420
+      },
+      {
+        "path": "schemas/sdf-document-0.2.schema.json",
+        "size": 13937,
+        "mode": 420
+      },
+      {
+        "path": "schemas/SDF-LICENSE.txt",
+        "size": 1091,
+        "mode": 420
+      },
+      {
+        "path": "schemas/sdf-webpage-v1.schema.json",
+        "size": 3742,
+        "mode": 420
+      },
+      {
+        "path": "src/activity.mjs",
+        "size": 2990,
+        "mode": 420
+      },
+      {
+        "path": "src/approval-ui.mjs",
+        "size": 640018,
+        "mode": 420
+      },
+      {
+        "path": "src/approval.mjs",
+        "size": 2798,
+        "mode": 420
+      },
+      {
+        "path": "src/client.mjs",
+        "size": 10625,
+        "mode": 420
+      },
+      {
+        "path": "src/connection.mjs",
+        "size": 2238,
+        "mode": 420
+      },
+      {
+        "path": "src/editor-install.mjs",
+        "size": 4887,
+        "mode": 420
+      },
+      {
+        "path": "src/host-interface.mjs",
+        "size": 1160,
+        "mode": 420
+      },
+      {
+        "path": "src/hosted.mjs",
+        "size": 6157,
+        "mode": 420
+      },
+      {
+        "path": "src/httpk.mjs",
+        "size": 9452,
+        "mode": 420
+      },
+      {
+        "path": "src/install.mjs",
+        "size": 5830,
+        "mode": 420
+      },
+      {
+        "path": "src/introduce.mjs",
+        "size": 5943,
+        "mode": 420
+      },
+      {
+        "path": "src/mcp.mjs",
+        "size": 10699,
+        "mode": 420
+      },
+      {
+        "path": "src/models.mjs",
+        "size": 6093,
+        "mode": 420
+      },
+      {
+        "path": "src/product-actions.mjs",
+        "size": 1865,
+        "mode": 420
+      },
+      {
+        "path": "src/public.mjs",
+        "size": 4185,
+        "mode": 420
+      },
+      {
+        "path": "src/query.mjs",
+        "size": 4100,
+        "mode": 420
+      },
+      {
+        "path": "src/remote.mjs",
+        "size": 2067,
+        "mode": 420
+      },
+      {
+        "path": "src/replies.mjs",
+        "size": 611,
+        "mode": 420
+      },
+      {
+        "path": "src/reply-templates.json",
+        "size": 583,
+        "mode": 420
+      },
+      {
+        "path": "src/sdf-budget.mjs",
+        "size": 1375,
+        "mode": 420
+      },
+      {
+        "path": "src/sdf.mjs",
+        "size": 1026,
+        "mode": 420
+      },
+      {
+        "path": "src/starter.mjs",
+        "size": 3997,
+        "mode": 420
+      },
+      {
+        "path": "src/status-indicator.css",
+        "size": 1323,
+        "mode": 420
+      },
+      {
+        "path": "src/strings.mjs",
+        "size": 7742,
+        "mode": 420
+      },
+      {
+        "path": "src/terminal-status.mjs",
+        "size": 805,
+        "mode": 420
+      },
+      {
+        "path": "src/welcome.mjs",
+        "size": 555,
+        "mode": 420
+      },
+      {
+        "path": "src/wrap.mjs",
+        "size": 4444,
+        "mode": 420
+      }
+    ],
+    "entryCount": 36,
+    "bundled": []
+  }
+]

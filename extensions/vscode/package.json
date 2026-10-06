@@ -1,0 +1,62 @@
+{
+  "name": "kloudy",
+  "displayName": "Kloudy",
+  "description": "One Kloudy MCP with a live, private status indicator.",
+  "version": "0.1.0",
+  "publisher": "Gio300",
+  "license": "Apache-2.0",
+  "engines": {
+    "vscode": "^1.127.0"
+  },
+  "main": "./dist/extension.cjs",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "categories": [
+    "AI"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false
+    }
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "kloudy.open",
+        "title": "Kloudy: Open connection guide"
+      }
+    ],
+    "mcpServerDefinitionProviders": [
+      {
+        "id": "kloudy",
+        "label": "Kloudy"
+      }
+    ],
+    "configuration": {
+      "title": "Kloudy",
+      "properties": {
+        "kloudy.connectionFile": {
+          "type": "string",
+          "default": "",
+          "scope": "application",
+          "description": "Existing scoped Kloudy connection file. Empty uses ~/.kloudy/connection.json. Never enter a token here."
+        },
+        "kloudy.reduceMotion": {
+          "type": "boolean",
+          "default": false,
+          "scope": "application",
+          "description": "Keep the status orb still; text continues to report real activity."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "package": "vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "3.7.1",
+    "@types/vscode": "1.127.0"
+  }
+}
