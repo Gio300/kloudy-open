@@ -6,7 +6,7 @@ npx kloudy find github MCP tools
 npx kloudy mcp
 ```
 
-Node.js 20.19+ is required. Run `npx kloudy` to install, or `npx kloudy@0.4.0` to pin this release. A downloadable tarball is also available at https://kloudy.ai/downloads/kloudy-open-0.4.0.tgz.
+Node.js 20.19+ is required. Run `npx kloudy` to install, or `npx kloudy@0.4.2` to pin this release. A downloadable tarball is also available at https://kloudy.ai/downloads/kloudy-open-0.4.2.tgz.
 
 No arguments detects Cursor, VS Code, Claude Desktop, Claude Code, Windsurf and Codex configurations and asks before writing **each** one. Declining or non-interactive input changes nothing. Existing servers and existing Kloudy entries are preserved. JSONC comments in VS Code and TOML comments in Codex remain intact. Backups are created; malformed or concurrently changed configs are left untouched. Normal OS file permissions apply on Windows; protect config files that contain keys.
 
@@ -16,7 +16,7 @@ The remote endpoint is https://kloudy.ai/mcp. Public catalog discovery works wit
 
 The existing SDK exports remain available under `kloudy/*`. For the pre-0.4 specialized engine CLI commands documented below, use `kloudy legacy <command>` (for example, `kloudy legacy init my-app`). The original CLI is retained in `bin/kloudy.mjs`.
 
-One-click Cursor / VS Code setup: https://kloudy.ai/install. Browser deep links ask the editor to install; opening a link is not proof that installation completed. ChatGPT requires its directory program; this package does not modify ChatGPT. MCP Registry identity: `io.github.Gio300/kloudy`.
+One-click Cursor / VS Code setup: https://kloudy.ai/install. Browser deep links ask the editor to install; opening a link is not proof that installation completed. ChatGPT requires its directory program; this package does not modify ChatGPT.
 
 ## Earlier engine adapter documentation
 
@@ -116,7 +116,7 @@ node scripts/prove.mjs --connection /private/test-connection.json --candidates /
 
 The proof writes `.cache/live-engine-proof.json` without credentials. A completed synthetic Notes result is not a claim of hosted registration, live provider discovery or unrelated integrations.
 
-Protocol references: [MCP SDK](https://ts.sdk.modelcontextprotocol.io/), [Cursor MCP](https://prod.cursor.com/help/customization/mcp), [Claude MCP](https://code.claude.com/docs/en/mcp), [VS Code MCP](https://code.visualstudio.com/docs/agent-customization/mcp-servers). Private coordination source: Gio300/kloudy-shared session-routing and passive-narrowing contracts.
+Protocol references: [MCP SDK](https://ts.sdk.modelcontextprotocol.io/), [Cursor MCP](https://prod.cursor.com/help/customization/mcp), [Claude MCP](https://code.claude.com/docs/en/mcp), [VS Code MCP](https://code.visualstudio.com/docs/agent-customization/mcp-servers).
 
 ## Approval defaults
 

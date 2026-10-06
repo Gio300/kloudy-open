@@ -1,6 +1,6 @@
 {
   "name": "kloudy",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Ask for Kloudy: CLI, MCP and SDK clients for the same scoped engine session.",
   "type": "module",
   "license": "Apache-2.0",
@@ -57,13 +57,12 @@
     "esbuild": "0.28.2"
   },
   "mcpName": "io.github.Gio300/kloudy",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Gio300/kloudy-open.git"
-  },
   "homepage": "https://kloudy.ai/install",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
+  },
+  "bugs": {
+    "url": "https://kloudy.ai/support"
   }
 }
