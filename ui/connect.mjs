@@ -6,7 +6,7 @@ let connected=false,opening=false;
 app.ontoolresult=({structuredContent})=>{
  const install=structuredContent?.mode==='install';
  document.querySelector('#title').textContent=install?'Where do you want Kloudy?':'Connect Kloudy';
- document.querySelector('#intro').textContent=install?'Choose your editor or sign in.':'Find tools. Build with your existing front door.';
+ document.querySelector('#intro').textContent=install?'Choose your editor or sign in.':'Find tools for your projects.';
  document.querySelector('#status').textContent='';document.querySelector('#fallback').hidden=true;
 };
 app.onerror=()=>{connected=false;};
