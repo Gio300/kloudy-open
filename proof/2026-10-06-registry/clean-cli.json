@@ -1,0 +1,14 @@
+{
+  "environment": "Fresh dependency directory and npm cache on existing Windows host; not a new physical machine",
+  "commands": {
+    "--version": {
+      "exitCode": 0,
+      "stdout": "0.4.3\n"
+    },
+    "install npx kloudy": {
+      "exitCode": 0,
+      "stdout": "Choose where to connect Kloudy. Opening setup is not a finished connection.\n\n[Add to an IDE](https://kloudy.ai/install#clients)\n[Connect to Muse](https://kloudy.ai/install#muse)\n[Sign in](https://kloudy.ai/install)\n"
+    }
+  },
+  "customerConfigsWritten": false
+}

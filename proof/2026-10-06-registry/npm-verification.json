@@ -1,0 +1,9 @@
+{
+  "name": "kloudy",
+  "version": "0.4.3",
+  "mcpName": "ai.kloudy/kloudy",
+  "integrity": "sha512-QzUAC67qHV4juaNf+161E6JafrGKdR5fFE3UPrN00wBh+zQ83GA3+RoQ69QjFBvRnhy+B700DOPxkEk2Ic80tA==",
+  "publishedTarballMatchesReviewed": true,
+  "sourceCommit": "23eabb7b",
+  "sha256": "8df52a071af57de66c2581c3c291709ad3b50e32d262bffcaa80de0e3aa1c348"
+}

@@ -1,0 +1,45 @@
+{
+  "http": 200,
+  "result": {
+    "server": {
+      "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+      "name": "ai.kloudy/kloudy",
+      "description": "Find public MCP tools and SDKs. Compact setup and Sample cards. Free discovery needs no key.",
+      "title": "Kloudy",
+      "version": "0.4.3",
+      "websiteUrl": "https://kloudy.ai",
+      "packages": [
+        {
+          "registryType": "npm",
+          "registryBaseUrl": "https://registry.npmjs.org",
+          "identifier": "kloudy",
+          "version": "0.4.3",
+          "transport": {
+            "type": "stdio"
+          },
+          "packageArguments": [
+            {
+              "value": "mcp",
+              "type": "positional"
+            }
+          ]
+        }
+      ],
+      "remotes": [
+        {
+          "type": "streamable-http",
+          "url": "https://kloudy.ai/mcp"
+        }
+      ]
+    },
+    "_meta": {
+      "io.modelcontextprotocol.registry/official": {
+        "status": "active",
+        "statusChangedAt": "2026-10-06T19:47:04.789806951Z",
+        "publishedAt": "2026-10-06T19:47:04.789806951Z",
+        "updatedAt": "2026-10-06T19:47:04.789806951Z",
+        "isLatest": true
+      }
+    }
+  }
+}

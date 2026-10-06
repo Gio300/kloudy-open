@@ -1,0 +1,277 @@
+{
+  "ai.kloudy/kloudy/versions/latest": {
+    "http": 200,
+    "body": {
+      "server": {
+        "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+        "name": "ai.kloudy/kloudy",
+        "description": "Find public MCP tools and SDKs. Compact setup and Sample cards. Free discovery needs no key.",
+        "title": "Kloudy",
+        "version": "0.4.3",
+        "websiteUrl": "https://kloudy.ai",
+        "packages": [
+          {
+            "registryType": "npm",
+            "registryBaseUrl": "https://registry.npmjs.org",
+            "identifier": "kloudy",
+            "version": "0.4.3",
+            "transport": {
+              "type": "stdio"
+            },
+            "packageArguments": [
+              {
+                "value": "mcp",
+                "type": "positional"
+              }
+            ]
+          }
+        ],
+        "remotes": [
+          {
+            "type": "streamable-http",
+            "url": "https://kloudy.ai/mcp"
+          }
+        ]
+      },
+      "_meta": {
+        "io.modelcontextprotocol.registry/official": {
+          "status": "active",
+          "statusChangedAt": "2026-10-06T19:47:04.789806Z",
+          "publishedAt": "2026-10-06T19:47:04.789806Z",
+          "updatedAt": "2026-10-06T19:47:04.789806Z",
+          "isLatest": true
+        }
+      }
+    }
+  },
+  "ai.kloudy/kloudy/versions?include_deleted=true": {
+    "http": 200,
+    "body": {
+      "servers": [
+        {
+          "server": {
+            "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+            "name": "ai.kloudy/kloudy",
+            "description": "Find public MCP tools and SDKs. Compact setup and Sample cards. Free discovery needs no key.",
+            "title": "Kloudy",
+            "version": "0.4.3",
+            "websiteUrl": "https://kloudy.ai",
+            "packages": [
+              {
+                "registryType": "npm",
+                "registryBaseUrl": "https://registry.npmjs.org",
+                "identifier": "kloudy",
+                "version": "0.4.3",
+                "transport": {
+                  "type": "stdio"
+                },
+                "packageArguments": [
+                  {
+                    "value": "mcp",
+                    "type": "positional"
+                  }
+                ]
+              }
+            ],
+            "remotes": [
+              {
+                "type": "streamable-http",
+                "url": "https://kloudy.ai/mcp"
+              }
+            ]
+          },
+          "_meta": {
+            "io.modelcontextprotocol.registry/official": {
+              "status": "active",
+              "statusChangedAt": "2026-10-06T19:47:04.789806Z",
+              "publishedAt": "2026-10-06T19:47:04.789806Z",
+              "updatedAt": "2026-10-06T19:47:04.789806Z",
+              "isLatest": true
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "count": 1
+      }
+    }
+  },
+  "io.github.Gio300/kloudy/versions/latest": {
+    "http": 404,
+    "body": {
+      "title": "Not Found",
+      "status": 404,
+      "detail": "Server not found"
+    }
+  },
+  "io.github.Gio300/kloudy/versions?include_deleted=true": {
+    "http": 200,
+    "body": {
+      "servers": [
+        {
+          "server": {
+            "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+            "name": "io.github.Gio300/kloudy",
+            "description": "One MCP for IDEs and bots: finds the right tool and runs it. Free, no key. Install: npx kloudy",
+            "title": "Kloudy",
+            "repository": {
+              "url": "https://github.com/Gio300/kloudy-open",
+              "source": "github"
+            },
+            "version": "0.4.1",
+            "websiteUrl": "https://kloudy.ai",
+            "packages": [
+              {
+                "registryType": "npm",
+                "registryBaseUrl": "https://registry.npmjs.org",
+                "identifier": "kloudy",
+                "version": "0.4.0",
+                "transport": {
+                  "type": "stdio"
+                },
+                "packageArguments": [
+                  {
+                    "value": "mcp",
+                    "type": "positional"
+                  }
+                ],
+                "environmentVariables": [
+                  {
+                    "description": "Optional Kloudy token for private tools",
+                    "isSecret": true,
+                    "name": "KLOUDY_MCP_TOKEN"
+                  }
+                ]
+              }
+            ],
+            "remotes": [
+              {
+                "type": "streamable-http",
+                "url": "https://kloudy.ai/mcp",
+                "headers": [
+                  {
+                    "description": "Optional Bearer Kloudy token for private tools and account actions. Free discovery needs no key.",
+                    "isSecret": true,
+                    "name": "Authorization"
+                  }
+                ]
+              }
+            ]
+          },
+          "_meta": {
+            "io.modelcontextprotocol.registry/official": {
+              "status": "deleted",
+              "statusChangedAt": "2026-10-06T19:47:02.999032Z",
+              "statusMessage": "Moved to ai.kloudy/kloudy. Same Kloudy endpoint: https://kloudy.ai/mcp",
+              "publishedAt": "2026-10-04T08:27:53.707928Z",
+              "updatedAt": "2026-10-06T19:47:02.999032Z",
+              "isLatest": true
+            }
+          }
+        },
+        {
+          "server": {
+            "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+            "name": "io.github.Gio300/kloudy",
+            "description": "One MCP for IDEs and bots: finds the right tool and runs it. Free discovery, no key. Install: npx kl",
+            "title": "Kloudy",
+            "repository": {
+              "url": "https://github.com/Gio300/kloudy-open",
+              "source": "github"
+            },
+            "version": "0.4.0",
+            "websiteUrl": "https://kloudy.ai",
+            "packages": [
+              {
+                "registryType": "npm",
+                "registryBaseUrl": "https://registry.npmjs.org",
+                "identifier": "kloudy",
+                "version": "0.4.0",
+                "transport": {
+                  "type": "stdio"
+                },
+                "packageArguments": [
+                  {
+                    "value": "mcp",
+                    "type": "positional"
+                  }
+                ],
+                "environmentVariables": [
+                  {
+                    "description": "Optional Kloudy token for private tools",
+                    "isSecret": true,
+                    "name": "KLOUDY_MCP_TOKEN"
+                  }
+                ]
+              }
+            ],
+            "remotes": [
+              {
+                "type": "streamable-http",
+                "url": "https://kloudy.ai/mcp",
+                "headers": [
+                  {
+                    "description": "Optional Bearer Kloudy token for private tools and account actions. Free discovery needs no key.",
+                    "isSecret": true,
+                    "name": "Authorization"
+                  }
+                ]
+              }
+            ]
+          },
+          "_meta": {
+            "io.modelcontextprotocol.registry/official": {
+              "status": "deleted",
+              "statusChangedAt": "2026-10-06T19:47:02.999032Z",
+              "statusMessage": "Moved to ai.kloudy/kloudy. Same Kloudy endpoint: https://kloudy.ai/mcp",
+              "publishedAt": "2026-10-04T08:27:44.720468Z",
+              "updatedAt": "2026-10-06T19:47:02.999032Z",
+              "isLatest": false
+            }
+          }
+        },
+        {
+          "server": {
+            "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+            "name": "io.github.Gio300/kloudy",
+            "description": "One MCP for IDEs and bots: finds the right tool, runs it with a scoped token, returns the result.",
+            "title": "Kloudy",
+            "repository": {
+              "url": "https://github.com/Gio300/kloudy-open",
+              "source": "github"
+            },
+            "version": "0.3.0",
+            "websiteUrl": "https://kloudy.ai/mcp",
+            "remotes": [
+              {
+                "type": "streamable-http",
+                "url": "https://kloudy.ai/mcp",
+                "headers": [
+                  {
+                    "description": "Bearer <Kloudy scoped user grant>. Grants are currently issued by the Kloudy operator (development tenant).",
+                    "isRequired": true,
+                    "isSecret": true,
+                    "name": "Authorization"
+                  }
+                ]
+              }
+            ]
+          },
+          "_meta": {
+            "io.modelcontextprotocol.registry/official": {
+              "status": "deleted",
+              "statusChangedAt": "2026-10-06T19:47:02.999032Z",
+              "statusMessage": "Moved to ai.kloudy/kloudy. Same Kloudy endpoint: https://kloudy.ai/mcp",
+              "publishedAt": "2026-10-02T22:16:05.321197Z",
+              "updatedAt": "2026-10-06T19:47:02.999032Z",
+              "isLatest": false
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "count": 3
+      }
+    }
+  }
+}

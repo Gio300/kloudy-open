@@ -1,0 +1,5 @@
+{
+  "authenticated": true,
+  "namespace": "ai.kloudy/*",
+  "mechanism": "Official signed-timestamp DNS API; DPAPI seed decrypted only in process; no secret in argv or files outside Keys Boi"
+}

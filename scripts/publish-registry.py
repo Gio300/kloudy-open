@@ -74,7 +74,7 @@ def public_dns(k):
     r.raise_for_status()
     answers = r.json().get('Answer', [])
     verified = any(record(k) == x.get('data', '').strip('"') for x in answers)
-    save('dns-public.json', {'verified': verified, 'resolver': r.url, 'answers': answers})
+    save('dns-public.json', {'verified': verified, 'resolver': r.url, 'answers': [x for x in answers if 'v=MCPv1;' in x.get('data', '')]})
     if not verified:
         raise RuntimeError('Public DNS has not confirmed the registry key')
 
