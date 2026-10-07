@@ -1,0 +1,11 @@
+{
+  "sourceProxyVersion": "0.4.3",
+  "realRemote": true,
+  "tools": [
+    "find_mcp_tools",
+    "kloudy_connect_card",
+    "show_tool_preferences_card"
+  ],
+  "publicRead": true,
+  "publishedNpmUpdated": false
+}
