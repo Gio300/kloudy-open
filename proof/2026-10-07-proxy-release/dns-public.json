@@ -1,0 +1,12 @@
+{
+  "verified": true,
+  "resolver": "https://dns.google/resolve?name=kloudy.ai&type=TXT",
+  "answers": [
+    {
+      "name": "kloudy.ai.",
+      "type": 16,
+      "TTL": 3600,
+      "data": "v=MCPv1; k=ed25519; p=PZ788e4h9009SWGG0+aLStf+Bg2o88pOBApf5/PcpUI="
+    }
+  ]
+}

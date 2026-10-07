@@ -7,7 +7,7 @@ import subprocess
 import tempfile
 
 root = Path(__file__).resolve().parents[1]
-proof = root / 'proof/2026-10-06-registry'
+proof = root / os.environ.get('RELEASE_PROOF', 'proof/2026-10-06-registry')
 proof.mkdir(parents=True, exist_ok=True)
 cache = root / '.cache/registry-release'
 cache.mkdir(parents=True, exist_ok=True)

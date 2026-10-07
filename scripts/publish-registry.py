@@ -19,7 +19,7 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from cryptography.hazmat.primitives.serialization import Encoding, PrivateFormat, PublicFormat, NoEncryption
 
 ROOT = Path(__file__).resolve().parents[1]
-PROOF = ROOT / 'proof/2026-10-06-registry'
+PROOF = ROOT / os.environ.get('RELEASE_PROOF', 'proof/2026-10-06-registry')
 KEYS = Path(os.environ['USERPROFILE']) / 'Documents/keys_boi'
 KEY = KEYS / 'kloudy_mcp_registry_ed25519.dpapi'
 REG = 'https://registry.modelcontextprotocol.io/v0.1'

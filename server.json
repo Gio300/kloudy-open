@@ -3,7 +3,7 @@
   "name": "ai.kloudy/kloudy",
   "title": "Kloudy",
   "description": "Find public MCP tools and SDKs. Compact setup and Sample cards. Free discovery needs no key.",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "websiteUrl": "https://kloudy.ai",
   "remotes": [
     {
@@ -16,7 +16,7 @@
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "kloudy",
-      "version": "0.4.3",
+      "version": "0.4.4",
       "transport": {
         "type": "stdio"
       },
