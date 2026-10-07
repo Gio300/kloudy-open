@@ -15,7 +15,7 @@ app.ontoolresult=({structuredContent})=>{
 document.querySelector('#copy-install').addEventListener('click',async()=>{
  const status=document.querySelector('#status'),button=document.querySelector('#copy-install');
  try{await navigator.clipboard.writeText('npx kloudy');button.textContent='Copied';status.textContent='';}
- catch{const field=document.querySelector('#copy-fallback');field.hidden=false;field.focus();field.select();status.textContent='Copy the selected text, then paste it into your editor’s chat.';}
+ catch{button.textContent='Copy npx kloudy';const field=document.querySelector('#copy-fallback');field.hidden=false;field.focus();field.select();status.textContent='Copy the selected text, then paste it into your editor’s chat.';}
 });
 app.onerror=()=>{connected=false;};
 for(const link of document.querySelectorAll('a[data-connect]'))link.addEventListener('click',async event=>{
