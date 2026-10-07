@@ -2,10 +2,10 @@
 .sample-page{--canvas:var(--sample-bg);--ink:var(--sample-ink)}@media(max-width:320px){.sample-options{grid-template-columns:1fr 1fr}.sample-card button{font-size:12px;padding:8px}.sample-card h1{font-size:18px;margin:14px 0 8px}.sample-card p{font-size:12px;margin:8px 0}.sample-card footer{margin-top:8px}.sample-card summary{min-height:30px}.sample-page>nav{padding:10px}.sample-card header{font-size:10px;gap:6px}}
 
 /* Device preference owns card appearance; no preference keeps the light default. */
-:root{color-scheme:light;--sample-wordmark:#315e9b}
+:root{color-scheme:light;--sample-wordmark:#656770}
 .sample-card header,.sample-page>nav>a:first-child{color:var(--sample-wordmark)}
 @media(prefers-color-scheme:dark){
- :root{color-scheme:dark;--sample-wordmark:#e4efff}
+ :root{color-scheme:dark;--sample-wordmark:#f1f1f4}
 }
 
 /* One responsive card, with the same copy and larger targets in either theme. */
@@ -13,8 +13,8 @@
 .sample-card details a{display:inline-flex;align-items:center;min-height:44px}
 
 /* Standalone host cards share the homepage palette even without the site stylesheet. */
-:root{--sample-bg:#fff;--sample-ink:#34353a;--sample-muted:#656770;--sample-line:#e2e2e8;--sample-active:#efeff4;--sample-wordmark:#28627f;--sample-action:#33343a;--sample-action-ink:#fff}
+:root{--sample-bg:#fff;--sample-ink:#34353a;--sample-muted:#656770;--sample-line:#e2e2e8;--sample-active:#efeff4;--sample-wordmark:#656770;--sample-action:#33343a;--sample-action-ink:#fff}
 .sample-page{background:#fafafa}.sample-card .sample-primary{background:var(--sample-action);color:var(--sample-action-ink);border-color:var(--sample-action)}.sample-card button[aria-pressed=true]{border-color:var(--sample-wordmark)}
 .sample-orb{animation:sample-alive 3s ease-in-out infinite}@keyframes sample-alive{50%{transform:scale(1.08);box-shadow:0 0 20px #aa7dff88}}
-@media(prefers-color-scheme:dark){:root{--sample-bg:#292a34;--sample-ink:#e7e7ec;--sample-muted:#aaabb5;--sample-line:#34353f;--sample-active:#262730;--sample-wordmark:#dcebf8;--sample-action:#e9e9ed;--sample-action-ink:#202126}.sample-page{background:#17181c}}
+@media(prefers-color-scheme:dark){:root{--sample-bg:#292a34;--sample-ink:#e7e7ec;--sample-muted:#aaabb5;--sample-line:#34353f;--sample-active:#262730;--sample-wordmark:#f1f1f4;--sample-action:#e9e9ed;--sample-action-ink:#202126}.sample-page{background:#17181c}}
 @media(prefers-reduced-motion:reduce){.sample-orb{animation:none}}

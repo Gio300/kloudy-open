@@ -13,15 +13,15 @@ export const connectTool={
 export function connectArguments(value){return !!value&&typeof value==='object'&&!Array.isArray(value)&&Object.keys(value).length===1&&['signin','install'].includes(value.mode);}
 export function connectResult(mode,{publicOnly=false}={}){
  const install=mode==='install';
- const message=install?'Copy npx kloudy. Paste it into your editor’s chat.':'GitHub sign-in coming soon. Find public tools today.';
- const actions=[install?{label:'Setup help',url:'https://kloudy.ai/install'}:{label:'Find tools',url:'https://kloudy.ai/install#discover'}];
- return {content:[{type:'text',text:install?message:message+'\n\n'+actions.map(a=>`[${a.label}](${a.url})`).join('\n')}],structuredContent:{tier:'public',kind:install?'connect':'account',mode,items:[],message,...(install?{copyText:'npx kloudy'}:{}),actions,model_calls:0,executed:false}};
+ const message=install?'Choose Connect, then pick your app.':'GitHub sign-in coming soon. Find public tools today.';
+ const actions=[install?{label:'Connect',url:'https://kloudy.ai/install'}:{label:'Find tools',url:'https://kloudy.ai/install#discover'}];
+ return {content:[{type:'text',text:message+'\n\n'+actions.map(a=>`[${a.label}](${a.url})`).join('\n')}],structuredContent:{tier:'public',kind:install?'connect':'account',mode,items:[],message,...(install?{copyText:'npx kloudy'}:{}),actions,model_calls:0,executed:false}};
 }
 export function connectContents({publicOnly=false}={}){return {contents:[{uri:CONNECT_URI,mimeType:connectResource.mimeType,text:publicOnly?publicConnectHTML:connectHTML,_meta:{
  ui:{prefersBorder:true,domain:'https://kloudy.ai',csp:{connectDomains:[],resourceDomains:[]}},
  'openai/widgetDescription':'Kloudy sign-in and setup choices. No account is created and no tool is authorized by opening a link.',
  'openai/widgetPrefersBorder':true,'openai/widgetDomain':'https://kloudy.ai',
- 'openai/widgetCSP':{connect_domains:[],resource_domains:[],redirect_domains:['https://kloudy.ai','https://cursor.com','https://insiders.vscode.dev']}
+ 'openai/widgetCSP':{connect_domains:[],resource_domains:[],redirect_domains:['https://kloudy.ai','https://cursor.com','https://code.visualstudio.com','https://windsurf.com','https://devin.ai','https://claude.com','https://claude.ai','https://chatgpt.com']}
  }}]};}
 // Public UI metadata still requires credential validation when called with a credential.
 export function connectMessage(method,params={}){
