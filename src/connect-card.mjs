@@ -1,21 +1,21 @@
 import {connectHTML,publicConnectHTML} from './connect-ui.mjs';
 
 export const CONNECT_URI='ui://widget/kloudy-connect-v1.html';
-export const connectResource={uri:CONNECT_URI,name:'Kloudy setup',description:'Sign in or choose a Kloudy front door. Navigation only.',mimeType:'text/html;profile=mcp-app'};
+export const connectResource={uri:CONNECT_URI,name:'Kloudy setup',description:'Show the Kloudy install step or sign-in availability.',mimeType:'text/html;profile=mcp-app'};
 export const connectTool={
  name:'kloudy_connect_card',
  title:'Kloudy sign-in and install card',
- description:'Show sign-in or install choices. First call find_mcp_tools with operation ask and a short setup request. If it returns kind account or connect, call this card once with the returned mode. Opening setup does not finish sign-in or installation. Text-only hosts show the returned links.',
+ description:'Show sign-in availability or the one-step install card. First call find_mcp_tools with operation ask and a short setup request. If it returns kind account or connect, call this card once with the returned mode. Copying the command does not install anything or authorize private tools. Text-only hosts show the same instruction.',
  annotations:{readOnlyHint:true,destructiveHint:false,idempotentHint:true,openWorldHint:false},
  inputSchema:{type:'object',properties:{mode:{type:'string',enum:['signin','install'],description:'Use the mode returned by find_mcp_tools: signin for account sign-in, or install for editor setup.'}},required:['mode'],additionalProperties:false},
- _meta:{ui:{resourceUri:CONNECT_URI},'openai/outputTemplate':CONNECT_URI,'openai/toolInvocation/invoking':'Opening Kloudy setup…','openai/toolInvocation/invoked':'Kloudy setup choices'}
+ _meta:{ui:{resourceUri:CONNECT_URI},'openai/outputTemplate':CONNECT_URI,'openai/toolInvocation/invoking':'Opening Kloudy setup…','openai/toolInvocation/invoked':'Kloudy setup'}
 };
 export function connectArguments(value){return !!value&&typeof value==='object'&&!Array.isArray(value)&&Object.keys(value).length===1&&['signin','install'].includes(value.mode);}
 export function connectResult(mode,{publicOnly=false}={}){
  const install=mode==='install';
- const message=install?'Find tools in the editor you already use. Open setup to get Kloudy.':'GitHub sign-in coming soon. Find public tools today.';
- const actions=[install?{label:'Get Kloudy',url:'https://kloudy.ai/install'}:{label:'Find tools',url:'https://kloudy.ai/install#discover'}];
- return {content:[{type:'text',text:message+'\n\n'+actions.map(a=>`[${a.label}](${a.url})`).join('\n')}],structuredContent:{tier:'public',kind:install?'connect':'account',mode,items:[],message,actions,model_calls:0,executed:false}};
+ const message=install?'Copy npx kloudy. Paste it into your editor’s chat.':'GitHub sign-in coming soon. Find public tools today.';
+ const actions=[install?{label:'Setup help',url:'https://kloudy.ai/install'}:{label:'Find tools',url:'https://kloudy.ai/install#discover'}];
+ return {content:[{type:'text',text:install?message:message+'\n\n'+actions.map(a=>`[${a.label}](${a.url})`).join('\n')}],structuredContent:{tier:'public',kind:install?'connect':'account',mode,items:[],message,...(install?{copyText:'npx kloudy'}:{}),actions,model_calls:0,executed:false}};
 }
 export function connectContents({publicOnly=false}={}){return {contents:[{uri:CONNECT_URI,mimeType:connectResource.mimeType,text:publicOnly?publicConnectHTML:connectHTML,_meta:{
  ui:{prefersBorder:true,domain:'https://kloudy.ai',csp:{connectDomains:[],resourceDomains:[]}},
