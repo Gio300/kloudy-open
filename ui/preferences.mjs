@@ -21,7 +21,11 @@ root.addEventListener('click',async event=>{
   const result=await app.updateModelContext({content:[{type:'text',text:JSON.stringify({type:'kloudy.sample.preferences',version:1,preferences:flow.value,authority:'presentation-only',spendingAuthorized:false,accountSaved:false})}]});
   if(result?.isError)throw Error('Your choices could not be shared. Try again.');
   render('Choices shared for this conversation. No tools were connected.');
- }catch{render('Your choices could not be shared here. Try again or save them on Kloudy.');}finally{busy=false;const a=document.createElement('a');a.href='https://kloudy.ai/samples?frontdoor='+surface+'#preferences='+encodeURIComponent(JSON.stringify(flow.value));a.className='sample-primary';a.textContent='Save on my Kloudy account';root.querySelector('section')?.append(a);}}
+  root.querySelector('[data-sample-save]')?.remove();
+  root.querySelector('h1').textContent='Your choices are ready.';
+  root.querySelector('[data-sample-back]').textContent='Edit choices';
+  root.querySelector('[data-sample-later]').textContent='Done';
+ }catch{render('Your choices could not be shared. Try again.');root.querySelector('[data-sample-save]').textContent='Try again';}finally{busy=false;const details=document.createElement('details'),summary=document.createElement('summary'),note=document.createElement('p'),a=document.createElement('a');summary.textContent='Save across devices';note.textContent='GitHub sign-in coming soon. You can preview your choices on Kloudy.';a.href='https://kloudy.ai/samples?frontdoor='+surface+'#preferences='+encodeURIComponent(JSON.stringify(flow.value));a.textContent='Preview on Kloudy';details.append(summary,note,a);root.querySelector('section')?.append(details);}}
 });
 app.onerror=()=>{connected=false;};
 if(window.parent!==window)app.connect().then(()=>{connected=true;}).catch(()=>{});

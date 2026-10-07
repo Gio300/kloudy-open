@@ -5,8 +5,9 @@ const app=new App({name:'Kloudy connect',version:'1.0.0'},{},{autoResize:true});
 let connected=false,opening=false;
 app.ontoolresult=({structuredContent})=>{
  const install=structuredContent?.mode==='install';
- document.querySelector('#title').textContent=install?'Where do you want Kloudy?':'Connect Kloudy';
- document.querySelector('#intro').textContent=install?'Choose your editor or sign in.':'Find tools for your projects.';
+ document.querySelector('#title').textContent=install?'Get Kloudy':'Sign-in is coming soon';
+ document.querySelector('#intro').textContent=install?'Find tools in the editor you already use.':'GitHub sign-in coming soon. Find public tools today.';
+ const primary=document.querySelector('a.primary');primary.textContent=install?'Get Kloudy ↗':'Find tools ↗';primary.href=install?'https://kloudy.ai/install':'https://kloudy.ai/install#discover';
  document.querySelector('#status').textContent='';document.querySelector('#fallback').hidden=true;
 };
 app.onerror=()=>{connected=false;};

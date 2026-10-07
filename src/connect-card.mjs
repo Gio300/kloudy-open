@@ -13,12 +13,8 @@ export const connectTool={
 export function connectArguments(value){return !!value&&typeof value==='object'&&!Array.isArray(value)&&Object.keys(value).length===1&&['signin','install'].includes(value.mode);}
 export function connectResult(mode,{publicOnly=false}={}){
  const install=mode==='install';
- const message=install?'Choose where to connect Kloudy. Opening setup is not a finished connection.':'Kloudy finds MCP tools and SDKs for your task. Sign in or keep using free discovery.';
- const actions=install?[
-  {label:'Add to an IDE',url:'https://kloudy.ai/install#clients'},
-  ...(!publicOnly?[{label:'Connect to Muse',url:'https://kloudy.ai/install#muse'}]:[]),
-  {label:'Sign in',url:'https://kloudy.ai/install'}
- ]:[{label:'Sign in to Kloudy',url:'https://kloudy.ai/install'},{label:'Add to an IDE',url:'https://kloudy.ai/install#clients'}];
+ const message=install?'Find tools in the editor you already use. Open setup to get Kloudy.':'GitHub sign-in coming soon. Find public tools today.';
+ const actions=[install?{label:'Get Kloudy',url:'https://kloudy.ai/install'}:{label:'Find tools',url:'https://kloudy.ai/install#discover'}];
  return {content:[{type:'text',text:message+'\n\n'+actions.map(a=>`[${a.label}](${a.url})`).join('\n')}],structuredContent:{tier:'public',kind:install?'connect':'account',mode,items:[],message,actions,model_calls:0,executed:false}};
 }
 export function connectContents({publicOnly=false}={}){return {contents:[{uri:CONNECT_URI,mimeType:connectResource.mimeType,text:publicOnly?publicConnectHTML:connectHTML,_meta:{
