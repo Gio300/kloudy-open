@@ -3,7 +3,7 @@ import {resolve,join} from 'node:path';
 import {KloudyError} from './client.mjs';
 export const starterFiles={
  'kloudy.json':JSON.stringify({version:'kloudy.project/1',deploymentTarget:'bww',html:'provider-opt-in',publication:'requires-authorized-hosting'},null,2)+'\n',
- 'package.json':JSON.stringify({name:'my-kloudy-app',version:'1.0.0',private:true,type:'module',engines:{node:'>=20.19.0'},scripts:{start:'node app.mjs',card:'node card.mjs',toolbox:'node toolbox.mjs'},dependencies:{'kloudy':'https://kloudy.ai/downloads/kloudy-open-0.4.0.tgz'}},null,2)+'\n',
+ 'package.json':JSON.stringify({name:'my-kloudy-app',version:'1.0.0',private:true,type:'module',engines:{node:'>=20.19.0'},scripts:{start:'node app.mjs',card:'node card.mjs',toolbox:'node toolbox.mjs'},dependencies:{'kloudy':'latest'}},null,2)+'\n',
  'app.mjs':`import {readPublicPage} from 'kloudy/public';
 try {
  const page=await readPublicPage(process.argv[2]||'https://example.com');
@@ -29,7 +29,7 @@ The default deployment target is the Bot Wide Web. kloudy.json records that choi
 - npm run card -- /world: fetch the same bounded information card bots see.
 - npm run toolbox: select a toolbox with an existing scoped connection. Keep KLOUDY_CONNECTION pointing to its private file outside this project. Missing/expired connections fail explicitly. This example never executes the selected tool.
 
-Use kloudy install to attach the one MCP door to a supported IDE. Customer self-registration and permanent GlassBreak grants are not yet available. Do not place tokens in browser code, Git, screenshots or prompts. A catalog listing is not an executable provider integration.
+Use npx -y kloudy@latest to attach the one MCP door to a supported IDE. Customer self-registration and permanent GlassBreak grants are not yet available. Do not place tokens in browser code, Git, screenshots or prompts. A catalog listing is not an executable provider integration.
 
 The CLI, MCP and SDK share the engine's authorization boundary. https://kloudy.ai/build documents current availability and the next steps. The downloaded public adapter is Apache-2.0; it contains no private engine or vault implementation.
 `

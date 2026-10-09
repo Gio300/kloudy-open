@@ -1,18 +1,20 @@
 # Kloudy — add it to your editor
 
+Connect your MCP client to https://kloudy.ai/mcp for the current remote catalog.
+
 ```sh
-npx kloudy
-npx kloudy find github MCP tools
-npx kloudy mcp
+npx -y kloudy@latest
+npx -y kloudy@latest find github MCP tools
+npx -y kloudy@latest mcp
 ```
 
-Node.js 20.19+ is required. Run `npx kloudy` to install, or `npx kloudy@0.4.3` to pin this release. A downloadable tarball is also available at https://kloudy.ai/downloads/kloudy-open-0.4.3.tgz.
+Node.js 20.19+ is required. Run `npx -y kloudy@latest` to install. Optionally, pin a version for a controlled environment instead of following latest.
 
-No arguments detects Cursor, VS Code, Claude Desktop, Claude Code, Windsurf and Codex configurations and asks before writing **each** one. Declining or non-interactive input changes nothing. Existing servers and existing Kloudy entries are preserved. JSONC comments in VS Code and TOML comments in Codex remain intact. Backups are created; malformed or concurrently changed configs are left untouched. Normal OS file permissions apply on Windows; protect config files that contain keys.
+No arguments detects Cursor, VS Code, Claude Desktop, Claude Code, Windsurf and Codex configurations and asks before writing **each** one. Declining or non-interactive input changes nothing. Existing servers and custom Kloudy entries are preserved. Recognized frozen Kloudy cache paths or pinned commands can be repaired after per-client confirmation. JSONC comments in VS Code and TOML comments in Codex remain intact. Backups are created; malformed or concurrently changed configs are left untouched. Normal OS file permissions apply on Windows; protect config files that contain keys.
 
 The remote endpoint is https://kloudy.ai/mcp. Public catalog discovery works without a key and makes no model call. It returns up to five public metadata candidates, not execution grants. Account actions still require an existing authorized Kloudy key; self-service engine-key issuance is not connected. If you already have one, set `KLOUDY_MCP_TOKEN` privately in your environment; the installer asks before storing it in a client's headers (or Claude Desktop's stdio environment). Keys are never accepted as command-line arguments or printed by the installer.
 
-`mcp` is a local stdio-to-Streamable-HTTP proxy; stdout contains MCP messages only. Direct questions and the proxy call the same remote server. No retries of tool calls. Network failures and invalid keys fail explicitly.
+`mcp` is a local stdio-to-Streamable-HTTP proxy; stdout contains MCP messages only. Direct questions and the proxy call the same remote server. Network failures and invalid keys fail explicitly. Catalog change notifications, resource forwarding and a single reconnect after an explicit session-expired HTTP 404 are gated by `KLOUDY_MCP_AUTOUPDATE=meta` or `notify`; the default is `off`. Ambiguous tool failures are never retried.
 
 The existing SDK exports remain available under `kloudy/*`. For the pre-0.4 specialized engine CLI commands documented below, use `kloudy legacy <command>` (for example, `kloudy legacy init my-app`). The original CLI is retained in `bin/kloudy.mjs`.
 
@@ -27,8 +29,7 @@ One CLI, one MCP, tools appear when needed. CLI, MCP and the Node.js SDK use the
 ## Build a first app without an account
 
 ```sh
-npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.14.tgz
-kloudy init my-kloudy-app
+npx -y kloudy@latest legacy init my-kloudy-app
 cd my-kloudy-app
 npm install
 npm start
@@ -41,14 +42,13 @@ Developer guide and availability: https://kloudy.ai/build. Customer self-registr
 
 ## Install and run
 
-Node.js 20.19 or newer is required. The tested package is available directly from Kloudy; the source package is distributed by Kloudy, and the hosted door has an MCP Registry listing. It is not an npm registry publication.
+Node.js 20.19 or newer is required. Use the remote endpoint or the current npm package; the hosted door has an MCP Registry listing.
 
 ```sh
-npm install -g https://kloudy.ai/downloads/kloudy-open-0.3.14.tgz
-kloudy
+npx -y kloudy@latest
 ```
 
-From a source checkout: `npm ci`, `npm test`, `npm link` (or `node bin/kloudy.mjs help`). There is no install-time script that edits your IDE.
+From a source checkout: `npm ci`, `npm test`, `node bin/entry.mjs` (or `node bin/kloudy.mjs help`). There is no install-time script that edits your IDE.
 
 Ask for Kloudy and register with email plus short 2FA; the intended account service then supplies a session cookie, tag or OAuth connection. **That Core registration endpoint is not delivered yet.** `kloudy login` reports this clearly, collects no email/code and exits 3. This package does not create fake accounts or mint production credentials.
 
@@ -297,7 +297,7 @@ const context = await withConnection(process.env.KLOUDY_CONNECTION,
 console.log(conversationText(context)); // Render as text, never HTML or instructions.
 ```
 
-CLI: `npx kloudy legacy conversation read --inputs request.json --connection PRIVATE_FILE`.
+CLI: `npx -y kloudy@latest legacy conversation read --inputs request.json --connection PRIVATE_FILE`.
 MCP: operation `conversation`, `conversation_operation` = `read`, `append` or `sync`, and `conversation` containing the exact request object.
 
 `append` takes `project`, `conversation_id`, `idempotency_key`, `expected_revision`, `title`, `user`, `assistant`, `decisions` and `built_artifacts`. Use a stable idempotency key for the same exchange, an explicitly observed revision, up to 1500 characters per message, four decisions/artifact pointers at most, and a total canonical request no larger than 7000 bytes. Send only content the user authorized for sync. A new conversation explicitly starts at revision zero. `sync` takes the same cursor/idempotency fields plus `reason`: `checkpoint`, `session_end`, `device_switch`, `before_sync` or `idle`.

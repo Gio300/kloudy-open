@@ -1,7 +1,7 @@
 import {readFile,writeFile,mkdir,rename,stat,copyFile} from 'node:fs/promises';
 import {resolve,join,dirname} from 'node:path';
 import {homedir} from 'node:os';
-import {fileURLToPath} from 'node:url';
+import {editorEntry} from './editor-install.mjs';
 import {randomUUID} from 'node:crypto';
 import {parse} from 'smol-toml';
 import {KloudyError} from './client.mjs';
@@ -22,13 +22,13 @@ export async function install({ide='auto',connection,home=homedir(),platform=pro
   const path=host.file,old=await text(path);let value;
   try{value=old===undefined?{}:host.toml?parse(old):JSON.parse(old);}catch{throw new KloudyError('config_unreadable','Existing IDE config could not be parsed; it was left unchanged.');}
   if(!value||typeof value!=='object'||Array.isArray(value)||value[host.key]&&(typeof value[host.key]!=='object'||Array.isArray(value[host.key])))throw new KloudyError('config_unreadable','Existing IDE config was left unchanged.');
-  const entry=url?(name==='codex'?{url,bearer_token_env_var:tokenEnv}:{...(name==='cursor'?{}:{type:'http'}),url,headers:{Authorization:'Bearer ${'+(name==='claude'?'':'env:')+tokenEnv+'}'}}):{...(['claude','vscode'].includes(name)?{type:'stdio'}:{}),command:process.execPath,args:[fileURLToPath(new URL('../bin/kloudy.mjs',import.meta.url)),'mcp',...(connection?['--connection',resolve(connection)]:[])]};
+  const entry=url?(name==='codex'?{url,bearer_token_env_var:tokenEnv}:{...(name==='cursor'?{}:{type:'http'}),url,headers:{Authorization:'Bearer ${'+(name==='claude'?'':'env:')+tokenEnv+'}'}}):connection?{...(['claude','vscode'].includes(name)?{type:'stdio'}:{}),command:'npx',args:['-y','kloudy@latest','legacy','mcp','--connection',resolve(connection)]}:editorEntry({...host,id:name==='claude'?'claude-code':name});
   const existing=value[host.key]?.kloudy;
   if(existing&&JSON.stringify(existing)!==JSON.stringify(entry)){results.push({ide:name,state:'existing_kloudy_preserved',scope:'user',path});continue;}
   let next;if(host.toml){next=old||'';if(!existing)next+='\n[mcp_servers.kloudy]\n'+Object.entries(entry).map(([k,v])=>k+' = '+JSON.stringify(v)).join('\n')+'\n';parse(next);}else{value[host.key]??={};value[host.key].kloudy=entry;next=JSON.stringify(value,null,2)+'\n';}
   if(old!==next)await atomic(path,next,old);
   if(host.slash){await mkdir(dirname(host.slash),{recursive:true});const prior=await text(host.slash);if(prior===undefined)await writeFile(host.slash,slashText,{flag:'wx',mode:0o600});}
-  results.push({ide:name,state:old===next?'already_installed':'installed',scope:'user',path,transport:url?'streamable-http':'stdio'});
+  results.push({ide:name,state:old===next?'already_installed':'installed',scope:'user',path,transport:url||!connection?'streamable-http':'stdio'});
  }
  if(results.some(r=>r.state!=='existing_kloudy_preserved')){const record=join(home,'.kloudy/install.json'),old=await text(record);let saved={schema:'kloudy.user-install/1',scope:'user',ides:[]};if(old){try{saved=JSON.parse(old);}catch{throw new KloudyError('install_record_invalid','The user installation record needs repair; IDE configs were installed.');}}saved.ides=[...new Set([...(saved.ides||[]),...results.filter(r=>r.state!=='existing_kloudy_preserved').map(r=>r.ide)])].sort();const next=JSON.stringify(saved,null,2)+'\n';if(next!==old)await atomic(record,next,old);}
  return {product:'Kloudy',scope:'user',results,...(!results.length?{next:'Choose --ide cursor, claude, vscode or codex to create a user-level entry. No project files were changed.'}:{}),availability:url?'Configured remote entry. Verify the hosted endpoint and user grant before claiming attachment.':'Local MCP adapter installed for all projects. Hosted registration and remote execution still require the account/engine service.'};
