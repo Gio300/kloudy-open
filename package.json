@@ -1,6 +1,6 @@
 {
   "name": "kloudy",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "Ask for Kloudy: CLI, MCP and SDK clients for the same scoped engine session.",
   "type": "module",
   "license": "Apache-2.0",
