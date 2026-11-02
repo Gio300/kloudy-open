@@ -10,6 +10,7 @@ import {introduce,isAttachIntent} from '../src/introduce.mjs';
 import {readPublicPage,readCard,convertPage} from '../src/public.mjs';
 import {localStrings} from '../src/strings.mjs';
 import {createStarter} from '../src/starter.mjs';
+import {keyboardGuide,tailscaleGuide} from '../src/guides.mjs';
 const indicator=terminalStatus();
 const args=process.argv.slice(2),command=args.shift()||'introduce';
 function option(name){const index=args.indexOf('--'+name);if(index<0)return null;if(index===args.length-1||args[index+1].startsWith('--'))throw new Error('Option value required');const value=args[index+1];args.splice(index,2);return value;}
@@ -19,7 +20,7 @@ try{
  const connection=option('connection')||process.env.KLOUDY_CONNECTION;
  const project=option('project')||process.cwd(),decision=option('decision');
  if(command==='help'||command==='--help'){
-  console.log('Ask for Kloudy. One CLI, one MCP, tools appear when needed.\n\nkloudy models list [--endpoint URL] [--key-env NAME]\nkloudy models run NAME --prompt-file FILE [--max-tokens 128] [--allow-provider-charge]\nkloudy init my-app\nkloudy read https://example.com\nkloudy card /world\nkloudy convert https://example.com\nkloudy query "need" --connection FILE\nkloudy ask "goal" --connection FILE [--candidates FILE]\nkloudy assemble --selections FILE --connection FILE\nkloudy call NAME --inputs FILE [--selection ID] --connection FILE\nkloudy action chain.head --inputs FILE --connection FILE [--idempotency-key KEY]\nkloudy wallet-connect ethereum --connection FILE\nkloudy hosting [--budget-micros 100000000] --connection FILE\nkloudy wallet balance --connection FILE\nkloudy wallet top_up --amount 10.00 --connection FILE\nkloudy conversation read|append|sync --inputs FILE --connection FILE\nkloudy host --connection FILE\nkloudy status --connection FILE\nkloudy cancel --connection FILE\nkloudy mcp --connection FILE\nkloudy introduce [--project DIR] [--decision yes|no]\nkloudy install [--ide cursor|claude|vscode|codex] [--url HTTPS_URL] [--token-env NAME] [--connection FILE]\nkloudy wrap --config FILE [--port 8796]\nkloudy strings save NAME --selections FILE\nkloudy strings use NAME\nkloudy strings call NAME --tool ALIAS --inputs FILE\nkloudy strings list|prune\nkloudy strings keep|remove NAME\nkloudy login\n\nRegister with email + short 2FA through the Core account service. Existing engine connections remain usable. Hosted registration is not supplied by this client package.');
+  console.log('Ask for Kloudy. One CLI, one MCP, tools appear when needed.\n\nkloudy models list [--endpoint URL] [--key-env NAME]\nkloudy models run NAME --prompt-file FILE [--max-tokens 128] [--allow-provider-charge]\nkloudy init my-app\nkloudy read https://example.com\nkloudy card /world\nkloudy convert https://example.com\nkloudy query "need" --connection FILE\nkloudy ask "goal" --connection FILE [--candidates FILE]\nkloudy assemble --selections FILE --connection FILE\nkloudy call NAME --inputs FILE [--selection ID] --connection FILE\nkloudy action chain.head --inputs FILE --connection FILE [--idempotency-key KEY]\nkloudy wallet-connect ethereum --connection FILE\nkloudy hosting [--budget-micros 100000000] --connection FILE\nkloudy wallet balance --connection FILE\nkloudy wallet top_up --amount 10.00 --connection FILE\nkloudy conversation read|append|sync --inputs FILE --connection FILE\nkloudy host --connection FILE\nkloudy status --connection FILE\nkloudy cancel --connection FILE\nkloudy mcp --connection FILE\nkloudy introduce [--project DIR] [--decision yes|no]\nkloudy install [--ide cursor|claude|vscode|codex] [--url HTTPS_URL] [--token-env NAME] [--connection FILE]\nkloudy wrap --config FILE [--port 8796]\nkloudy strings save NAME --selections FILE\nkloudy strings use NAME\nkloudy strings call NAME --tool ALIAS --inputs FILE\nkloudy strings list|prune\nkloudy strings keep|remove NAME\nkloudy login\nkloudy keyboard\nkloudy tailscale\n\nRegister with email + short 2FA through the Core account service. Existing engine connections remain usable. Hosted registration is not supplied by this client package.');
  }else if(command==='models'){
   const action=args.shift(),endpoint=option('endpoint'),keyEnv=option('key-env'),file=option('prompt-file'),max=option('max-tokens');
   const allow=args.includes('--allow-provider-charge');if(allow)args.splice(args.indexOf('--allow-provider-charge'),1);
@@ -48,7 +49,9 @@ try{
   else throw Error('Unknown strings action');
  }else if(command==='login'){
   output({status:'registration_unavailable',message:'Ask for Kloudy. Email + short 2FA, then a session cookie/tag or OAuth, belongs to the Core account service. No registration endpoint is published yet. No email or code was collected.',url:'https://kloudy.ai/connect'});process.exitCode=3;
- }else{
+ }else if(command==='keyboard')console.log(keyboardGuide());
+ else if(command==='tailscale')console.log(await tailscaleGuide());
+ else{
   const walletAmount=option('amount'),budgetMicros=option('budget-micros'),idempotencyKey=option('idempotency-key');
   const candidatesFile=option('candidates'),inputsFile=option('inputs'),selectionsFile=option('selections'),selectionId=option('selection'),lane=option('lane')||'non_medical';
   if(args.some(x=>x.startsWith('--')))throw new Error('Unknown option');
