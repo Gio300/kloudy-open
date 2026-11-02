@@ -54,14 +54,25 @@ test('kloudy keyboard and kloudy tailscale print those guides and the default he
 test('kloudy family names each system, the ladder sentence, and the keyboard install', () => {
   const lines = familyGuide().split('\n');
   assert.deepEqual(lines, [
-    'Kloudy Keyboard is the keyboard on the phone.',
     'Kloudy Browser is the browser on this phone.',
+    'npx kloudy (Kloudy Connect) is the command that brings you to this keyboard.',
     'Kloudy Link is a presence message for which systems are here.',
     'Black Box Mini is the router that holds the connection list.',
-    'The Black Box Engine is the session under the other doors.',
+    'Black Box Engine is the session under the other doors.',
     'BotBoozle is the cloud door for heavier bots.',
+    'Kloudy Keyboard is the keyboard on the phone.',
     'Next on the ladder is Kloudy Browser.',
     'Install Kloudy Keyboard next.',
+  ]);
+  const systems = lines.slice(0, 7).map((line) => line.split(' is ')[0]);
+  assert.deepEqual(systems, [
+    'Kloudy Browser',
+    'npx kloudy (Kloudy Connect)',
+    'Kloudy Link',
+    'Black Box Mini',
+    'Black Box Engine',
+    'BotBoozle',
+    'Kloudy Keyboard',
   ]);
   const printed = run('../bin/entry.mjs', ['family']);
   assert.equal(printed.trim(), lines.join('\n'));

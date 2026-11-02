@@ -15,15 +15,19 @@ export function keyboardGuide() {
   ].join('\n');
 }
 
-/** One plain line for each Kloudy system, then the ladder sentence, then the keyboard. */
+/**
+ * Same systems, same order, as KloudyFamily.members on the keyboard.
+ * Then the ladder sentence, then the install line.
+ */
 export function familyGuide() {
   return [
-    'Kloudy Keyboard is the keyboard on the phone.',
     'Kloudy Browser is the browser on this phone.',
+    'npx kloudy (Kloudy Connect) is the command that brings you to this keyboard.',
     'Kloudy Link is a presence message for which systems are here.',
     'Black Box Mini is the router that holds the connection list.',
-    'The Black Box Engine is the session under the other doors.',
+    'Black Box Engine is the session under the other doors.',
     'BotBoozle is the cloud door for heavier bots.',
+    'Kloudy Keyboard is the keyboard on the phone.',
     SUGGESTION_SENTENCE,
     'Install Kloudy Keyboard next.',
   ].join('\n');
