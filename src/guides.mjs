@@ -15,6 +15,20 @@ export function keyboardGuide() {
   ].join('\n');
 }
 
+/** One plain line for each Kloudy system, then the ladder sentence, then the keyboard. */
+export function familyGuide() {
+  return [
+    'Kloudy Keyboard is the keyboard on the phone.',
+    'Kloudy Browser is the browser on this phone.',
+    'Kloudy Link is a presence message for which systems are here.',
+    'Black Box Mini is the router that holds the connection list.',
+    'The Black Box Engine is the session under the other doors.',
+    'BotBoozle is the cloud door for heavier bots.',
+    SUGGESTION_SENTENCE,
+    'Install Kloudy Keyboard next.',
+  ].join('\n');
+}
+
 export async function tailscaleGuide({status = officialStatus} = {}) {
   const check = await status();
   const lines = [

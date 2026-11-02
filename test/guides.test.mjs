@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {execFileSync} from 'node:child_process';
-import {keyboardGuide, tailscaleGuide, SUGGESTION_SENTENCE} from '../src/guides.mjs';
+import {familyGuide, keyboardGuide, tailscaleGuide, SUGGESTION_SENTENCE} from '../src/guides.mjs';
 
 function script(file) {
   return decodeURIComponent(new URL(file, import.meta.url).pathname).replace(/^\/(\w:)/, '$1');
@@ -49,4 +49,26 @@ test('kloudy keyboard and kloudy tailscale print those guides and the default he
   assert.match(legacy, /kloudy tailscale/);
   const legacyKeyboard = run('../bin/kloudy.mjs', ['keyboard']);
   assert.match(legacyKeyboard, /Next on the ladder is Kloudy Browser\./);
+});
+
+test('kloudy family names each system, the ladder sentence, and the keyboard install', () => {
+  const lines = familyGuide().split('\n');
+  assert.deepEqual(lines, [
+    'Kloudy Keyboard is the keyboard on the phone.',
+    'Kloudy Browser is the browser on this phone.',
+    'Kloudy Link is a presence message for which systems are here.',
+    'Black Box Mini is the router that holds the connection list.',
+    'The Black Box Engine is the session under the other doors.',
+    'BotBoozle is the cloud door for heavier bots.',
+    'Next on the ladder is Kloudy Browser.',
+    'Install Kloudy Keyboard next.',
+  ]);
+  const printed = run('../bin/entry.mjs', ['family']);
+  assert.equal(printed.trim(), lines.join('\n'));
+  const legacy = run('../bin/kloudy.mjs', ['family']);
+  assert.equal(legacy.trim(), lines.join('\n'));
+  const help = run('../bin/entry.mjs', ['--help']);
+  assert.match(help, /npx kloudy family/);
+  const legacyHelp = run('../bin/kloudy.mjs', ['help']);
+  assert.match(legacyHelp, /kloudy family/);
 });

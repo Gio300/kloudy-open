@@ -4,7 +4,7 @@ const version=JSON.parse(readFileSync(new URL('../package.json',import.meta.url)
 import {createInterface} from 'node:readline/promises';
 import {installEditors} from '../src/editor-install.mjs';
 import {askRemote,serveRemote} from '../src/remote.mjs';
-import {keyboardGuide,tailscaleGuide} from '../src/guides.mjs';
+import {familyGuide,keyboardGuide,tailscaleGuide} from '../src/guides.mjs';
 const args=process.argv.slice(2);
 try{
  if(!args.length||args[0]==='install'&&args.length===1){
@@ -17,9 +17,10 @@ try{
   if(results.some(r=>r.state==='unchanged_error'))process.exitCode=1;
  }else if(args[0]==='mcp'&&args.length===1){await serveRemote();}
  else if(args[0]==='--version'){console.log(version);}
- else if(['--help','help'].includes(args[0]))console.log('npx kloudy                 Add to detected editors (asks before each write)\nnpx kloudy <question>      Ask the public Kloudy MCP endpoint\nnpx kloudy mcp             Remote MCP over local stdio\nnpx kloudy keyboard            How to get Kloudy Keyboard\nnpx kloudy tailscale           Your own Tailscale account, then step away\nnpx kloudy legacy <args>   Existing SDK/engine CLI commands\n\nFree discovery needs no key. For authorized account actions set KLOUDY_MCP_TOKEN privately; never put a key in command arguments. Node 20.19+ required.');
+ else if(['--help','help'].includes(args[0]))console.log('npx kloudy                 Add to detected editors (asks before each write)\nnpx kloudy <question>      Ask the public Kloudy MCP endpoint\nnpx kloudy mcp             Remote MCP over local stdio\nnpx kloudy keyboard            How to get Kloudy Keyboard\nnpx kloudy tailscale           Your own Tailscale account, then step away\nnpx kloudy family              The Kloudy systems, then install the keyboard\nnpx kloudy legacy <args>   Existing SDK/engine CLI commands\n\nFree discovery needs no key. For authorized account actions set KLOUDY_MCP_TOKEN privately; never put a key in command arguments. Node 20.19+ required.');
  else if(args[0]==='keyboard')console.log(keyboardGuide());
  else if(args[0]==='tailscale')console.log(await tailscaleGuide());
+ else if(args[0]==='family')console.log(familyGuide());
  else if(args[0]==='legacy'){process.argv.splice(2,1);await import('./kloudy.mjs');}
  else{if(args[0]?.startsWith('--'))throw Error('Unknown option');const result=await askRemote(args.join(' '));for(const c of result.content||[])if(c.type==='text')process.stdout.write((process.env.KLOUDY_MCP_TOKEN?c.text.replaceAll(process.env.KLOUDY_MCP_TOKEN,'[redacted]'):c.text)+'\n');if(result.isError)process.exitCode=1;}
 }catch{process.stderr.write('Kloudy could not complete the request. Check your connection or authorized key. No action was retried. Run npx kloudy --help.\n');process.exitCode=1;}
