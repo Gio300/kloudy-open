@@ -10,10 +10,17 @@ export const hostedInstructions='One Kloudy tool. Call introduce when the user t
 const canonical=value=>Array.isArray(value)?value.map(canonical):value&&typeof value==='object'?Object.fromEntries(Object.keys(value).sort().map(k=>[k,canonical(value[k])])):value;
 export const hostedCatalog={version:createHash('sha256').update(JSON.stringify(canonical({tools:[hostedDoor],instructions:hostedInstructions}))).digest('hex').slice(0,12),issued:new Date().toISOString(),minClient:null,deprecations:[]};
 const toolResult=result=>({content:[{type:'text',text:JSON.stringify(result)}],structuredContent:result});
+function hostedCapabilities(capabilities,enabled){
+ const result={tools:{listChanged:enabled?(capabilities?.tools?.listChanged??true):false}};
+ // Events are an engine capability, not a catalog-rollout feature. Preserve only
+ // an advertised object; the adapter neither creates subscriptions nor grants access.
+ if(capabilities?.events&&typeof capabilities.events==='object'&&!Array.isArray(capabilities.events))result.events=capabilities.events;
+ return result;
+}
 export function adaptMcp(message,{autoupdate=process.env.KLOUDY_MCP_AUTOUPDATE}={}){
  const enabled=autoupdateEnabled(autoupdate);
  let upstream=message,project=x=>x;
- if(message.method==='initialize')project=x=>({...x,instructions:hostedInstructions,capabilities:{tools:{listChanged:enabled?(x.capabilities?.tools?.listChanged??true):false}},...(enabled?{_meta:{...x._meta,'ai.kloudy/catalog':hostedCatalog}}:{})});
+ if(message.method==='initialize')project=x=>({...x,instructions:hostedInstructions,capabilities:hostedCapabilities(x.capabilities,enabled),...(enabled?{_meta:{...x._meta,'ai.kloudy/catalog':hostedCatalog}}:{})});
  if(message.method==='tools/list'&&!message.params?._meta?.selection_ids)project=()=>({tools:[hostedDoor],...(enabled?{_meta:{'ai.kloudy/catalog':hostedCatalog}}:{})});
  if(message.method==='tools/call'&&message.params?.name==='kloudy'){
   const a=message.params.arguments||{},operation=a.operation||'introduce';
