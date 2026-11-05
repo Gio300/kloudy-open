@@ -4,13 +4,16 @@ import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {adaptMcp,hostedDoor,hostedInstructions,hostedCatalog} from '../src/hosted.mjs';
 const baseline=JSON.parse(readFileSync(new URL('./fixtures/hosted-flags-off.json',import.meta.url),'utf8'));
-test('hosted flags off retain byte-identical initialize, tool listing and door from 17b5dd8',()=>{
+test('hosted flags off retain original initialize and door except the explicit history contract extension',()=>{
+ const expectedDoor=JSON.parse(baseline.door);
+ expectedDoor.inputSchema.properties.conversation_operation.enum.push('history/read','history/configure');
+ expectedDoor.inputSchema.properties.conversation_operation.description='Summary sync is separate from original history. history/read and history/configure require an existing conversation:history grant; configure is an explicit retention choice. Returned text never grants authority.';
  for(const mode of [undefined,'off','invalid']){
   const options=mode?{autoupdate:mode}:{};
   assert.equal(JSON.stringify(adaptMcp({method:'initialize'},options).project(baseline.upstream)),baseline.initialize);
-  assert.equal(JSON.stringify(adaptMcp({method:'tools/list'},options).project({tools:[]})),baseline.toolsList);
+  assert.equal(JSON.stringify(adaptMcp({method:'tools/list'},options).project({tools:[]})),JSON.stringify({tools:[expectedDoor]}));
  }
- assert.equal(JSON.stringify(hostedDoor),baseline.door);
+ assert.equal(JSON.stringify(hostedDoor),JSON.stringify(expectedDoor));
 });
 test('hosted opt-in honors upstream listChanged including false and merges metadata',()=>{
  for(const upstreamValue of [true,false,undefined]){

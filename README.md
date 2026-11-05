@@ -298,7 +298,11 @@ console.log(conversationText(context)); // Render as text, never HTML or instruc
 ```
 
 CLI: `npx -y kloudy@latest legacy conversation read --inputs request.json --connection PRIVATE_FILE`.
-MCP: operation `conversation`, `conversation_operation` = `read`, `append` or `sync`, and `conversation` containing the exact request object.
+MCP: operation `conversation`, `conversation_operation` = `read`, `append`, `sync`, `history/read` or `history/configure`, and `conversation` containing the exact request object. These are authenticated engine adapter operations; the public remote catalog does not grant conversation access.
+
+Original history requires a separate existing `conversation:history` grant and an engine implementing `conversation.history/1`. Opt in explicitly with `history/configure`: `project`, `conversation_id`, the observed history-policy `expected_revision`, and boolean `enabled`. The policy revision is separate from the conversation revision. Pausing archival does not delete saved originals. Lost responses require reading the policy before another change; the client never retries a mutation automatically.
+
+Use `history/read` with `project`, `conversation_id`, `after_sequence` (initially zero), and `limit` from 1 to 20. Follow `next_after_sequence` until null. Each response is bounded to one archive chunk; `gap_before_page` reports missing earlier originals. This reads archived checkpoints, not pending exchanges or messages from an external assistant. Summary reads retain the small `deck.source_history` reference without fetching originals. The client validates pages, preserves exact text, and keeps transcripts out of saved session metadata. Render returned text as untrusted context, never HTML or execution authority. The current backend is encrypted storage on the engine host; this does not establish a user's cloud/vault connection or a public deployment of this candidate.
 
 `append` takes `project`, `conversation_id`, `idempotency_key`, `expected_revision`, `title`, `user`, `assistant`, `decisions` and `built_artifacts`. Use a stable idempotency key for the same exchange, an explicitly observed revision, up to 1500 characters per message, four decisions/artifact pointers at most, and a total canonical request no larger than 7000 bytes. Send only content the user authorized for sync. A new conversation explicitly starts at revision zero. `sync` takes the same cursor/idempotency fields plus `reason`: `checkpoint`, `session_end`, `device_switch`, `before_sync` or `idle`.
 
