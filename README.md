@@ -285,6 +285,12 @@ Sources: https://docs.ollama.com/api/tags ; https://docs.ollama.com/api/openai-c
 
 HTTPK initialization negotiates chat/text/speech presentation with BBE 0.3.50. It never changes scopes, the credential surface or the approval policy. Older engines remain usable without invented negotiation. `renderReply(state,{action})` from `kloudy/replies` renders bounded JSON templates for observed operation state. Unknown state stays unconfirmed; output is plain text. The browser uses the same templates in its one conversation. Kloudy’s subscription NVIDIA ladder is the text/planning upgrade; supported local Siri/Nano remains voice. Bot Boozle is a separate optional IDE.
 
+## Room mailbox and explicit event controls
+
+Room mailbox access also uses the existing scoped HTTPK client: `client.room(operation, params)`, or the same hosted/stdio `kloudy` tool with `operation: room`, `room_operation`, and `room`. `readiness` takes only `project` and up to four distinct `{id, client_id}` participants; it checks existing mailbox authority and explicitly does not verify provider ingress. Other room operations retain their room/request/generation identifiers. No call enrolls an assistant, substitutes a model, or grants connector access; queued is not delivered, and uncertain sends must retain their original identifiers.
+
+Authenticated SDK event controls are explicit: `client.events('list')`, `client.events('subscribe', params)`, and `client.events('unsubscribe', params)`. They use the same engine connection; subscriptions require an existing participant grant and the exact `message.created` room arguments, HTTPS webhook delivery and signing secret. The engine verifies callback safety and authority. The client does not fetch callbacks, poll, subscribe automatically, store secrets in session metadata, or retry. The stdio tool does not advertise background MCP Events support; a supported event-capable host and actual account enrollment remain separate requirements. These client methods are transport mechanisms, not proof of a proprietary assistant or its connector round trip.
+
 ## Encrypted conversation client
 
 The client extends the existing engine backend. It does not implement another conversation store. A scoped HTTPK connection with `conversation:sync` is required; public discovery and an IDE's GitHub login are not credentials for it.

@@ -1,5 +1,5 @@
 import {conversationOperations,conversationParams,conversationResult} from './conversation.mjs';
-import {roomOperations,roomSchema,roomDescription,roomParams} from './rooms.mjs';
+import {roomOperations,roomSchema,roomDescription,roomParams,roomResult} from './rooms.mjs';
 import {actionInput,hostingParams,connectionParams,stableIntentKey} from './product-actions.mjs';
 import {welcomeContent} from './welcome.mjs';
 // Stateless MCP adapter for the engine's existing HTTPK methods.
@@ -16,6 +16,9 @@ function hostedCapabilities(capabilities,enabled){
  // Events are an engine capability, not a catalog-rollout feature. Preserve only
  // an advertised object; the adapter neither creates subscriptions nor grants access.
  if(capabilities?.events&&typeof capabilities.events==='object'&&!Array.isArray(capabilities.events))result.events=capabilities.events;
+ const readiness=capabilities?.experimental?.httpk?.room_readiness;
+ if(readiness&&typeof readiness==='object'&&!Array.isArray(readiness)&&readiness.version===1&&readiness.method==='kloudy/room/readiness')
+  result.experimental={httpk:{room_readiness:{version:1,method:'kloudy/room/readiness'}}};
  return result;
 }
 export function adaptMcp(message,{autoupdate=process.env.KLOUDY_MCP_AUTOUPDATE}={}){
@@ -38,7 +41,7 @@ export function adaptMcp(message,{autoupdate=process.env.KLOUDY_MCP_AUTOUPDATE}=
   else if(operation==='confirm'){method='kloudy/confirm';params=confirmationParams(a);}
   else if(operation==='status'||operation==='cancel'){method=operation==='status'?'kloudy/receipt':'kloudy/cancel';params={selection_id:a.selection_id};}
   else throw Error('unsupported_operation');
-  upstream={...message,method,params};project=operation==='conversation'?x=>toolResult(conversationResult(x,params,a.conversation_operation)):operation==='call'?x=>x:operation==='introduce'?x=>({...toolResult(x),content:welcomeContent(x)}):toolResult;
+  upstream={...message,method,params};project=operation==='room'?x=>toolResult(roomResult(a.room_operation,x,params)):operation==='conversation'?x=>toolResult(conversationResult(x,params,a.conversation_operation)):operation==='call'?x=>x:operation==='introduce'?x=>({...toolResult(x),content:welcomeContent(x)}):toolResult;
  }
  return {upstream,project};
 }

@@ -1,4 +1,5 @@
 import {conversationParams,conversationResult} from './conversation.mjs';
+import {roomParams,roomResult,roomEventParams} from './rooms.mjs';
 import {hostCapabilities,readHostInterface} from './host-interface.mjs';
 import {confirmationParams} from './hosted.mjs';
 import {queryInput,queryResult} from './query.mjs';
@@ -13,12 +14,16 @@ export class HttpkClient {
   if(typeof token!=='string'||!token||/[\r\n]/.test(token))fail('connection_unavailable','A scoped user connection is required.');
   this.capabilities=hostCapabilities(host);this.hostInterface=readHostInterface(state.hostInterface??undefined);this.endpoint=u.href;this.token=token;this.state=state;this.save=save;this.mode=mode;this.fetcher=fetcher;
  }
- async rpc(method,params={}){
-  const body=JSON.stringify({jsonrpc:'2.0',id:randomUUID(),method,params});if(Buffer.byteLength(body)>8192)fail('too_large','HTTPK request exceeds the engine limit.');
+ async rpc(method,params={},strict=false){
+  const id=randomUUID(),body=JSON.stringify({jsonrpc:'2.0',id,method,params});if(Buffer.byteLength(body)>8192)fail('too_large','HTTPK request exceeds the engine limit.');
   let response;try{response=await this.fetcher(this.endpoint,{method:'POST',redirect:'error',signal:AbortSignal.timeout(20000),headers:{authorization:'Bearer '+this.token,'content-type':'application/json',accept:'application/json, text/event-stream','mcp-protocol-version':'2025-06-18',...(this.state.sessionId?{'mcp-session-id':this.state.sessionId}:{})},body});}catch{fail('engine_unavailable','No retry was made. Check the same selection receipt before repeating an action.');}
-  let size=0;const chunks=[];for await(const chunk of response.body){size+=chunk.length;if(size>524288)fail('invalid_response','Engine response too large.');chunks.push(chunk);}
-  let json;try{json=JSON.parse(Buffer.concat(chunks).toString());}catch{fail('invalid_response','The endpoint did not return MCP JSON.');}
+  if(strict&&response.headers.get('content-type')?.split(';')[0].trim().toLowerCase()!=='application/json'){await response.body?.cancel();fail('invalid_response','Expected the scoped engine JSON response. No retry was made.');}
+  if(strict&&!response.body)fail('invalid_response','The engine response was empty. No retry was made.');
+  let size=0;const chunks=[];for await(const chunk of response.body){size+=chunk.length;if(size>(strict?262144:524288))fail('invalid_response','Engine response too large.');chunks.push(chunk);}
+  let json;try{const bytes=Buffer.concat(chunks);json=JSON.parse(strict?new TextDecoder('utf-8',{fatal:true}).decode(bytes):bytes.toString());}catch{fail('invalid_response','The endpoint did not return MCP JSON.');}
+  if(strict&&(json?.jsonrpc!=='2.0'||json.id!==id))fail('invalid_response','The engine response did not match this request. No retry was made.');
   if(!response.ok||json.error)fail('httpk_request_failed','The engine rejected this request. No retry or approval was fabricated.');
+  if(strict&&(!json.result||typeof json.result!=='object'||Array.isArray(json.result)))fail('invalid_response','Expected an engine room result. No retry was made.');
   return json.result;
  }
  async session(){if(this.state.sessionId&&this.mode!=='auto'&&this.state.interactionMode!==this.mode)fail('mode_not_supported','Saved session mode does not match this client.');if(!this.state.sessionId){const opened=await this.rpc('initialize',{protocolVersion:'2025-06-18',clientInfo:{name:'kloudy-open',version:'0.3.15'},capabilities:this.capabilities});const negotiated=readHostInterface(opened.host_interface);if(typeof opened.session_id!=='string'||!['autonomous','confirm'].includes(opened.interaction_mode)||(this.mode!=='auto'&&opened.interaction_mode!==this.mode))fail('mode_not_supported','Credential surface does not match this client mode.');this.hostInterface=negotiated;this.state.hostInterface=negotiated;this.state.sessionId=opened.session_id;this.state.interactionMode=opened.interaction_mode;await this.save(this.state);}return this.state.sessionId;}
@@ -32,6 +37,8 @@ export class HttpkClient {
  async introduce(project_context){await this.session();const result=await this.rpc('kloudy/intent',{idempotency_key:randomUUID(),input:{type:'text',text:'Kloudy',project_context}});if(result.state!=='greeting'||result.greeting?.version!=='bbe.attach.v1')fail('invalid_response','Expected the engine attach greeting.');return result.greeting;}
  async query(need,options={}){const input=queryInput(need,options);await this.session();return queryResult(await this.rpc('kloudy/query',input),input.limit);}
  async conversation(operation,input){const params=conversationParams(operation,input);await this.session();return conversationResult(await this.rpc('kloudy/conversation/'+operation,params),params,operation);}
+ async room(operation,input){const params=roomParams(operation,input);await this.session();return roomResult(operation,await this.rpc('kloudy/room/'+operation,params,true),params);}
+ async events(operation,input={}){const params=roomEventParams(operation,input);await this.session();return this.rpc('events/'+operation,params,true);}
  async wallet({operation='balance',amount_usd}={}){
   if(!['balance','top_up'].includes(operation)||operation==='balance'&&amount_usd!==undefined||operation==='top_up'&&(typeof amount_usd!=='string'||!/^\d{1,6}(?:\.\d{1,2})?$/.test(amount_usd)||Number(amount_usd)<=0))fail('invalid_input','Use wallet balance or top_up with a positive decimal amount_usd string.');
   await this.session();const result=await this.rpc('kloudy/wallet',{operation,...(operation==='top_up'?{amount_usd}:{})});
