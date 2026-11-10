@@ -1,11 +1,11 @@
 {
   "subset": "verified-oss",
-  "baseBots": 55971,
-  "shipped": 1812,
-  "gzBytes": 57870,
+  "baseBots": 13577,
+  "shipped": 1915,
+  "gzBytes": 99741,
   "classes": {
-    "A": 97,
-    "O": 1715
+    "A": 29,
+    "O": 1886
   },
   "oss": [
     {
@@ -14,14 +14,51 @@
       "kept": 314,
       "added": 314,
       "duplicatesSkipped": 0,
+      "superseded": 0,
       "dropped": {}
     },
     {
       "file": "/data/oss/manifests-OSS-batch2.jsonl",
       "in": 1401,
-      "kept": 1401,
-      "added": 1401,
+      "kept": 1374,
+      "added": 1374,
       "duplicatesSkipped": 0,
+      "superseded": 0,
+      "dropped": {
+        "rule-3": 8,
+        "ollama-only": 7,
+        "discord-telegram-bot-token": 11,
+        "rule-4": 1
+      }
+    },
+    {
+      "file": "/data/oss/manifests-OSS-batch3.jsonl",
+      "in": 151,
+      "kept": 144,
+      "added": 144,
+      "duplicatesSkipped": 0,
+      "superseded": 0,
+      "dropped": {
+        "discord-telegram-bot-token": 6,
+        "awesome-list": 1
+      }
+    },
+    {
+      "file": "/data/oss/manifests-OSS-hf-ollama-twins.jsonl",
+      "in": 20,
+      "kept": 20,
+      "added": 20,
+      "duplicatesSkipped": 0,
+      "superseded": 0,
+      "dropped": {}
+    },
+    {
+      "file": "/data/oss/manifests-OSS-hf.jsonl",
+      "in": 41,
+      "kept": 41,
+      "added": 41,
+      "duplicatesSkipped": 0,
+      "superseded": 7,
       "dropped": {}
     }
   ]

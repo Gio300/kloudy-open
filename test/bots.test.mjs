@@ -102,7 +102,7 @@ test('bundled snapshot includes hf rows, no ollama kind, and no x-same-model-as'
     if(r[12]&&r[12].sameModelAs)same++;
   }
   assert.equal(kinds.get('ollama')||0,0);
-  assert.equal(hf,41);
+  assert.equal(hf,61);
   assert.equal(same,0);
   assert.ok(data.bots.some(r=>r[0]==='oss:hf:openai/whisper-tiny'));
   assert.ok(!data.bots.some(r=>r[0]==='oss:mit-sweep:hf/openai/whisper-tiny'));

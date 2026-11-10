@@ -8,3 +8,5 @@ pm run bots:bundle -- --subset full after updating these files.
 ## Modality tags
 
 modality-tags.jsonl is BBE Engine v2 (modality-tags.v2.jsonl, 1,901 rows). Tags merge by id onto the kept OSS pack. Lines for ids not in the pack are ignored. The 16-row overrides-20261110.json tags are a fallback only when v2 lacks an id.
+
+Class A/B rows are fail-closed to `data/oss/ab-survivors.json` (or `KLOUDY_AB_SURVIVORS`): 11,691 survivor ids (A 29, B 11,662). Rows not on the list are dropped. Tags merge by id from `modality-tags.jsonl` and `modality-tags.ab.jsonl`. Cap-derived modalities web, data, cloud, finance, productivity, comms, security, and maps are kept. Same-id case-variant A/B rows are deduped (rule 5).

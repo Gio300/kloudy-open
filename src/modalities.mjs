@@ -1,7 +1,7 @@
 // Multi-select modality matching for `kloudy bots`.
 // `--modality <m>` may be repeated. Default match is ANY (OR). `--all-modalities` switches to AND.
 // `primary` / modality_primary is a sort hint only; it never filters.
-export const KNOWN_MODALITIES=['text','code','code_execution','embedding','image','image_generation','audio','voice_generation','video','multimodal','translation','search','database_access','file_system','browser_automation','api_calls','scheduling','notifications','auth_encryption','data_analysis','document_processing','robotics','agent_tools'];
+export const KNOWN_MODALITIES=['text','code','code_execution','embedding','image','image_generation','audio','voice_generation','video','multimodal','translation','search','database_access','file_system','browser_automation','api_calls','scheduling','notifications','auth_encryption','data_analysis','document_processing','robotics','agent_tools','web','data','cloud','finance','productivity','comms','security','maps'];
 
 export function modalityWant(value){
   if(value==null||value==='')return [];

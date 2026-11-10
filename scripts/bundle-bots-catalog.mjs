@@ -203,6 +203,19 @@ function parseArgs(argv){
 }
 
 
+
+export function dedupeBotsById(bots){
+  const seen=new Set();
+  const kept=[];
+  const dupes=[];
+  for(const r of bots){
+    if(seen.has(r[0])){dupes.push({id:r[0],cls:r[3],name:r[1],endpoint:r[4]});continue;}
+    seen.add(r[0]);
+    kept.push(r);
+  }
+  return {bots:kept,dupes};
+}
+
 export function loadAbSurvivors(path=process.env.KLOUDY_AB_SURVIVORS||resolve(root,'data/oss/ab-survivors.json')){
   if(!path||!existsSync(path))return null;
   const raw=readFileSync(path,'utf8').replace(/^\uFEFF/,'');
@@ -222,17 +235,28 @@ export function filterAbBySurvivors(bots,survivors){
 }
 
 
-export function loadModalityTags(path=process.env.KLOUDY_MODALITY_TAGS||resolve(root,'data/oss/modality-tags.jsonl')){
-  if(!path||!existsSync(path))return null;
+export function resolveModalityTagsPaths(){
+  if(process.env.KLOUDY_MODALITY_TAGS)return [process.env.KLOUDY_MODALITY_TAGS];
+  const dir=resolve(root,'data/oss');
+  return ['modality-tags.jsonl','modality-tags.ab.jsonl'].map(n=>resolve(dir,n)).filter(p=>existsSync(p));
+}
+
+export function loadModalityTags(path){
+  const paths=path===undefined?resolveModalityTagsPaths():(Array.isArray(path)?path:[path]);
   const map=new Map();
-  for(const line of readFileSync(path,'utf8').replace(/^\uFEFF/,'').split(/\r?\n/)){
-    if(!line.trim())continue;
-    const r=JSON.parse(line);
-    const modalities=[...new Set((r.modalities||[]).filter(x=>typeof x==='string'&&x.trim()))].map(s=>s.trim());
-    if(!r.id||!modalities.length)continue;
-    map.set(r.id,{modalities,primary:r.primary||r.modality_primary||null,source:r.source||null});
+  let any=false;
+  for(const p of paths){
+    if(!p||!existsSync(p))continue;
+    any=true;
+    for(const line of readFileSync(p,'utf8').replace(/^\uFEFF/,'').split(/\r?\n/)){
+      if(!line.trim())continue;
+      const r=JSON.parse(line);
+      const modalities=[...new Set((r.modalities||[]).filter(x=>typeof x==='string'&&x.trim()))].map(s=>s.trim());
+      if(!r.id||!modalities.length)continue;
+      map.set(r.id,{modalities,primary:r.primary||r.modality_primary||null,source:r.source||null});
+    }
   }
-  return map;
+  return any?map:null;
 }
 export function applyModalityTags(bots,tags){
   const missing=[];
@@ -259,7 +283,7 @@ export function buildCatalog({base,oss,subset}){
   const hash=createHash('sha256');
   const baseBytes=readFileSync(base);hash.update(baseBytes);
   const decoded=JSON.parse(gunzipSync(baseBytes,{maxOutputLength:250*1024*1024}));
-  const bots=(decoded.bots||[]).filter(r=>r[3]!=='O'&&r[3]!=='D').map(r=>r.slice(0,11));
+  let bots=(decoded.bots||[]).filter(r=>r[3]!=='O'&&r[3]!=='D').map(r=>r.slice(0,11));
   const ossStats=[];
   for(const p of oss){
     const text=readFileSync(p,'utf8');hash.update(text);
@@ -269,6 +293,8 @@ export function buildCatalog({base,oss,subset}){
   }
   const ab=filterAbBySurvivors(bots,loadAbSurvivors());
   bots=ab.bots;
+  const deduped=dedupeBotsById(bots);
+  bots=deduped.bots;
   const untagged=applyModalityTags(bots,mergeOverrideTags(loadModalityTags()));
   if(untagged.length){
     const by={A:0,B:0,C:0,O:0};for(const m of untagged)by[m.cls]=(by[m.cls]||0)+1;
