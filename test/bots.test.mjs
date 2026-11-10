@@ -91,3 +91,49 @@ test('fail-closed filter drops key-gated, NGC, and non-permissive rows',()=>{
   assert.deepEqual(gpu.devices,['desktop']);
   assert.ok(gpu.caps.includes('needs GPU'));
 });
+
+test('bundled snapshot includes hf rows, no ollama kind, and no x-same-model-as',()=>{
+  const data=JSON.parse(gunzipSync(readFileSync(resolve(root,'src/deployable-bots.json.gz'))));
+  const kinds=new Map();
+  let same=0, hf=0;
+  for(const r of data.bots){
+    kinds.set(r[2],(kinds.get(r[2])||0)+1);
+    if(r[2]==='hf')hf++;
+    if(r[12]&&r[12].sameModelAs)same++;
+  }
+  assert.equal(kinds.get('ollama')||0,0);
+  assert.equal(hf,41);
+  assert.equal(same,0);
+  assert.ok(data.bots.some(r=>r[0]==='oss:hf:openai/whisper-tiny'));
+  assert.ok(!data.bots.some(r=>r[0]==='oss:mit-sweep:hf/openai/whisper-tiny'));
+});
+
+test('offline search can find an hf row and get prints connect steps without downloading',()=>{
+  const search=run(entry,['bots','search','whisper-tiny','--kind','hf','--offline','--limit','5']);
+  assert.equal(search.status,0,search.stderr);
+  assert.match(search.stdout,/oss:hf:openai\/whisper-tiny/);
+  const got=run(entry,['bots','get','oss:hf:openai/whisper-tiny','--offline']);
+  assert.equal(got.status,0,got.stderr);
+  assert.match(got.stdout,/\[hf\]/);
+  assert.match(got.stdout,/hf download|huggingface\.co/i);
+  assert.match(got.stdout,/Nothing is installed or downloaded until you say yes/);
+  assert.doesNotMatch(got.stdout,/auto-download|already downloaded/i);
+});
+
+import {flags,localSearch} from '../src/bots.mjs';
+
+test('repeated --modality is OR; --all-modalities is AND; primary is a sort hint only',()=>{
+  const bots=[
+    {id:'a',name:'alpha',kind:'hf',cls:'O',endpoint:'',license:'MIT',url:'',score:1,caps:[],targets:['desktop'],botboozle:0,modalities:['text','embedding'],modality_primary:'embedding'},
+    {id:'b',name:'beta',kind:'hf',cls:'O',endpoint:'',license:'MIT',url:'',score:1,caps:[],targets:['desktop'],botboozle:0,modalities:['text','image'],modality_primary:'image'}
+  ];
+  const o=flags(['list','--modality','embedding','--modality','image']);
+  assert.deepEqual(o.modality,['embedding','image']);
+  const any=localSearch(bots,{modality:o.modality,limit:10});
+  assert.deepEqual(any.items.map(x=>x.id).sort(),['a','b']);
+  const all=localSearch(bots,{modality:['text','embedding'],allModalities:true,limit:10});
+  assert.deepEqual(all.items.map(x=>x.id),['a']);
+  const hinted=localSearch(bots,{modality:['image'],limit:10});
+  assert.equal(hinted.items[0].id,'b');
+  assert.equal(hinted.matched,1);
+});

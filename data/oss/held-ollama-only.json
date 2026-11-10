@@ -1,0 +1,34 @@
+{
+  "rule": "Ollama-only projects held out of the 0.5.0 catalog, awaiting a decision from Johnny.",
+  "reason": "ollama-only, awaiting Johnny",
+  "ids": [
+    {
+      "id": "oss:mit-sweep:ollama/ollama-js",
+      "reason": "ollama-only, awaiting Johnny"
+    },
+    {
+      "id": "oss:mit-sweep:ollama-ui/ollama-ui",
+      "reason": "ollama-only, awaiting Johnny"
+    },
+    {
+      "id": "oss:mit-sweep:awaescher/OllamaSharp",
+      "reason": "ollama-only, awaiting Johnny"
+    },
+    {
+      "id": "oss:mit-sweep:hinterdupfinger/obsidian-ollama",
+      "reason": "ollama-only, awaiting Johnny"
+    },
+    {
+      "id": "oss:mit-sweep:bernardo-bruning/ollama-copilot",
+      "reason": "ollama-only, awaiting Johnny"
+    },
+    {
+      "id": "oss:mit-sweep:n4ze3m/page-assist",
+      "reason": "ollama-only, awaiting Johnny"
+    },
+    {
+      "id": "oss:mit-sweep:srikanth235/privy",
+      "reason": "ollama-only, awaiting Johnny"
+    }
+  ]
+}

@@ -11,7 +11,7 @@
 // Default --subset verified-oss keeps class A (the build's verified HTTP class) and class O (OSS).
 // The full A/B/C/O catalog packed over ~2 MB, so the npm snapshot omits class B (untested npx/uvx).
 // `kloudy bots sync` downloads that remainder into the local cache. Pass --subset full to write it anyway.
-import {readFileSync,writeFileSync,mkdirSync,existsSync} from 'node:fs';
+import {readFileSync,writeFileSync,mkdirSync,existsSync,readdirSync} from 'node:fs';
 import {gunzipSync,gzipSync} from 'node:zlib';
 import {createHash} from 'node:crypto';
 import {resolve,dirname} from 'node:path';
@@ -19,14 +19,49 @@ import {fileURLToPath} from 'node:url';
 
 const __dir=dirname(fileURLToPath(import.meta.url));
 const root=resolve(__dir,'..');
+const ossHeldPath=resolve(root,'data/oss/held-discord-telegram.json');
+const OSS_HELD_IDS=new Set((existsSync(ossHeldPath)?JSON.parse(readFileSync(ossHeldPath,'utf8')).ids||[]:[]).map(x=>x.id||x));
+
+function readJsonIds(path){
+  if(!existsSync(path))return null;
+  return JSON.parse(readFileSync(path,'utf8').replace(/^\uFEFF/,''));
+}
+
+export function loadOssOverrides(){
+  const overridePath=process.env.KLOUDY_OSS_OVERRIDES||resolve(root,'data/oss/overrides-20261110.json');
+  const heldPath=resolve(root,'data/oss/held-ollama-only.json');
+  const remove=new Map(), hold=new Map(), tag=new Map();
+  const data=existsSync(overridePath)?readJsonIds(overridePath):null;
+  if(data){
+    for(const row of data.remove||[])remove.set(row.id||row,row.reason||'rule-3');
+    for(const row of data.hold||[])hold.set(row.id||row,row.reason||'ollama-only, awaiting Johnny');
+    for(const row of data.tag||[]){
+      const id=row.id, modalities=[...new Set((row.modalities||[]).filter(x=>typeof x==='string'&&x.trim()))];
+      if(id&&modalities.length)tag.set(id,{modalities,primary:row.primary||modalities[0],source:'override'});
+    }
+  }
+  if(existsSync(heldPath)){
+    const h=readJsonIds(heldPath);
+    for(const row of h.ids||[])hold.set(row.id||row,row.reason||h.reason||'ollama-only, awaiting Johnny');
+  }
+  return {remove,hold,tag};
+}
+
+const OSS_OVERRIDES=loadOssOverrides();
+
+
 
 const DENY_LICENSE=/(non-?commercial|academic-?only|proprietary|no license|source-?available|REVIEW|OpenMDW|Cursor skills|Cursor OSS|CC-BY-NC)/i;
-const SPDX_ID=String.raw`(?:Apache-2\.0|MIT|BSD-2-Clause|BSD-3-Clause|ISC|Unlicense|CC-BY-4\.0|MPL-2\.0|GPL-2\.0(?:-only|-or-later)?|GPL-3\.0(?:-only|-or-later)?|AGPL-3\.0(?:-only|-or-later)?|LGPL-2\.1(?:-only|-or-later)?|LGPL-3\.0(?:-only|-or-later)?)`;
+const SPDX_ID=String.raw`(?:Apache-2\.0|MIT|BSD-2-Clause|BSD-3-Clause|ISC|Unlicense|CC0-1\.0|CC-BY-4\.0|MPL-2\.0|GPL-2\.0(?:-only|-or-later)?|GPL-3\.0(?:-only|-or-later)?|AGPL-3\.0(?:-only|-or-later)?|LGPL-2\.1(?:-only|-or-later)?|LGPL-3\.0(?:-only|-or-later)?)`;
 const ALLOW_LICENSE=new RegExp(`^${SPDX_ID}(?:\\s+(?:AND|OR)\\s+${SPDX_ID})*$`,'i');
 const SECRET_VAL=/(Bearer\s+\S{8,}|sk-[a-zA-Z0-9]{10,}|AKIA[0-9A-Z]{16}|\bapi[_-]?key\s*[:=]\s*['\"]?\S{8,}|password\s*[:=]\s*['\"]?\S+)/i;
 const TRITON_ID='oss:cuda:triton-inference-server/server';
 
 export function ossDropReason(row){
+  if(OSS_HELD_IDS.has(row.id))return 'discord-telegram-bot-token';
+  if(row.id==='oss:tsf:PatrickJS/awesome-cursorrules')return 'awesome-list';
+  if(OSS_OVERRIDES.remove.has(row.id))return OSS_OVERRIDES.remove.get(row.id);
+  if(OSS_OVERRIDES.hold.has(row.id))return 'ollama-only';
   if(row.free!==true||row.tier&&row.tier!=='free')return 'paid-or-not-free';
   const lic=String(row.license||'').trim();
   if(!lic||DENY_LICENSE.test(lic)||!ALLOW_LICENSE.test(lic))return 'license';
@@ -41,6 +76,10 @@ export function ossDropReason(row){
 }
 
 export function ossEndpoint(row){
+  if(row.kind==='hf'){
+    const dl=(row.endpoints||[]).find(ep=>ep.type==='download'&&ep.value);
+    if(dl)return String(dl.value).slice(0,300);
+  }
   for(const ep of row.endpoints||[]){
     if(ep.type==='command'&&ep.value)return String(ep.value).slice(0,300);
     if((ep.type==='http'||ep.type==='mcp')&&ep.url)return String(ep.url).slice(0,300);
@@ -53,21 +92,56 @@ export function ossEndpoint(row){
 }
 
 export function ossDevicesAndCaps(row){
-  let dev=(row.devices||['desktop']).filter(d=>d==='desktop');
-  if(!dev.length)dev=['desktop'];
+  const ALLOWED_DEVICES=new Set(['desktop','server','phone','phone-via-desktop','watch-thin','web']);
+  let dev=(row.devices||['desktop']).filter(d=>ALLOWED_DEVICES.has(d));
+  if(row['x-hf']&&row['x-hf'].phone_ok===false)dev=dev.filter(d=>d!=='phone');
   let c=[...(row.caps||[]).filter(x=>typeof x==='string')].slice(0,8);
   const needsGpu=/needs GPU/i.test(c.join(' '))||/\bneeds GPU\b/.test((row['x-notes']||''));
   const llama=row.id==='oss:catalog:ggml-org/llama.cpp'||row.id==='oss:resources:abetlen/llama-cpp-python';
   if(llama){c=c.filter(x=>x!=='needs GPU');if(!c.includes('GPU optional'))c.push('GPU optional');}
   else if(needsGpu&&!c.includes('needs GPU'))c.push('needs GPU');
+  if(needsGpu&&!llama)dev=dev.filter(d=>d==='desktop');
+  if(!dev.length)dev=['desktop'];
   return {devices:dev,caps:c};
+}
+
+
+export function ossMeta(row){
+  const meta={};
+  const connect=(row.endpoints||[]).map(ep=>{
+    const o={type:ep.type};
+    if(ep.value)o.value=String(ep.value).slice(0,400);
+    if(ep.url)o.url=String(ep.url).slice(0,400);
+    if(ep.os)o.os=ep.os;
+    if(ep.protocol)o.protocol=ep.protocol;
+    if(ep.bytes!=null)o.bytes=ep.bytes;
+    if(ep.sha256)o.sha256=ep.sha256;
+    return o;
+  }).slice(0,16);
+  if(connect.length)meta.connect=connect;
+  if(row['x-hf']){
+    const h=row['x-hf'];
+    meta.hf={
+      repo:h.repo,revision:h.revision,
+      files:(h.files||[]).map(f=>({path:f.path,bytes:f.bytes,size:f.size,sha256:f.sha256,url:f.url})),
+      total_bytes:h.total_bytes,total_size:h.total_size,runner:h.runner,
+      runner_notes:h.runner_notes,phone_ok:!!h.phone_ok,needs_token:!!h.needs_token,
+      model_type:h.model_type
+    };
+  }
+  if(row['x-supersedes'])meta.supersedes=row['x-supersedes'];
+  if(row['x-formerly-ollama-tag'])meta.formerTag=row['x-formerly-ollama-tag'];
+  return Object.keys(meta).length?meta:undefined;
 }
 
 export function ossRowToTuple(row){
   const {devices,caps:rowCaps}=ossDevicesAndCaps(row);
   const kind=row.kind;
-  if(!['http','npx','uvx','botboozle'].includes(kind))return null;
-  return [row.id,String(row.name).slice(0,160),kind,'O',ossEndpoint(row),String(row.license||'').slice(0,80),String(row.source_url||'').slice(0,300),0,rowCaps,devices,kind==='botboozle','oss'];
+  const OSS_KINDS=['http','npx','uvx','botboozle','hf'];
+  if(!OSS_KINDS.includes(kind))return null;
+  const t=[row.id,String(row.name).slice(0,160),kind,'O',ossEndpoint(row),String(row.license||'').slice(0,80),String(row.source_url||'').slice(0,300),0,rowCaps,devices,kind==='botboozle','oss'];
+  const meta=ossMeta(row);if(meta)t.push(meta);
+  return t;
 }
 
 export function filterOssRows(lines){
@@ -84,9 +158,18 @@ export function filterOssRows(lines){
 }
 
 export function mergeOssIntoBots(bots,ossRows,existingIds){
-  const stats={duplicates:0,added:0};
+  const stats={duplicates:0,added:0,superseded:0,supersedeMissing:0};
   const idSet=existingIds||new Set(bots.map(b=>b[0]));
   for(const t of ossRows){
+    const sup=t[12]?.supersedes;
+    if(sup){
+      if(idSet.has(sup)){
+        const idx=bots.findIndex(b=>b[0]===sup);
+        if(idx>=0)bots.splice(idx,1);
+        idSet.delete(sup);
+        stats.superseded++;
+      }else stats.supersedeMissing++;
+    }
     if(idSet.has(t[0])){stats.duplicates++;continue;}
     bots.push(t);idSet.add(t[0]);stats.added++;
   }
@@ -105,12 +188,69 @@ function parseArgs(argv){
     else throw new Error('Unknown argument '+a);
   }
   if(!out.oss.length){
-    for(const rel of ['data/oss/manifests-OSS.jsonl','data/oss/manifests-OSS-batch2.jsonl']){
-      const p=resolve(root,rel);if(existsSync(p))out.oss.push(p);
+    const dir=resolve(root,'data/oss');
+    if(existsSync(dir)){
+      const names=readdirSync(dir).filter(n=>/^manifests-OSS.*\.jsonl$/i.test(n)&&!/-flagged\.jsonl$/i.test(n)&&!/^manifests-OSS-ollama/i.test(n)).sort((a,c)=>{
+        if(a==='manifests-OSS.jsonl')return -1;
+        if(c==='manifests-OSS.jsonl')return 1;
+        return a.localeCompare(c);
+      });
+      for(const n of names)out.oss.push(resolve(dir,n));
     }
   }
   if(out.subset!=='full'&&out.subset!=='verified-oss')throw new Error('subset must be full or verified-oss');
   return out;
+}
+
+
+export function loadAbSurvivors(path=process.env.KLOUDY_AB_SURVIVORS||resolve(root,'data/oss/ab-survivors.json')){
+  if(!path||!existsSync(path))return null;
+  const raw=readFileSync(path,'utf8').replace(/^\uFEFF/,'');
+  const j=path.endsWith('.jsonl')?null:JSON.parse(raw);
+  const ids=j?(j.ids||j.survivors||j):raw.split(/\r?\n/).filter(Boolean).map(l=>{try{const r=JSON.parse(l);return r.id||r;}catch{return l.trim();}});
+  if(!Array.isArray(ids))throw new Error('A/B survivor list must be an array of ids');
+  return new Set(ids.map(x=>typeof x==='string'?x:x.id).filter(Boolean));
+}
+export function filterAbBySurvivors(bots,survivors){
+  if(!survivors)return {bots,dropped:0,applied:false};
+  const kept=[];let dropped=0;
+  for(const r of bots){
+    if((r[3]==='A'||r[3]==='B')&&!survivors.has(r[0])){dropped++;continue;}
+    kept.push(r);
+  }
+  return {bots:kept,dropped,applied:true};
+}
+
+
+export function loadModalityTags(path=process.env.KLOUDY_MODALITY_TAGS||resolve(root,'data/oss/modality-tags.jsonl')){
+  if(!path||!existsSync(path))return null;
+  const map=new Map();
+  for(const line of readFileSync(path,'utf8').replace(/^\uFEFF/,'').split(/\r?\n/)){
+    if(!line.trim())continue;
+    const r=JSON.parse(line);
+    const modalities=[...new Set((r.modalities||[]).filter(x=>typeof x==='string'&&x.trim()))].map(s=>s.trim());
+    if(!r.id||!modalities.length)continue;
+    map.set(r.id,{modalities,primary:r.primary||r.modality_primary||null,source:r.source||null});
+  }
+  return map;
+}
+export function applyModalityTags(bots,tags){
+  const missing=[];
+  for(const t of bots){
+    const tag=tags&&tags.get(t[0]);
+    if(tag&&tag.modalities&&tag.modalities.length){
+      t[12]=t[12]||{};
+      t[12].modalities=tag.modalities;
+      if(tag.primary)t[12].modalityPrimary=tag.primary;
+    }else missing.push({id:t[0],cls:t[3]});
+  }
+  return missing;
+}
+
+export function mergeOverrideTags(tags){
+  const map=tags?new Map(tags):new Map();
+  for(const [id,tag] of OSS_OVERRIDES.tag)map.set(id,tag);
+  return map.size?map:tags;
 }
 
 export function buildCatalog({base,oss,subset}){
@@ -124,7 +264,14 @@ export function buildCatalog({base,oss,subset}){
     const text=readFileSync(p,'utf8');hash.update(text);
     const {rows,stats}=filterOssRows(text.split('\n'));
     const merge=mergeOssIntoBots(bots,rows);
-    ossStats.push({file:p,in:stats.in,kept:stats.kept,added:merge.added,duplicatesSkipped:merge.duplicates,dropped:stats.dropped});
+    ossStats.push({file:p,in:stats.in,kept:stats.kept,added:merge.added,duplicatesSkipped:merge.duplicates,superseded:merge.superseded,dropped:stats.dropped});
+  }
+  const ab=filterAbBySurvivors(bots,loadAbSurvivors());
+  bots=ab.bots;
+  const untagged=applyModalityTags(bots,mergeOverrideTags(loadModalityTags()));
+  if(untagged.length){
+    const by={A:0,B:0,C:0,O:0};for(const m of untagged)by[m.cls]=(by[m.cls]||0)+1;
+    throw new Error(`modality tags missing for ${untagged.length} rows (A ${by.A}, B ${by.B}, C ${by.C}, O ${by.O}). Refusing to ship a catalog without tags.`);
   }
   if(subset==='verified-oss'){hash.update('subset:verified-oss');}
   let packed=bots;

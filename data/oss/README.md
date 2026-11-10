@@ -1,10 +1,6 @@
-# OSS rows bundled with the npm `kloudy` package
+# OSS catalog inputs for npm kloudy
 
-`scripts/bundle-bots-catalog.mjs` strips class O from `data/catalog/deployable-bots-base.json.gz` (the Gio300/kloudy PR #13 catalog, 54,570 bots: 97 class A, 54,159 class B, 314 class O) and merges these manifests with the same fail-closed filter as `scripts/build-deployable-bots.mjs` in that repo.
+Vetted copies used by scripts/bundle-bots-catalog.mjs and the prepared snapshot in src/deployable-bots.json.gz. Batch 1 first, then later batches. Flagged license files are not ingested. The fail-closed filter is re-applied on ingest, including Discord/Telegram bot-token holds in held-discord-telegram.json. HF x-supersedes replaces the matching earlier row. Class A/B will be filtered by data/oss/ab-survivors.json or KLOUDY_AB_SURVIVORS once that audit list is provided.
 
-| file | rows | role |
-|--|--:|--|
-| `manifests-OSS.jsonl` | 314 | vetted batch 1 already in the PR #13 snapshot |
-| `manifests-OSS-batch2.jsonl` | 1401 | MIT/permissive sweep, complete as of 2026-11-10 |
-
-Batch 2 was ingested. Re-run with `npm run bots:bundle`. The npm snapshot keeps class A and class O because the full catalog packed over ~2 MB. `--subset full` writes every class for a local file; `kloudy bots sync` is how a published install fetches class B.
+The prepared snapshot is the Gio300/kloudy PR #13 catalog after batch 3 and Hugging Face ingest (A/B survivor filter still pending). Rebuild with 
+pm run bots:bundle -- --subset full after updating these files.
