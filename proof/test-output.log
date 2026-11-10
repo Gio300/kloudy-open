@@ -1,0 +1,581 @@
+TAP version 13
+# Subtest: real client results drive status without leaking tool names, arguments or credentials
+ok 1 - real client results drive status without leaking tool names, arguments or credentials
+  ---
+  duration_ms: 1.2223
+  type: 'test'
+  ...
+# Subtest: display failures never repeat an action; exceptions restore activity
+ok 2 - display failures never repeat an action; exceptions restore activity
+  ---
+  duration_ms: 0.3538
+  type: 'test'
+  ...
+# Subtest: overlapping reads do not clear the busy status prematurely
+ok 3 - overlapping reads do not clear the busy status prematurely
+  ---
+  duration_ms: 0.1566
+  type: 'test'
+  ...
+# Subtest: inline approval hides engine token, binds exact selection and blocks expiry/replays/wrong order
+ok 4 - inline approval hides engine token, binds exact selection and blocks expiry/replays/wrong order
+  ---
+  duration_ms: 1.4833
+  type: 'test'
+  ...
+# Subtest: incomplete approvals never render an actionable ticket
+ok 5 - incomplete approvals never render an actionable ticket
+  ---
+  duration_ms: 0.1213
+  type: 'test'
+  ...
+# Subtest: mixed-source approval returns to its bound connection, never the default connection
+ok 6 - mixed-source approval returns to its bound connection, never the default connection
+  ---
+  duration_ms: 0.2461
+  type: 'test'
+  ...
+# Subtest: same result retains supported card metadata and a visible HTTPS link; goal never enters URL
+ok 7 - same result retains supported card metadata and a visible HTTPS link; goal never enters URL
+  ---
+  duration_ms: 1.8519
+  type: 'test'
+  ...
+# Subtest: text-only hosts still receive link and pending lookup preserves exact selection
+ok 8 - text-only hosts still receive link and pending lookup preserves exact selection
+  ---
+  duration_ms: 0.3004
+  type: 'test'
+  ...
+# Subtest: invalid locator fields cannot insert credentials or arbitrary URLs
+ok 9 - invalid locator fields cannot insert credentials or arbitrary URLs
+  ---
+  duration_ms: 0.0922
+  type: 'test'
+  ...
+# Subtest: SDK narrows through the engine and returns one definition without exposing binding metadata
+ok 10 - SDK narrows through the engine and returns one definition without exposing binding metadata
+  ---
+  duration_ms: 1.3758
+  type: 'test'
+  ...
+# Subtest: call cannot invoke an unselected tool and selected execution preserves explicit approval
+ok 11 - call cannot invoke an unselected tool and selected execution preserves explicit approval
+  ---
+  duration_ms: 1.4132
+  type: 'test'
+  ...
+# Subtest: empty toolbox and no discovery never expand into a catalog dump
+ok 12 - empty toolbox and no discovery never expand into a catalog dump
+  ---
+  duration_ms: 0.3229
+  type: 'test'
+  ...
+# Subtest: unexpected multiple definitions, unsafe origins and bearer redirects fail closed
+ok 13 - unexpected multiple definitions, unsafe origins and bearer redirects fail closed
+  ---
+  duration_ms: 14.4008
+  type: 'test'
+  ...
+# Subtest: empty toolbox returns the accepted engine source card without execution or private metadata
+ok 14 - empty toolbox returns the accepted engine source card without execution or private metadata
+  ---
+  duration_ms: 0.2659
+  type: 'test'
+  ...
+# Subtest: connections in the same directory retain independent sessions for mixed strings
+ok 15 - connections in the same directory retain independent sessions for mixed strings
+  ---
+  duration_ms: 39.1491
+  type: 'test'
+  ...
+# Subtest: conversation request enforces exact ownership namespace, revision and engine size limits
+ok 16 - conversation request enforces exact ownership namespace, revision and engine size limits
+  ---
+  duration_ms: 2.2827
+  type: 'test'
+  ...
+# Subtest: metadata-only replay never claims a fresh context or grants permission
+ok 17 - metadata-only replay never claims a fresh context or grants permission
+  ---
+  duration_ms: 0.3415
+  type: 'test'
+  ...
+# Subtest: cross-project, transcript, executable display, malformed and permission-bearing decks rejected
+ok 18 - cross-project, transcript, executable display, malformed and permission-bearing decks rejected
+  ---
+  duration_ms: 0.1676
+  type: 'test'
+  ...
+# Subtest: cards remain bounded plain-text context, not executable markup or authorization
+ok 19 - cards remain bounded plain-text context, not executable markup or authorization
+  ---
+  duration_ms: 0.1659
+  type: 'test'
+  ...
+# Subtest: HTTPK performs one authenticated request, leaves no transcript in session state and never retries conflicts
+ok 20 - HTTPK performs one authenticated request, leaves no transcript in session state and never retries conflicts
+  ---
+  duration_ms: 4.1575
+  type: 'test'
+  ...
+# Subtest: hosted MCP maps conversation to existing method and validates its returned context
+ok 21 - hosted MCP maps conversation to existing method and validates its returned context
+  ---
+  duration_ms: 0.4944
+  type: 'test'
+  ...
+# Subtest: CLI crosses a real HTTP boundary, stores only session metadata and returns exit codes
+ok 22 - CLI crosses a real HTTP boundary, stores only session metadata and returns exit codes
+  ---
+  duration_ms: 835.8301
+  type: 'test'
+  ...
+# Subtest: local MCP invokes the same scoped conversation client through one advertised tool
+ok 23 - local MCP invokes the same scoped conversation client through one advertised tool
+  ---
+  duration_ms: 11.8948
+  type: 'test'
+  ...
+# Subtest: all six clients merge without losing other settings across Windows, macOS and Linux layouts
+ok 24 - all six clients merge without losing other settings across Windows, macOS and Linux layouts
+  ---
+  duration_ms: 442.2392
+  type: 'test'
+  ...
+# Subtest: decline, malformed config, and an existing Kloudy entry never change a file
+ok 25 - decline, malformed config, and an existing Kloudy entry never change a file
+  ---
+  duration_ms: 26.2945
+  type: 'test'
+  ...
+# Subtest: JSONC comments survive; a race during consent is preserved; key stays out of reports
+ok 26 - JSONC comments survive; a race during consent is preserved; key stays out of reports
+  ---
+  duration_ms: 19.5129
+  type: 'test'
+  ...
+# Subtest: a clean home is a no-op; default consent never writes
+ok 27 - a clean home is a no-op; default consent never writes
+  ---
+  duration_ms: 8.1735
+  type: 'test'
+  ...
+# Subtest: hosted query forwards discovery scope without executing or assembling tools
+ok 28 - hosted query forwards discovery scope without executing or assembling tools
+  ---
+  duration_ms: 1.6854
+  type: 'test'
+  ...
+# Subtest: confirmation requires exact binding and explicit user source without fabricating approval
+ok 29 - confirmation requires exact binding and explicit user source without fabricating approval
+  ---
+  duration_ms: 22.6692
+  type: 'test'
+  ...
+# Subtest: assembly forwards only explicit IDs, preserves arguments, and never calls a tool
+ok 30 - assembly forwards only explicit IDs, preserves arguments, and never calls a tool
+  ---
+  duration_ms: 2.4167
+  type: 'test'
+  ...
+# Subtest: one hosted MCP door exposes assembly without forwarding a whole server list
+ok 31 - one hosted MCP door exposes assembly without forwarding a whole server list
+  ---
+  duration_ms: 0.5119
+  type: 'test'
+  ...
+# Subtest: hosted adapter carries exact selections and engine greeting without adding execution
+ok 32 - hosted adapter carries exact selections and engine greeting without adding execution
+  ---
+  duration_ms: 0.2663
+  type: 'test'
+  ...
+# Subtest: HTTPK client keeps one selection and checks receipt after an uncertain call without retrying it
+ok 33 - HTTPK client keeps one selection and checks receipt after an uncertain call without retrying it
+  ---
+  duration_ms: 2.4227
+  type: 'test'
+  ...
+# Subtest: hosted MCP wallet uses the same single HTTPK and cannot request transfer execution
+ok 34 - hosted MCP wallet uses the same single HTTPK and cannot request transfer execution
+  ---
+  duration_ms: 0.3308
+  type: 'test'
+  ...
+# Subtest: IDE installation preserves other servers, adds one Kloudy and is repeatable
+ok 35 - IDE installation preserves other servers, adds one Kloudy and is repeatable
+  ---
+  duration_ms: 35.9671
+  type: 'test'
+  ...
+# Subtest: clean workspace greeting names relevant catalog tools without reading secrets or needing a connection
+ok 36 - clean workspace greeting names relevant catalog tools without reading secrets or needing a connection
+  ---
+  duration_ms: 51.5357
+  type: 'test'
+  ...
+# Subtest: MCP attach intent and prompt greet before attempting a missing engine session
+ok 37 - MCP attach intent and prompt greet before attempting a missing engine session
+  ---
+  duration_ms: 18.9354
+  type: 'test'
+  ...
+# Subtest: global installers cover four IDEs, keep project files untouched and never embed bearer values
+ok 38 - global installers cover four IDEs, keep project files untouched and never embed bearer values
+  ---
+  duration_ms: 56.6505
+  type: 'test'
+  ...
+# Subtest: one MCP door discovers host-configured models without accepting a model-supplied endpoint
+ok 39 - one MCP door discovers host-configured models without accepting a model-supplied endpoint
+  ---
+  duration_ms: 22.1826
+  type: 'test'
+  ...
+# Subtest: MCP advertises one entry then only the selected singular tool
+ok 40 - MCP advertises one entry then only the selected singular tool
+  ---
+  duration_ms: 5.1934
+  type: 'test'
+  ...
+# Subtest: MCP Apps negotiates an inline resource and routes one exact approval without model-visible token
+ok 41 - MCP Apps negotiates an inline resource and routes one exact approval without model-visible token
+  ---
+  duration_ms: 8.2196
+  type: 'test'
+  ...
+# Subtest: discovery is bounded, deduplicated and never makes an inference
+ok 42 - discovery is bounded, deduplicated and never makes an inference
+  ---
+  duration_ms: 22.4684
+  type: 'test'
+  ...
+# Subtest: local Ollama runs one bounded call only for a locally installed model
+ok 43 - local Ollama runs one bounded call only for a locally installed model
+  ---
+  duration_ms: 1.4278
+  type: 'test'
+  ...
+# Subtest: remote and local proxy generation require explicit provider-charge permission before network
+ok 44 - remote and local proxy generation require explicit provider-charge permission before network
+  ---
+  duration_ms: 0.6816
+  type: 'test'
+  ...
+# Subtest: local Ollama cloud aliases cannot silently incur provider charges
+ok 45 - local Ollama cloud aliases cannot silently incur provider charges
+  ---
+  duration_ms: 1.0476
+  type: 'test'
+  ...
+# Subtest: key resolver refreshes for every call; upstream errors and secrets never echo
+ok 46 - key resolver refreshes for every call; upstream errors and secrets never echo
+  ---
+  duration_ms: 3.7809
+  type: 'test'
+  ...
+# Subtest: malformed, oversized, empty, missing-model and transient responses fail without retries
+ok 47 - malformed, oversized, empty, missing-model and transient responses fail without retries
+  ---
+  duration_ms: 4.4645
+  type: 'test'
+  ...
+# Subtest: unsafe URLs and key references fail before connection
+ok 48 - unsafe URLs and key references fail before connection
+  ---
+  duration_ms: 0.3022
+  type: 'test'
+  ...
+# Subtest: host negotiation cannot smuggle approval or surface changes
+ok 49 - host negotiation cannot smuggle approval or surface changes
+  ---
+  duration_ms: 2.3896
+  type: 'test'
+  ...
+# Subtest: an authorized remote request stays bounded and does not retry an uncertain completion
+ok 50 - an authorized remote request stays bounded and does not retry an uncertain completion
+  ---
+  duration_ms: 0.871
+  type: 'test'
+  ...
+# Subtest: IDE SDK defaults autonomous and waits for engine acknowledgment before routing
+ok 51 - IDE SDK defaults autonomous and waits for engine acknowledgment before routing
+  ---
+  duration_ms: 1.7857
+  type: 'test'
+  ...
+# Subtest: unacknowledged mode fails before any selection or execution
+ok 52 - unacknowledged mode fails before any selection or execution
+  ---
+  duration_ms: 1.1312
+  type: 'test'
+  ...
+# Subtest: autonomous clients never manufacture approvals for older engine writes
+ok 53 - autonomous clients never manufacture approvals for older engine writes
+  ---
+  duration_ms: 0.6478
+  type: 'test'
+  ...
+# Subtest: CLI exposes no approval command or confirm switch even without a connection
+ok 54 - CLI exposes no approval command or confirm switch even without a connection
+  ---
+  duration_ms: 1428.853
+  type: 'test'
+  ...
+# Subtest: chain, wallet and BWW use singular engine selections with stable caller replay key
+ok 55 - chain, wallet and BWW use singular engine selections with stable caller replay key
+  ---
+  duration_ms: 29.4391
+  type: 'test'
+  ...
+# Subtest: invalid chain/BWW/amount/extra fields fail before any connection
+ok 56 - invalid chain/BWW/amount/extra fields fail before any connection
+  ---
+  duration_ms: 1.2196
+  type: 'test'
+  ...
+# Subtest: hosting and pairing preserve authoritative inactive flags and never fabricate a QR
+ok 57 - hosting and pairing preserve authoritative inactive flags and never fabricate a QR
+  ---
+  duration_ms: 1.2545
+  type: 'test'
+  ...
+# Subtest: BWW requested fragments preserve provider opt-in and advertisement attribution
+ok 58 - BWW requested fragments preserve provider opt-in and advertisement attribution
+  ---
+  duration_ms: 0.2046
+  type: 'test'
+  ...
+# Subtest: active receipt prevents another action and uncertain submission is never retried
+ok 59 - active receipt prevents another action and uncertain submission is never retried
+  ---
+  duration_ms: 1.1273
+  type: 'test'
+  ...
+# Subtest: public reader uses the canonical AWS door without credential or account calls
+ok 60 - public reader uses the canonical AWS door without credential or account calls
+  ---
+  duration_ms: 22.2058
+  type: 'test'
+  ...
+# Subtest: public reading rejects embedded credentials, executable URLs and malformed responses
+ok 61 - public reading rejects embedded credentials, executable URLs and malformed responses
+  ---
+  duration_ms: 1.2242
+  type: 'test'
+  ...
+# Subtest: cards never become execution grants or permit arbitrary path traversal
+ok 62 - cards never become execution grants or permit arbitrary path traversal
+  ---
+  duration_ms: 1.5249
+  type: 'test'
+  ...
+# Subtest: starter creates runnable public examples and refuses to overwrite an existing project
+ok 63 - starter creates runnable public examples and refuses to overwrite an existing project
+  ---
+  duration_ms: 22.2097
+  type: 'test'
+  ...
+# Subtest: KLDY client sends tiny scoped queries on the existing HTTPK session without tools/call
+ok 64 - KLDY client sends tiny scoped queries on the existing HTTPK session without tools/call
+  ---
+  duration_ms: 24.2425
+  type: 'test'
+  ...
+# Subtest: KLDY validation rejects over-budget, extra scope, elevated permissions and schema dumps
+ok 65 - KLDY validation rejects over-budget, extra scope, elevated permissions and schema dumps
+  ---
+  duration_ms: 0.7165
+  type: 'test'
+  ...
+# Subtest: unset / text: resource delivery and error semantics
+ok 66 - unset / text: resource delivery and error semantics
+  ---
+  duration_ms: 33.8213
+  type: 'test'
+  ...
+# Subtest: unset / apps: resource delivery and error semantics
+ok 67 - unset / apps: resource delivery and error semantics
+  ---
+  duration_ms: 3.837
+  type: 'test'
+  ...
+# Subtest: off / text: resource delivery and error semantics
+ok 68 - off / text: resource delivery and error semantics
+  ---
+  duration_ms: 3.3737
+  type: 'test'
+  ...
+# Subtest: off / apps: resource delivery and error semantics
+ok 69 - off / apps: resource delivery and error semantics
+  ---
+  duration_ms: 2.2791
+  type: 'test'
+  ...
+# Subtest: meta / text: resource delivery and error semantics
+ok 70 - meta / text: resource delivery and error semantics
+  ---
+  duration_ms: 3.0852
+  type: 'test'
+  ...
+# Subtest: meta / apps: resource delivery and error semantics
+ok 71 - meta / apps: resource delivery and error semantics
+  ---
+  duration_ms: 1.392
+  type: 'test'
+  ...
+# Subtest: notify / text: resource delivery and error semantics
+ok 72 - notify / text: resource delivery and error semantics
+  ---
+  duration_ms: 1.3237
+  type: 'test'
+  ...
+# Subtest: notify / apps: resource delivery and error semantics
+ok 73 - notify / apps: resource delivery and error semantics
+  ---
+  duration_ms: 1.3027
+  type: 'test'
+  ...
+# Subtest: invalid / text: resource delivery and error semantics
+ok 74 - invalid / text: resource delivery and error semantics
+  ---
+  duration_ms: 3.0883
+  type: 'test'
+  ...
+# Subtest: invalid / apps: resource delivery and error semantics
+ok 75 - invalid / apps: resource delivery and error semantics
+  ---
+  duration_ms: 3.3983
+  type: 'test'
+  ...
+# Subtest: never advertises upstream-unsupported resources or unserviceable client capabilities
+ok 76 - never advertises upstream-unsupported resources or unserviceable client capabilities
+  ---
+  duration_ms: 0.8556
+  type: 'test'
+  ...
+# Subtest: ambiguous tool failure is never retried or turned into provider execution
+ok 77 - ambiguous tool failure is never retried or turned into provider execution
+  ---
+  duration_ms: 0.9238
+  type: 'test'
+  ...
+# Subtest: off: established-session 404 recovery remains opt-in and bounded
+ok 78 - off: established-session 404 recovery remains opt-in and bounded
+  ---
+  duration_ms: 19.0687
+  type: 'test'
+  ...
+# Subtest: meta: established-session 404 recovery remains opt-in and bounded
+ok 79 - meta: established-session 404 recovery remains opt-in and bounded
+  ---
+  duration_ms: 3.0759
+  type: 'test'
+  ...
+# Subtest: notify: established-session 404 recovery remains opt-in and bounded
+ok 80 - notify: established-session 404 recovery remains opt-in and bounded
+  ---
+  duration_ms: 3.9778
+  type: 'test'
+  ...
+# Subtest: templates use observed state and unknown never becomes success
+ok 81 - templates use observed state and unknown never becomes success
+  ---
+  duration_ms: 2.0084
+  type: 'test'
+  ...
+# Subtest: slots are bounded, non-recursive, and cannot supply status or templates
+ok 82 - slots are bounded, non-recursive, and cannot supply status or templates
+  ---
+  duration_ms: 0.3261
+  type: 'test'
+  ...
+# Subtest: SDF SDK rejects unknown versions, execution claims and invalid structure
+ok 83 - SDF SDK rejects unknown versions, execution claims and invalid structure
+  ---
+  duration_ms: 35.8289
+  type: 'test'
+  ...
+# Subtest: card-list conversion reports unreadable pages, preserves order and avoids duplicate reads
+ok 84 - card-list conversion reports unreadable pages, preserves order and avoids duplicate reads
+  ---
+  duration_ms: 0.853
+  type: 'test'
+  ...
+# Subtest: SDF index adapter bounds expiry, retains source hash and refuses invented provenance
+ok 85 - SDF index adapter bounds expiry, retains source hash and refuses invented provenance
+  ---
+  duration_ms: 1.0157
+  type: 'test'
+  ...
+# Subtest: deduplicated definitions retain both owned actions and require exact selection when ambiguous
+ok 86 - deduplicated definitions retain both owned actions and require exact selection when ambiguous
+  ---
+  duration_ms: 21.843
+  type: 'test'
+  ...
+# Subtest: saved mixed MCP/SDK/CLI intents reselect, deduplicate and isolate projects; no action calls
+ok 87 - saved mixed MCP/SDK/CLI intents reselect, deduplicate and isolate projects; no action calls
+  ---
+  duration_ms: 40.9159
+  type: 'test'
+  ...
+# Subtest: string calls use the exact source route and reject changed sessions before execution
+ok 88 - string calls use the exact source route and reject changed sessions before execution
+  ---
+  duration_ms: 12.6442
+  type: 'test'
+  ...
+# Subtest: expired/missing selections fail without returning a partial toolbox; dormant definitions are pruned
+ok 89 - expired/missing selections fail without returning a partial toolbox; dormant definitions are pruned
+  ---
+  duration_ms: 11.1306
+  type: 'test'
+  ...
+# Subtest: MCP activity follows overlapping real calls without exposing arguments
+ok 90 - MCP activity follows overlapping real calls without exposing arguments
+  ---
+  duration_ms: 1.2406
+  type: 'test'
+  ...
+# Subtest: failed calls signal error and broken observers cannot prevent execution
+ok 91 - failed calls signal error and broken observers cannot prevent execution
+  ---
+  duration_ms: 0.8726
+  type: 'test'
+  ...
+# Subtest: wallet uses existing HTTPK session and never accepts a payable or executed preview
+ok 92 - wallet uses existing HTTPK session and never accepts a payable or executed preview
+  ---
+  duration_ms: 16.5426
+  type: 'test'
+  ...
+# Subtest: MCP wallet stays inside the one advertised tool and returns explicit preview
+ok 93 - MCP wallet stays inside the one advertised tool and returns explicit preview
+  ---
+  duration_ms: 12.7165
+  type: 'test'
+  ...
+# Subtest: terminal activity stays silent in pipes and stops its timer on completion
+ok 94 - terminal activity stays silent in pipes and stops its timer on completion
+  ---
+  duration_ms: 0.4289
+  type: 'test'
+  ...
+# Subtest: real HTTP/stdio round trip exposes only selected tools, denies other tools and cleanly handles upstream crash
+ok 95 - real HTTP/stdio round trip exposes only selected tools, denies other tools and cleanly handles upstream crash
+  ---
+  duration_ms: 881.2755
+  type: 'test'
+  ...
+1..95
+# tests 95
+# suites 0
+# pass 95
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1627.8254
+

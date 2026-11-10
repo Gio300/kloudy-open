@@ -1,0 +1,55 @@
+{
+  "actualLiveWebsite": true,
+  "anonymousFreshBrowser": true,
+  "realAccountTest": false,
+  "nativeIdeTest": false,
+  "providerCalls": 0,
+  "results": [
+    {
+      "width": 1440,
+      "url": "https://kloudy.ai/api/customer/visual-chooser/start",
+      "status": 200,
+      "title": "Kloudy project templates",
+      "visibleText": "Kloudy Konnekt\nChoose templates for your project\n\nUse your existing account and project. These are local source templates. No model, paid provider, installation or live execution runs here.\n\nEmail lookup hint (optional)\n\nThe hint does not prove identity or expose private choices. Complete account sign-in and 2FA.\n\nSign in with your email account Check sign-in\n\nSign in in the opened tab, then choose Check sign-in here.\n\nExisting project permissions\n\nTo return directly to your IDE, open the paired chooser link from Kloudy 0.4.8 and confirm its matching code after sign-in. Return your selection, then use receive_website_selection on that same MCP connection. An unpaired visit can download the exact manifest instead. Choices do not authorize installation, execution or spending.",
+      "buttons": [
+        "Sign in with your email account",
+        "Check sign-in"
+      ],
+      "links": [
+        {
+          "text": "Kloudy Konnekt",
+          "href": "/"
+        },
+        {
+          "text": "Projects",
+          "href": "/?view=projects"
+        }
+      ],
+      "noOverflow": true,
+      "pageErrors": []
+    },
+    {
+      "width": 390,
+      "url": "https://kloudy.ai/api/customer/visual-chooser/start",
+      "status": 200,
+      "title": "Kloudy project templates",
+      "visibleText": "Kloudy Konnekt\nChoose templates for your project\n\nUse your existing account and project. These are local source templates. No model, paid provider, installation or live execution runs here.\n\nEmail lookup hint (optional)\n\nThe hint does not prove identity or expose private choices. Complete account sign-in and 2FA.\n\nSign in with your email account Check sign-in\n\nSign in in the opened tab, then choose Check sign-in here.\n\nExisting project permissions\n\nTo return directly to your IDE, open the paired chooser link from Kloudy 0.4.8 and confirm its matching code after sign-in. Return your selection, then use receive_website_selection on that same MCP connection. An unpaired visit can download the exact manifest instead. Choices do not authorize installation, execution or spending.",
+      "buttons": [
+        "Sign in with your email account",
+        "Check sign-in"
+      ],
+      "links": [
+        {
+          "text": "Kloudy Konnekt",
+          "href": "/"
+        },
+        {
+          "text": "Projects",
+          "href": "/?view=projects"
+        }
+      ],
+      "noOverflow": true,
+      "pageErrors": []
+    }
+  ]
+}

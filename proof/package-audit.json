@@ -1,0 +1,16 @@
+{
+  "version": "0.4.8",
+  "source": "Published kloudy 0.4.7 plus generic encrypted inert-data return client",
+  "changed": [
+    "README.md",
+    "package.json",
+    "src/remote.mjs"
+  ],
+  "added": [
+    "src/website-return.mjs"
+  ],
+  "privateBrowserSourceIncluded": false,
+  "coreSourceIncluded": false,
+  "files": 48,
+  "integrity": "sha512-vfzVGfoZuWALOzv4AXPJouTsgfWKGrcORGoapvdOZ8tbIj4i86s/NJDahjkjPF4Q0SDGoPxv+BgGsrWxE/4cEg=="
+}

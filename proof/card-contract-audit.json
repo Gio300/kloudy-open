@@ -1,0 +1,20 @@
+{
+  "toolName": "show_visual_setup_choices",
+  "toolDescriptorUi": {
+    "resourceUri": "ui://widget/kloudy-visual-setup-v1.html"
+  },
+  "toolDescriptorLegacyResource": null,
+  "resultUi": {
+    "resourceUri": "ui://widget/kloudy-visual-setup-v1.html"
+  },
+  "resultLegacyResource": null,
+  "resourceMimeType": "text/html;profile=mcp-app",
+  "htmlBytes": 1081542,
+  "htmlSha": "8b7897a5177fcaf4b9fc034e7a7950b8e4dc29ff0694cf69b3df65bb51e444e1",
+  "textFallback": true,
+  "structuredChoices": true,
+  "pairedWebsiteReturnAvailable": true,
+  "nativeClientUiVerified": false,
+  "namedClientsTested": [],
+  "providerCalls": 0
+}

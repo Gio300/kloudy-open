@@ -1,0 +1,198 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "kind": "direct-public-hosted",
+      "serverInfo": {
+        "name": "Kloudy",
+        "version": "0.4.5+cat.33b7e202f826"
+      },
+      "serverCapabilities": {
+        "resources": {
+          "listChanged": true
+        },
+        "tools": {
+          "listChanged": true
+        }
+      },
+      "modelVisibleTools": [
+        {
+          "name": "find_mcp_tools",
+          "ui": null
+        },
+        {
+          "name": "kloudy_connect_card",
+          "ui": {
+            "resourceUri": "ui://widget/kloudy-connect-v1.html"
+          }
+        },
+        {
+          "name": "show_tool_preferences_card",
+          "ui": {
+            "resourceUri": "ui://widget/kloudy-sample-v1.html"
+          }
+        },
+        {
+          "name": "show_visual_setup_choices",
+          "ui": {
+            "resourceUri": "ui://widget/kloudy-visual-setup-v1.html"
+          }
+        }
+      ],
+      "listedResources": [
+        {
+          "uri": "ui://widget/kloudy-connect-v1.html",
+          "mimeType": "text/html;profile=mcp-app"
+        },
+        {
+          "uri": "ui://widget/kloudy-sample-v1.html",
+          "mimeType": "text/html;profile=mcp-app"
+        },
+        {
+          "uri": "ui://widget/kloudy-visual-setup-v1.html",
+          "mimeType": "text/html;profile=mcp-app"
+        },
+        {
+          "uri": "kloudy://visual-setup/vite-workbench.svg",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "uri": "kloudy://visual-setup/astro-publishing.svg",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "uri": "kloudy://visual-setup/next-portal.svg",
+          "mimeType": "image/svg+xml"
+        }
+      ],
+      "calls": [
+        {
+          "discoveryGoal": "install npx kloudy",
+          "returnedMode": "install",
+          "calledCardMode": "install",
+          "toolName": "kloudy_connect_card",
+          "resourceUri": "ui://widget/kloudy-connect-v1.html",
+          "mimeType": "text/html;profile=mcp-app",
+          "htmlBytes": 652026,
+          "htmlSha": "340924e30d20b513696bfbc71adf16cc54d4d5e60300c9b078ae6f1b7731093a",
+          "textFallback": true,
+          "structuredResult": true
+        },
+        {
+          "discoveryGoal": "sign in to kloudy",
+          "returnedMode": "signin",
+          "calledCardMode": "signin",
+          "toolName": "kloudy_connect_card",
+          "resourceUri": "ui://widget/kloudy-connect-v1.html",
+          "mimeType": "text/html;profile=mcp-app",
+          "htmlBytes": 652026,
+          "htmlSha": "340924e30d20b513696bfbc71adf16cc54d4d5e60300c9b078ae6f1b7731093a",
+          "textFallback": true,
+          "structuredResult": true
+        }
+      ],
+      "nativeCardRenderingVerified": false,
+      "providerCalls": 0,
+      "preferenceCard": {
+        "resourceUri": "ui://widget/kloudy-sample-v1.html",
+        "mimeType": "text/html;profile=mcp-app"
+      }
+    },
+    {
+      "kind": "installed-0.4.8-proxy-autoupdate-off",
+      "serverInfo": {
+        "name": "kloudy",
+        "version": "0.4.8"
+      },
+      "serverCapabilities": {
+        "resources": {},
+        "tools": {}
+      },
+      "modelVisibleTools": [
+        {
+          "name": "find_mcp_tools",
+          "ui": null
+        },
+        {
+          "name": "kloudy_connect_card",
+          "ui": {
+            "resourceUri": "ui://widget/kloudy-connect-v1.html"
+          }
+        },
+        {
+          "name": "show_tool_preferences_card",
+          "ui": {
+            "resourceUri": "ui://widget/kloudy-sample-v1.html"
+          }
+        },
+        {
+          "name": "show_visual_setup_choices",
+          "ui": {
+            "resourceUri": "ui://widget/kloudy-visual-setup-v1.html"
+          }
+        }
+      ],
+      "listedResources": [
+        {
+          "uri": "ui://widget/kloudy-connect-v1.html",
+          "mimeType": "text/html;profile=mcp-app"
+        },
+        {
+          "uri": "ui://widget/kloudy-sample-v1.html",
+          "mimeType": "text/html;profile=mcp-app"
+        },
+        {
+          "uri": "ui://widget/kloudy-visual-setup-v1.html",
+          "mimeType": "text/html;profile=mcp-app"
+        },
+        {
+          "uri": "kloudy://visual-setup/vite-workbench.svg",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "uri": "kloudy://visual-setup/astro-publishing.svg",
+          "mimeType": "image/svg+xml"
+        },
+        {
+          "uri": "kloudy://visual-setup/next-portal.svg",
+          "mimeType": "image/svg+xml"
+        }
+      ],
+      "calls": [
+        {
+          "discoveryGoal": "install npx kloudy",
+          "returnedMode": "install",
+          "calledCardMode": "install",
+          "toolName": "kloudy_connect_card",
+          "resourceUri": "ui://widget/kloudy-connect-v1.html",
+          "mimeType": "text/html;profile=mcp-app",
+          "htmlBytes": 652026,
+          "htmlSha": "340924e30d20b513696bfbc71adf16cc54d4d5e60300c9b078ae6f1b7731093a",
+          "textFallback": true,
+          "structuredResult": true
+        },
+        {
+          "discoveryGoal": "sign in to kloudy",
+          "returnedMode": "signin",
+          "calledCardMode": "signin",
+          "toolName": "kloudy_connect_card",
+          "resourceUri": "ui://widget/kloudy-connect-v1.html",
+          "mimeType": "text/html;profile=mcp-app",
+          "htmlBytes": 652026,
+          "htmlSha": "340924e30d20b513696bfbc71adf16cc54d4d5e60300c9b078ae6f1b7731093a",
+          "textFallback": true,
+          "structuredResult": true
+        }
+      ],
+      "nativeCardRenderingVerified": false,
+      "providerCalls": 0,
+      "preferenceCard": {
+        "resourceUri": "ui://widget/kloudy-sample-v1.html",
+        "mimeType": "text/html;profile=mcp-app"
+      }
+    }
+  ],
+  "namedClientsTested": [],
+  "nativeCardRenderingVerified": false,
+  "providerCalls": 0
+}
