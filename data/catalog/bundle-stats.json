@@ -1,0 +1,28 @@
+{
+  "subset": "verified-oss",
+  "baseBots": 55971,
+  "shipped": 1812,
+  "gzBytes": 57870,
+  "classes": {
+    "A": 97,
+    "O": 1715
+  },
+  "oss": [
+    {
+      "file": "/data/oss/manifests-OSS.jsonl",
+      "in": 314,
+      "kept": 314,
+      "added": 314,
+      "duplicatesSkipped": 0,
+      "dropped": {}
+    },
+    {
+      "file": "/data/oss/manifests-OSS-batch2.jsonl",
+      "in": 1401,
+      "kept": 1401,
+      "added": 1401,
+      "duplicatesSkipped": 0,
+      "dropped": {}
+    }
+  ]
+}

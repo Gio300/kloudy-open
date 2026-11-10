@@ -20,6 +20,8 @@ Interactive cards require a host that supports MCP Apps. The proxy relays the su
 
 The existing SDK exports remain available under `kloudy/*`. For the pre-0.4 specialized engine CLI commands documented below, use `kloudy legacy <command>` (for example, `kloudy legacy init my-app`). The original CLI is retained in `bin/kloudy.mjs`.
 
+Offline bot catalog: `npx kloudy bots list|search|get|sync|works|broken`. Search uses the bundled snapshot, then the local cache. `get` uses a live hit when the API has one, and falls back to that snapshot when the live call misses, including HTTP 404. `--offline` stays on the snapshot. `sync` downloads the full catalog into the local cache.
+
 One-click Cursor / VS Code setup: https://kloudy.ai/install. Browser deep links ask the editor to install; opening a link is not proof that installation completed. ChatGPT requires its directory program; this package does not modify ChatGPT.
 
 ## Earlier engine adapter documentation
