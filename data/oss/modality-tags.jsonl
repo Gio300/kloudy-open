@@ -197,7 +197,7 @@
 {"id": "oss:skills:sordi-ai/skill-everything/SKILL.md", "modalities": ["agent_tools", "memory"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:skills:haal-ai/haal-skills/skills/clean-srt-transcript", "modalities": ["multimodal", "video", "audio", "translation", "agent_tools"], "primary": "multimodal", "source": "field"}
 {"id": "oss:skills:haal-ai/haal-skills/skills/code-in-go", "modalities": ["text", "code_execution", "agent_tools"], "primary": "text", "source": "field"}
-{"id": "oss:skills:haal-ai/haal-skills/skills/analyze-spec-vs-code", "modalities": ["data_analysis", "agent_tools"], "primary": "data_analysis", "source": "field"}
+{"id": "oss:skills:haal-ai/haal-skills/skills/analyze-spec-vs-code", "modalities": ["code", "data_analysis", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:skills:VoltAgent/awesome-agent-skills", "modalities": ["search", "agent_tools"], "primary": "search", "source": "field"}
 {"id": "oss:skills:heilcheng/awesome-agent-skills", "modalities": ["search", "agent_tools"], "primary": "search", "source": "field"}
 {"id": "oss:skills:crewAIInc/crewAI-tools", "modalities": ["agent_tools", "orchestration", "api_calls"], "primary": "agent_tools", "source": "field"}
@@ -283,10 +283,10 @@
 {"id": "oss:academic:web-arena-x/webarena", "modalities": ["code_execution", "browser_automation", "search", "agent_tools"], "primary": "code_execution", "source": "field"}
 {"id": "oss:academic:neulab/prompt2model", "modalities": ["text", "code_execution", "agent_tools", "orchestration"], "primary": "text", "source": "field"}
 {"id": "oss:academic:neulab/ReviewAdvisor", "modalities": ["text", "document_processing", "agent_tools"], "primary": "text", "source": "field"}
-{"id": "oss:academic:OpenHands/OpenHands", "modalities": ["code_execution", "browser_automation", "agent_tools", "orchestration"], "primary": "code_execution", "source": "field"}
-{"id": "oss:academic:SWE-agent/SWE-agent", "modalities": ["code_execution", "agent_tools", "orchestration"], "primary": "code_execution", "source": "field"}
+{"id": "oss:academic:OpenHands/OpenHands", "modalities": ["code", "code_execution", "browser_automation", "agent_tools", "orchestration"], "primary": "code", "source": "keyword"}
+{"id": "oss:academic:SWE-agent/SWE-agent", "modalities": ["code", "code_execution", "agent_tools", "orchestration"], "primary": "code", "source": "keyword"}
 {"id": "oss:academic:SWE-bench/SWE-bench", "modalities": ["code_execution", "data_analysis", "agent_tools"], "primary": "code_execution", "source": "field"}
-{"id": "oss:academic:SWE-agent/mini-swe-agent", "modalities": ["code_execution", "agent_tools"], "primary": "code_execution", "source": "field"}
+{"id": "oss:academic:SWE-agent/mini-swe-agent", "modalities": ["code", "code_execution", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:academic:princeton-nlp/intercode", "modalities": ["code_execution", "agent_tools", "orchestration"], "primary": "code_execution", "source": "field"}
 {"id": "oss:academic:princeton-nlp/LESS", "modalities": ["text", "data_analysis", "orchestration"], "primary": "text", "source": "field"}
 {"id": "oss:academic:princeton-nlp/WebShop", "modalities": ["browser_automation", "search", "agent_tools"], "primary": "browser_automation", "source": "field"}
@@ -328,7 +328,7 @@
 {"id": "oss:mit-sweep:101dotxyz/GPTeam", "modalities": ["text", "agent_tools", "api_calls"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:1105216375-alt/resimind", "modalities": ["text", "agent_tools", "memory", "math"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:13bm/GhidraMCP", "modalities": ["agent_tools", "memory"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:1jehuang/jcode", "modalities": ["agent_tools", "orchestration"], "primary": "agent_tools", "source": "field"}
+{"id": "oss:mit-sweep:1jehuang/jcode", "modalities": ["code", "agent_tools", "orchestration"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:1luvc0d3/metabase-mcp", "modalities": ["text", "data_analysis", "database_access", "agent_tools", "api_calls", "auth_encryption"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:1mcp-app/agent", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:20000419/fauxnix", "modalities": ["translation", "agent_tools", "api_calls"], "primary": "translation", "source": "field"}
@@ -357,7 +357,7 @@
 {"id": "oss:mit-sweep:a2cr/a2cr", "modalities": ["text", "agent_tools", "api_calls", "auth_encryption"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:aaddrick/attention-control", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:aaddrick/building-with-typesafe-jev", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:aaif-goose/goose", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
+{"id": "oss:mit-sweep:aaif-goose/goose", "modalities": ["code", "text", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:aakashg/pm-claude-code-setup", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:aantti/mcp-netbird", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:aarifmms/keyblind", "modalities": ["text", "agent_tools", "api_calls", "auth_encryption"], "primary": "text", "source": "field"}
@@ -395,7 +395,6 @@
 {"id": "oss:mit-sweep:adw0rd/awesome-mcp-tools-mcp", "modalities": ["search", "agent_tools", "api_calls"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:aeoess/agent-passport-mcp", "modalities": ["agent_tools", "api_calls"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:aeonfun/aeon", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:aerospike/aerospike-client-nodejs", "modalities": [], "primary": null, "source": "keyword"}
 {"id": "oss:mit-sweep:aethynio/aethyn-browser-mcp", "modalities": ["browser_automation", "agent_tools", "api_calls"], "primary": "browser_automation", "source": "field"}
 {"id": "oss:mit-sweep:affaan-m/agentshield", "modalities": ["image", "agent_tools"], "primary": "image", "source": "field"}
 {"id": "oss:mit-sweep:affaan-m/ECC", "modalities": ["search", "agent_tools", "memory", "math"], "primary": "search", "source": "field"}
@@ -447,7 +446,7 @@
 {"id": "oss:mit-sweep:alexei-led/cloud-mcp-server", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:alexei-led/k8s-mcp-server", "modalities": ["text", "agent_tools", "auth_encryption"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:alexisfox7/PRO-LONG", "modalities": ["text", "search", "agent_tools", "memory"], "primary": "text", "source": "field"}
-{"id": "oss:mit-sweep:AlexZio00/sovereign-skills", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
+{"id": "oss:mit-sweep:AlexZio00/sovereign-skills", "modalities": ["code", "text", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:alfredfrancis/ai-chatbot-framework", "modalities": ["text", "agent_tools", "scheduling"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:alibaba/page-agent", "modalities": ["text", "agent_tools", "auth_encryption"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:alifurkangokce/driftlint", "modalities": ["search", "agent_tools", "api_calls"], "primary": "search", "source": "field"}
@@ -458,9 +457,9 @@
 {"id": "oss:mit-sweep:allgpt-co/QuickVoice", "modalities": ["audio", "agent_tools"], "primary": "audio", "source": "field"}
 {"id": "oss:mit-sweep:alphasecio/langchain-examples", "modalities": ["text"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:alpic-ai/skybridge", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
-{"id": "oss:mit-sweep:amicalhq/amical", "modalities": [], "primary": null, "source": "keyword"}
+{"id": "oss:mit-sweep:amicalhq/amical", "modalities": ["multimodal", "audio", "text"], "primary": "multimodal", "source": "keyword"}
 {"id": "oss:mit-sweep:AminForou/mcp-gsc", "modalities": ["search", "agent_tools"], "primary": "search", "source": "field"}
-{"id": "oss:mit-sweep:ammaarreshi/gemma-chat", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
+{"id": "oss:mit-sweep:ammaarreshi/gemma-chat", "modalities": ["code", "text", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:AmoyLab/Unla", "modalities": ["agent_tools", "api_calls"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:AnalyticAce/binance-mcp-server", "modalities": ["agent_tools", "auth_encryption"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:andrewnguonly/Lumos", "modalities": ["text", "search", "memory"], "primary": "text", "source": "field"}
@@ -494,11 +493,10 @@
 {"id": "oss:mit-sweep:athina-ai/rag-cookbooks", "modalities": ["search", "memory"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:atom2ueki/mcp-server-synology", "modalities": ["file_system", "agent_tools", "api_calls", "auth_encryption"], "primary": "file_system", "source": "field"}
 {"id": "oss:mit-sweep:atomicstrata/llm-wiki-compiler", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
-{"id": "oss:mit-sweep:atsushi-green/ds-ai-coding-skills", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
+{"id": "oss:mit-sweep:atsushi-green/ds-ai-coding-skills", "modalities": ["code", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:Automata-Labs-team/code-sandbox-mcp", "modalities": ["code_execution", "agent_tools"], "primary": "code_execution", "source": "field"}
 {"id": "oss:mit-sweep:autonomous-ai/openharness", "modalities": ["audio", "robotics", "agent_tools"], "primary": "audio", "source": "field"}
 {"id": "oss:mit-sweep:avenoxai/avenoxskills", "modalities": ["video", "agent_tools"], "primary": "video", "source": "field"}
-{"id": "oss:mit-sweep:awaescher/OllamaSharp", "modalities": [], "primary": null, "source": "keyword"}
 {"id": "oss:mit-sweep:awizemann/scarf", "modalities": ["text", "agent_tools", "memory", "scheduling"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:AYOUYI/chromadb_GUI_tool", "modalities": ["memory"], "primary": "memory", "source": "field"}
 {"id": "oss:mit-sweep:ayulockin/fastapi-chroma", "modalities": ["memory", "api_calls"], "primary": "memory", "source": "field"}
@@ -520,7 +518,6 @@
 {"id": "oss:mit-sweep:bergside/awesome-design-skills", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:bergside/design-md-chrome", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:bergside/design-md-figma", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:bernardo-bruning/ollama-copilot", "modalities": [], "primary": null, "source": "keyword"}
 {"id": "oss:mit-sweep:Berserk-hub150/skillhawk", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:bethington/ghidra-mcp", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:bgauryy/octocode", "modalities": ["text", "search", "agent_tools"], "primary": "text", "source": "field"}
@@ -530,7 +527,7 @@
 {"id": "oss:mit-sweep:BittnerPierre/applied-ai-rag-assistant", "modalities": ["video", "search", "memory"], "primary": "video", "source": "field"}
 {"id": "oss:mit-sweep:BkashJEE/hermes-bot-forge", "modalities": ["agent_tools", "memory"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:blacktop/ipsw-skill", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:Blarc/ai-commits-intellij-plugin", "modalities": [], "primary": null, "source": "keyword"}
+{"id": "oss:mit-sweep:Blarc/ai-commits-intellij-plugin", "modalities": ["code"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:BloopAI/vibe-kanban", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:BootLoops-ai/bootloops", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:BoxcarsAI/boxcars", "modalities": ["text"], "primary": "text", "source": "field"}
@@ -550,7 +547,7 @@
 {"id": "oss:mit-sweep:call518/MCP-Airflow-API", "modalities": ["text", "agent_tools", "orchestration", "api_calls", "auth_encryption"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:CallmeShini/nextjs-docs-rag", "modalities": ["document_processing", "search", "agent_tools", "orchestration", "memory"], "primary": "document_processing", "source": "field"}
 {"id": "oss:mit-sweep:callstack/agent-device", "modalities": ["agent_tools", "api_calls"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:can1357/oh-my-pi", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
+{"id": "oss:mit-sweep:can1357/oh-my-pi", "modalities": ["code", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:Carltonromansh946/daVinci-LLM", "modalities": ["text", "memory"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:casdoor/casdoor", "modalities": ["text", "agent_tools", "auth_encryption"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:CatchTheTornado/text-extract-api", "modalities": ["image", "document_processing", "api_calls"], "primary": "image", "source": "field"}
@@ -572,7 +569,7 @@
 {"id": "oss:mit-sweep:chroma-core/chromadb-default-embed", "modalities": ["text", "memory"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:ChromeDevTools/chrome-devtools-mcp", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:chunkhound/chunkhound", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:ciembor/agent-rules-books", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
+{"id": "oss:mit-sweep:ciembor/agent-rules-books", "modalities": ["code", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:cinderline/northcinder", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:Cinnamon/kotaemon", "modalities": ["text", "document_processing", "search", "memory"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:cisco-ai-defense/mcp-scanner", "modalities": ["search", "agent_tools"], "primary": "search", "source": "field"}
@@ -582,15 +579,14 @@
 {"id": "oss:mit-sweep:ClawMobile/ClawMobile", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:ClickDevTech/CELERITY-panel", "modalities": ["file_system", "agent_tools", "api_calls"], "primary": "file_system", "source": "field"}
 {"id": "oss:mit-sweep:clidey/deptrust", "modalities": ["agent_tools", "auth_encryption"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:cluster1900/apexo-code", "modalities": ["code_execution", "agent_tools", "orchestration", "memory"], "primary": "code_execution", "source": "field"}
+{"id": "oss:mit-sweep:cluster1900/apexo-code", "modalities": ["code", "code_execution", "agent_tools", "orchestration", "memory"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:clusterzx/paperless-ai", "modalities": ["document_processing", "api_calls"], "primary": "document_processing", "source": "field"}
 {"id": "oss:mit-sweep:coasty-ai/open-cowork", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:cobibean/soul-grader-skill", "modalities": ["search", "agent_tools"], "primary": "search", "source": "field"}
-{"id": "oss:mit-sweep:cobusgreyling/loop-engineering", "modalities": ["agent_tools", "orchestration"], "primary": "agent_tools", "source": "field"}
+{"id": "oss:mit-sweep:cobusgreyling/loop-engineering", "modalities": ["code", "agent_tools", "orchestration"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:cocoindex-io/cocoindex", "modalities": ["search", "agent_tools"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:coddingtonbear/obsidian-local-rest-api", "modalities": ["agent_tools", "api_calls"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:CodeGraphContext/CodeGraphContext", "modalities": ["search", "database_access", "agent_tools"], "primary": "search", "source": "field"}
-{"id": "oss:mit-sweep:CoderSJX/AI-Resources-Central", "modalities": [], "primary": null, "source": "keyword"}
 {"id": "oss:mit-sweep:codewhale-hq/Codewhale", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:codewithMUHILAN/Lightswind-UI-Library", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:coleam00/mcp-mem0", "modalities": ["agent_tools", "memory"], "primary": "agent_tools", "source": "field"}
@@ -599,9 +595,9 @@
 {"id": "oss:mit-sweep:CopilotKit/OpenBot", "modalities": ["browser_automation", "agent_tools"], "primary": "browser_automation", "source": "field"}
 {"id": "oss:mit-sweep:CoplayDev/unity-mcp", "modalities": ["text", "agent_tools", "auth_encryption"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:cortexkit/magic-context", "modalities": ["agent_tools", "memory"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:CoWork-OS/CoWork-OS", "modalities": [], "primary": null, "source": "keyword"}
+{"id": "oss:mit-sweep:CoWork-OS/CoWork-OS", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "keyword"}
 {"id": "oss:mit-sweep:coze-dev/coze-studio", "modalities": ["agent_tools", "memory"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:crisnahine/rails-ai-context", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
+{"id": "oss:mit-sweep:crisnahine/rails-ai-context", "modalities": ["code", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:crmne/ruby_llm", "modalities": ["text"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:ctxd-dev/ctxd", "modalities": ["file_system", "agent_tools"], "primary": "file_system", "source": "field"}
 {"id": "oss:mit-sweep:ctxr-dev/llm-wiki-memory", "modalities": ["text", "search", "agent_tools", "memory"], "primary": "text", "source": "field"}
@@ -638,7 +634,7 @@
 {"id": "oss:mit-sweep:dezoito/ollama-grid-search", "modalities": ["text", "search"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:DGouron/review-flow", "modalities": ["agent_tools", "api_calls"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:dhicoc/dsh-reverse-skill", "modalities": ["search", "agent_tools", "auth_encryption"], "primary": "search", "source": "field"}
-{"id": "oss:mit-sweep:di-sukharev/opencommit", "modalities": ["text"], "primary": "text", "source": "field"}
+{"id": "oss:mit-sweep:di-sukharev/opencommit", "modalities": ["code", "text"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:dianyike/claude-code-insights", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:didilili/ai-agents-from-zero", "modalities": ["text", "search", "agent_tools", "memory"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:didilili/shopkeeper-agent", "modalities": ["search", "database_access", "agent_tools", "memory", "api_calls"], "primary": "search", "source": "field"}
@@ -680,7 +676,7 @@
 {"id": "oss:mit-sweep:dreammis/social-auto-upload", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:dromara/liteflow", "modalities": ["text", "file_system", "agent_tools", "orchestration", "auth_encryption"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:drumandbytes/delistd", "modalities": ["agent_tools", "scheduling"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:drvoss/everything-copilot-cli", "modalities": ["agent_tools", "orchestration"], "primary": "agent_tools", "source": "field"}
+{"id": "oss:mit-sweep:drvoss/everything-copilot-cli", "modalities": ["code", "agent_tools", "orchestration"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:Dsadd4/AgentFigureGallery", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:duty1g/x64dbg-mcp-server", "modalities": ["agent_tools", "memory", "api_calls"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:DylXBT/claude-orchestrator-skills", "modalities": ["agent_tools", "orchestration"], "primary": "agent_tools", "source": "field"}
@@ -709,7 +705,7 @@
 {"id": "oss:mit-sweep:evan043/claude-cli-advanced-starter-pack", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:EverMind-AI/EverOS", "modalities": ["document_processing", "agent_tools", "orchestration", "memory"], "primary": "document_processing", "source": "field"}
 {"id": "oss:mit-sweep:EverMind-AI/Raven", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:f/git-rewrite-commits", "modalities": ["text", "auth_encryption"], "primary": "text", "source": "field"}
+{"id": "oss:mit-sweep:f/git-rewrite-commits", "modalities": ["code", "text", "auth_encryption"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:f/mcptools", "modalities": ["agent_tools", "api_calls"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:FactoryBoy/factory_boy", "modalities": ["code_execution"], "primary": "code_execution", "source": "field"}
 {"id": "oss:mit-sweep:FacundoLucci/plsreadme", "modalities": ["document_processing", "agent_tools", "api_calls"], "primary": "document_processing", "source": "field"}
@@ -736,7 +732,6 @@
 {"id": "oss:mit-sweep:fcavalcantirj/claude-code-eyes", "modalities": ["image", "agent_tools"], "primary": "image", "source": "field"}
 {"id": "oss:mit-sweep:fcrepo/fcrepo", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:featbit/featbit", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:feathersjs/feathers", "modalities": [], "primary": null, "source": "keyword"}
 {"id": "oss:mit-sweep:feature-engine/feature_engine", "modalities": ["api_calls"], "primary": "api_calls", "source": "field"}
 {"id": "oss:mit-sweep:feder-cr/invisible_playwright_mcp", "modalities": ["image", "browser_automation", "search", "agent_tools", "api_calls"], "primary": "image", "source": "field"}
 {"id": "oss:mit-sweep:federicodeponte/opendraft", "modalities": ["search", "agent_tools"], "primary": "search", "source": "field"}
@@ -751,7 +746,7 @@
 {"id": "oss:mit-sweep:fetchai/innovation-lab-examples", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:finaldie/auto-news", "modalities": ["text"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:finom/vovk", "modalities": ["agent_tools", "api_calls"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:fiorastudio/buddy", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
+{"id": "oss:mit-sweep:fiorastudio/buddy", "modalities": ["code", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:firebase/genkit", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:firecrawl/firecrawl-mcp-server", "modalities": ["browser_automation", "search", "agent_tools", "api_calls"], "primary": "browser_automation", "source": "field"}
 {"id": "oss:mit-sweep:firelock-ai/kin", "modalities": ["agent_tools", "api_calls"], "primary": "agent_tools", "source": "field"}
@@ -760,8 +755,8 @@
 {"id": "oss:mit-sweep:first-fluke/oh-my-agent", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:firstorderai/authenticator_mcp", "modalities": ["agent_tools", "auth_encryption"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:fish827-08/rag-kb", "modalities": ["document_processing", "agent_tools", "memory", "api_calls", "auth_encryption"], "primary": "document_processing", "source": "field"}
-{"id": "oss:mit-sweep:FishBottle7/opencode2dsh", "modalities": ["text", "agent_tools", "api_calls"], "primary": "text", "source": "field"}
-{"id": "oss:mit-sweep:fishzjp/qa-skills", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
+{"id": "oss:mit-sweep:FishBottle7/opencode2dsh", "modalities": ["code", "text", "agent_tools", "api_calls"], "primary": "code", "source": "keyword"}
+{"id": "oss:mit-sweep:fishzjp/qa-skills", "modalities": ["code", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:fivdi/i2c-bus", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:fivdi/onoff", "modalities": ["image"], "primary": "image", "source": "field"}
 {"id": "oss:mit-sweep:fivdi/pigpio", "modalities": ["notifications"], "primary": "notifications", "source": "field"}
@@ -774,7 +769,6 @@
 {"id": "oss:mit-sweep:flamexnreal/davinci-resolve-ai-bridge-mcp", "modalities": ["agent_tools", "api_calls"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:flesler/mcp-files", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:flesler/mcp-tasks", "modalities": ["text", "document_processing", "search", "agent_tools"], "primary": "text", "source": "field"}
-{"id": "oss:mit-sweep:flet-dev/flet", "modalities": [], "primary": null, "source": "keyword"}
 {"id": "oss:mit-sweep:flexorch/flexorch-mcp", "modalities": ["audio", "document_processing", "agent_tools", "api_calls"], "primary": "audio", "source": "field"}
 {"id": "oss:mit-sweep:FlowElement-xinliuyuansu/m_flow", "modalities": ["search", "memory"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:FlyAIBox/Agent_In_Action", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
@@ -791,7 +785,7 @@
 {"id": "oss:mit-sweep:FutureFuzzy/novel-distiller", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:fvaleye/delta-buddy", "modalities": ["multimodal", "video", "text", "memory"], "primary": "multimodal", "source": "field"}
 {"id": "oss:mit-sweep:gaasher/Agent-Loop-Skills", "modalities": ["text", "data_analysis", "search", "database_access", "agent_tools", "math"], "primary": "text", "source": "field"}
-{"id": "oss:mit-sweep:gamedev-skills/awesome-gamedev-agent-skills", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
+{"id": "oss:mit-sweep:gamedev-skills/awesome-gamedev-agent-skills", "modalities": ["code", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:gannonh/memento-mcp", "modalities": ["text", "agent_tools", "memory"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:gaotiexinqu/OneResearchClaw", "modalities": ["text", "search", "agent_tools"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:garlicKim21/ratatosk-mcp", "modalities": ["agent_tools", "api_calls"], "primary": "agent_tools", "source": "field"}
@@ -800,9 +794,9 @@
 {"id": "oss:mit-sweep:Gen-Verse/ScienceBuddy", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:gensecaihq/Wazuh-Autopilot", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:Gentleman-Programming/engram", "modalities": ["database_access", "agent_tools", "memory", "api_calls"], "primary": "database_access", "source": "field"}
-{"id": "oss:mit-sweep:Gentleman-Programming/gentle-ai", "modalities": ["agent_tools", "memory"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:Gentleman-Programming/gentle-shell", "modalities": ["agent_tools", "memory"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:Gentleman-Programming/gentleman-guardian-angel", "modalities": [], "primary": null, "source": "keyword"}
+{"id": "oss:mit-sweep:Gentleman-Programming/gentle-ai", "modalities": ["code", "agent_tools", "memory"], "primary": "code", "source": "keyword"}
+{"id": "oss:mit-sweep:Gentleman-Programming/gentle-shell", "modalities": ["code", "agent_tools", "memory"], "primary": "code", "source": "keyword"}
+{"id": "oss:mit-sweep:Gentleman-Programming/gentleman-guardian-angel", "modalities": ["code"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:gepa-ai/gepa", "modalities": ["text", "agent_tools", "math"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:getgantry/gantry", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:gethuman-sh/human", "modalities": ["data_analysis", "agent_tools"], "primary": "data_analysis", "source": "field"}
@@ -813,7 +807,7 @@
 {"id": "oss:mit-sweep:ghostwright/phantom", "modalities": ["agent_tools", "memory", "notifications"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:GiovanniPasq/agentic-rag-for-dummies", "modalities": ["search", "agent_tools", "memory"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:GIS90/quality-rag", "modalities": ["search", "memory"], "primary": "search", "source": "field"}
-{"id": "oss:mit-sweep:github/copilot-plugins", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
+{"id": "oss:mit-sweep:github/copilot-plugins", "modalities": ["code", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:github/gh-aw-mcpg", "modalities": ["agent_tools", "orchestration"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:glincker/thesvg", "modalities": ["search", "agent_tools"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:go-kratos/kratos", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
@@ -851,14 +845,14 @@
 {"id": "oss:mit-sweep:HarryMtv/create-frontstack", "modalities": ["search", "agent_tools"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:hashgraph-online/hol-guard", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:headroomlabs-ai/headroom", "modalities": ["text", "search", "agent_tools", "memory"], "primary": "text", "source": "field"}
-{"id": "oss:mit-sweep:heilingbrunner/vscode-tiaportal-mcp", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
+{"id": "oss:mit-sweep:heilingbrunner/vscode-tiaportal-mcp", "modalities": ["code", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:HelgeSverre/ollama-gui", "modalities": ["text", "api_calls"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:HelixDB/helix-db", "modalities": ["search", "database_access", "memory"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:Helpercraft/helpercraft", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:herdrdev/herdr", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:hetaoBackend/mcp-github-trending", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:hetpatel-11/Adobe_Premiere_Pro_MCP", "modalities": ["video", "agent_tools"], "primary": "video", "source": "field"}
-{"id": "oss:mit-sweep:hex/claude-council", "modalities": ["agent_tools", "api_calls", "auth_encryption"], "primary": "agent_tools", "source": "field"}
+{"id": "oss:mit-sweep:hex/claude-council", "modalities": ["code", "agent_tools", "api_calls", "auth_encryption"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:heyixuan2/bambu-studio-ai", "modalities": ["search", "agent_tools"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:hf/BAAI/bge-small-en-v1.5", "modalities": ["embedding", "text", "memory"], "primary": "embedding", "source": "keyword"}
 {"id": "oss:mit-sweep:hf/microsoft/Phi-3-mini-4k-instruct", "modalities": ["text", "memory"], "primary": "text", "source": "field"}
@@ -866,7 +860,6 @@
 {"id": "oss:mit-sweep:hf/openai/whisper-tiny", "modalities": ["multimodal", "audio", "text", "memory"], "primary": "multimodal", "source": "keyword"}
 {"id": "oss:mit-sweep:hf/sentence-transformers/all-MiniLM-L6-v2", "modalities": ["embedding", "text", "memory"], "primary": "embedding", "source": "keyword"}
 {"id": "oss:mit-sweep:hi-godot/godot-ai", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:hinterdupfinger/obsidian-ollama", "modalities": [], "primary": null, "source": "keyword"}
 {"id": "oss:mit-sweep:hkcanan/katmer-code", "modalities": ["search", "agent_tools"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:HKUDS/DeepTutor", "modalities": ["agent_tools", "api_calls"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:HKUDS/nanobot", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
@@ -894,7 +887,7 @@
 {"id": "oss:mit-sweep:img2threejs/img2threejs", "modalities": ["multimodal", "image", "text", "agent_tools", "auth_encryption"], "primary": "multimodal", "source": "field"}
 {"id": "oss:mit-sweep:infiniflow/infinity", "modalities": ["text", "search", "database_access", "memory"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:infiniflow/ragflow", "modalities": ["search", "database_access", "agent_tools", "memory"], "primary": "search", "source": "field"}
-{"id": "oss:mit-sweep:infragate/capa", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
+{"id": "oss:mit-sweep:infragate/capa", "modalities": ["code", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:inkboard/system-atlas", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:InsForge/InsForge", "modalities": ["database_access", "agent_tools", "memory", "auth_encryption"], "primary": "database_access", "source": "field"}
 {"id": "oss:mit-sweep:intel/intel-extension-for-transformers", "modalities": ["text", "memory"], "primary": "text", "source": "field"}
@@ -910,7 +903,7 @@
 {"id": "oss:mit-sweep:jacob-bd/gemini-notebook-mcp-cli", "modalities": ["data_analysis", "agent_tools"], "primary": "data_analysis", "source": "field"}
 {"id": "oss:mit-sweep:jakedahn/pomodoro", "modalities": ["database_access", "agent_tools"], "primary": "database_access", "source": "field"}
 {"id": "oss:mit-sweep:jakobhoeg/nextjs-ollama-llm-ui", "modalities": ["text"], "primary": "text", "source": "field"}
-{"id": "oss:mit-sweep:jaktestowac/awesome-copilot-for-testers", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
+{"id": "oss:mit-sweep:jaktestowac/awesome-copilot-for-testers", "modalities": ["code", "text", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:JamesANZ/medical-mcp", "modalities": ["search", "agent_tools", "api_calls", "auth_encryption"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:jangles-byte/Pythia", "modalities": ["agent_tools", "api_calls"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:janus-llm/janus-llm", "modalities": ["text", "search", "memory"], "primary": "text", "source": "field"}
@@ -920,14 +913,13 @@
 {"id": "oss:mit-sweep:jeecgboot/JeecgBoot", "modalities": ["agent_tools", "memory"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:JEen-wang/Adaptive-rag", "modalities": ["text", "search", "agent_tools", "memory", "api_calls"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:JerBouma/FinanceToolkit", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:JerryZLiu/Dayflow", "modalities": [], "primary": null, "source": "keyword"}
-{"id": "oss:mit-sweep:JetBrains/go-modern-guidelines", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
+{"id": "oss:mit-sweep:JetBrains/go-modern-guidelines", "modalities": ["code", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:jiabaobei/memory-bridge", "modalities": ["agent_tools", "memory"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:JiangnanZhang-2006/relaywright", "modalities": ["text", "code_execution", "browser_automation", "agent_tools"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:jin-bo/agentao", "modalities": ["code_execution", "agent_tools", "memory"], "primary": "code_execution", "source": "field"}
 {"id": "oss:mit-sweep:jina-ai/agentchain", "modalities": ["text", "agent_tools", "orchestration"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:JingHao-Leon/dsh-alpha-desk", "modalities": ["text", "agent_tools", "scheduling"], "primary": "text", "source": "field"}
-{"id": "oss:mit-sweep:jiran214/langup-ai", "modalities": [], "primary": null, "source": "keyword"}
+{"id": "oss:mit-sweep:jiran214/langup-ai", "modalities": ["text", "agent_tools"], "primary": "text", "source": "keyword"}
 {"id": "oss:mit-sweep:jmagly/aiwg", "modalities": ["text", "agent_tools", "orchestration", "memory"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:jnMetaCode/agency-orchestrator", "modalities": ["text", "agent_tools", "orchestration"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:jnMetaCode/superpowers-zh", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
@@ -949,7 +941,7 @@
 {"id": "oss:mit-sweep:Juror-AI/juror", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:Justin0504/Aegis", "modalities": ["agent_tools", "auth_encryption"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:justxor/claude-code-pro-course", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
-{"id": "oss:mit-sweep:K-Dense-AI/k-dense-byok", "modalities": [], "primary": null, "source": "keyword"}
+{"id": "oss:mit-sweep:K-Dense-AI/k-dense-byok", "modalities": ["data_analysis", "agent_tools"], "primary": "data_analysis", "source": "keyword"}
 {"id": "oss:mit-sweep:K-Dense-AI/mimeo", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:kael-odin/awesome-academic-research-skills", "modalities": ["search", "agent_tools"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:kajisho5/ffmpeg-skill", "modalities": ["multimodal", "video", "audio", "agent_tools", "api_calls"], "primary": "multimodal", "source": "field"}
@@ -961,7 +953,7 @@
 {"id": "oss:mit-sweep:kennss/SiliconScope", "modalities": ["memory"], "primary": "memory", "source": "field"}
 {"id": "oss:mit-sweep:Kenza-AI/sagify", "modalities": ["text"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:kestra-io/kestra", "modalities": ["text", "agent_tools", "orchestration"], "primary": "text", "source": "field"}
-{"id": "oss:mit-sweep:kevinpbuckley/VibeUE", "modalities": [], "primary": null, "source": "keyword"}
+{"id": "oss:mit-sweep:kevinpbuckley/VibeUE", "modalities": ["code", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:Kiln-AI/Kilntainers", "modalities": ["code_execution", "agent_tools"], "primary": "code_execution", "source": "field"}
 {"id": "oss:mit-sweep:kimmykang/PonyRag", "modalities": ["search", "memory"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:kimsungwhee/apple-docs-mcp", "modalities": ["video", "document_processing", "search", "agent_tools", "api_calls"], "primary": "video", "source": "field"}
@@ -974,7 +966,7 @@
 {"id": "oss:mit-sweep:Kocoro-lab/Kocoro", "modalities": ["browser_automation", "agent_tools", "memory"], "primary": "browser_automation", "source": "field"}
 {"id": "oss:mit-sweep:koloss777/nokk", "modalities": ["browser_automation", "agent_tools", "auth_encryption"], "primary": "browser_automation", "source": "field"}
 {"id": "oss:mit-sweep:ktr0731/go-mcp", "modalities": ["agent_tools", "api_calls"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:Kulaxyz/self-learning-skills", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
+{"id": "oss:mit-sweep:Kulaxyz/self-learning-skills", "modalities": ["code", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:kulchankas/paranoid", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:kumarganduri/legwork", "modalities": ["code_execution", "agent_tools", "memory", "api_calls"], "primary": "code_execution", "source": "field"}
 {"id": "oss:mit-sweep:kunchenguid/vision", "modalities": ["image", "agent_tools"], "primary": "image", "source": "field"}
@@ -1007,7 +999,7 @@
 {"id": "oss:mit-sweep:lagaam-ai/lagaam", "modalities": ["agent_tools", "api_calls"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:langchain-ai/deepagentsjs", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:langchain-ai/docs", "modalities": ["document_processing"], "primary": "document_processing", "source": "field"}
-{"id": "oss:mit-sweep:langchain-ai/langchain-extract", "modalities": [], "primary": null, "source": "keyword"}
+{"id": "oss:mit-sweep:langchain-ai/langchain-extract", "modalities": ["text", "document_processing"], "primary": "text", "source": "keyword"}
 {"id": "oss:mit-sweep:langchain-ai/langchain-mcp-adapters", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:langchain-ai/langchainjs-mcp-adapters", "modalities": ["text", "agent_tools", "api_calls"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:langchain4j/langchain4j", "modalities": ["text", "agent_tools", "memory", "api_calls"], "primary": "text", "source": "field"}
@@ -1026,10 +1018,10 @@
 {"id": "oss:mit-sweep:level09/enferno", "modalities": ["agent_tools", "auth_encryption"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:lexmount/moli", "modalities": ["browser_automation", "agent_tools"], "primary": "browser_automation", "source": "field"}
 {"id": "oss:mit-sweep:LibreChat-AI/rag-api", "modalities": ["search", "database_access", "memory", "api_calls"], "primary": "search", "source": "field"}
-{"id": "oss:mit-sweep:lidge-jun/opencodex", "modalities": ["text"], "primary": "text", "source": "field"}
+{"id": "oss:mit-sweep:lidge-jun/opencodex", "modalities": ["code", "text"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:liliang-cn/cortexdb", "modalities": ["database_access", "agent_tools", "memory"], "primary": "database_access", "source": "field"}
 {"id": "oss:mit-sweep:liliu-z/stashbase", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:lktiep/cortex-hub", "modalities": ["search", "agent_tools", "memory"], "primary": "search", "source": "field"}
+{"id": "oss:mit-sweep:lktiep/cortex-hub", "modalities": ["code", "search", "agent_tools", "memory"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:llm-agents-php/agents", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:llmsresearch/paperbanana", "modalities": ["search", "agent_tools"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:LLPhant/LLPhant", "modalities": ["text"], "primary": "text", "source": "field"}
@@ -1084,7 +1076,7 @@
 {"id": "oss:mit-sweep:marvkr/better-design", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:mashanglinyu/luanyujia-workbench", "modalities": ["agent_tools", "memory", "api_calls"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:MatanYemini/bitbucket-mcp", "modalities": ["text", "agent_tools", "api_calls"], "primary": "text", "source": "field"}
-{"id": "oss:mit-sweep:mattzcarey/shippie", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
+{"id": "oss:mit-sweep:mattzcarey/shippie", "modalities": ["code", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:mavka-ai/unit-tests-skills", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:mayooear/ai-pdf-chatbot-langchain", "modalities": ["text", "document_processing", "agent_tools"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:maze-agent/Maze", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
@@ -1132,7 +1124,7 @@
 {"id": "oss:mit-sweep:milvus-io/milvus", "modalities": ["search", "database_access", "memory"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:mindsdb/mindshub", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:MiniMax-AI/MiniMax-MCP", "modalities": ["multimodal", "video", "voice_generation", "audio", "image_generation", "image", "agent_tools", "api_calls", "auth_encryption"], "primary": "multimodal", "source": "keyword"}
-{"id": "oss:mit-sweep:MinishLab/semble", "modalities": ["text", "search", "agent_tools"], "primary": "text", "source": "field"}
+{"id": "oss:mit-sweep:MinishLab/semble", "modalities": ["code", "text", "search", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:Mintplex-Labs/vector-admin", "modalities": ["database_access", "memory", "auth_encryption"], "primary": "database_access", "source": "field"}
 {"id": "oss:mit-sweep:miscusi-peek/cheatengine-mcp-bridge", "modalities": ["text", "agent_tools", "memory"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:mishushakov/llm-scraper", "modalities": ["text", "search", "auth_encryption"], "primary": "text", "source": "field"}
@@ -1146,7 +1138,7 @@
 {"id": "oss:mit-sweep:mll-lab-nu/RAGEN", "modalities": ["text", "agent_tools", "memory"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:MLSysOps/MLE-agent", "modalities": ["search", "agent_tools", "memory"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:mnemox-ai/tradememory-protocol", "modalities": ["agent_tools", "memory"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:Mobile-Artificial-Intelligence/maid", "modalities": [], "primary": null, "source": "keyword"}
+{"id": "oss:mit-sweep:Mobile-Artificial-Intelligence/maid", "modalities": ["text"], "primary": "text", "source": "keyword"}
 {"id": "oss:mit-sweep:mobile-next/mobile-mcp", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:modelcontextprotocol/java-sdk", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:ModelEngine-Group/nexent", "modalities": ["agent_tools", "orchestration", "memory"], "primary": "agent_tools", "source": "field"}
@@ -1169,7 +1161,6 @@
 {"id": "oss:mit-sweep:mxsm/rocketmq-rust", "modalities": ["agent_tools", "memory"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:mysticrenji/selfhosted-llm-rag-app", "modalities": ["text", "search", "memory"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:n4ze3m/dialoqbase", "modalities": ["text"], "primary": "text", "source": "field"}
-{"id": "oss:mit-sweep:n4ze3m/page-assist", "modalities": [], "primary": null, "source": "keyword"}
 {"id": "oss:mit-sweep:n8n-io/self-hosted-ai-starter-kit", "modalities": ["agent_tools", "orchestration"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:nageoffer/ragent", "modalities": ["search", "agent_tools", "memory"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:nanobrowser/nanobrowser", "modalities": ["browser_automation", "agent_tools"], "primary": "browser_automation", "source": "field"}
@@ -1180,7 +1171,7 @@
 {"id": "oss:mit-sweep:nekyialabs/resonant-archive", "modalities": ["text", "search", "agent_tools", "memory", "api_calls"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:neo4j-labs/llm-graph-builder", "modalities": ["text", "document_processing", "memory"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:nexu-io/html-anything", "modalities": ["text", "code_execution", "agent_tools", "api_calls"], "primary": "text", "source": "field"}
-{"id": "oss:mit-sweep:nicepkg/aide", "modalities": [], "primary": null, "source": "keyword"}
+{"id": "oss:mit-sweep:nicepkg/aide", "modalities": ["code"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:nicobailon/pi-mcp-adapter", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:nim444/mcp-android-server-python", "modalities": ["text", "code_execution", "agent_tools"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:ningzimu/codex-gpt-image", "modalities": ["multimodal", "image", "text", "agent_tools", "api_calls", "auth_encryption"], "primary": "multimodal", "source": "field"}
@@ -1202,8 +1193,6 @@
 {"id": "oss:mit-sweep:okf-memory/okf-agent-memory", "modalities": ["text", "search", "database_access", "agent_tools", "memory"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:OlgaKalinina101/your_own", "modalities": ["text", "agent_tools", "memory"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:oliver-zehentleitner/keep-the-why", "modalities": ["text", "document_processing", "database_access", "agent_tools", "memory"], "primary": "text", "source": "field"}
-{"id": "oss:mit-sweep:ollama-ui/ollama-ui", "modalities": [], "primary": null, "source": "keyword"}
-{"id": "oss:mit-sweep:ollama/ollama-js", "modalities": [], "primary": null, "source": "keyword"}
 {"id": "oss:mit-sweep:ollaya-dev/ollaya", "modalities": ["agent_tools", "api_calls"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:om-ai-lab/OmAgent", "modalities": ["text", "agent_tools", "memory", "auth_encryption"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:omnigent-ai/omnigent", "modalities": ["code_execution", "agent_tools", "orchestration"], "primary": "code_execution", "source": "field"}
@@ -1236,7 +1225,7 @@
 {"id": "oss:mit-sweep:orneryd/NornicDB", "modalities": ["text", "search", "agent_tools", "orchestration", "memory"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:osaurus-ai/osaurus", "modalities": ["agent_tools", "memory", "auth_encryption"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:Osmantic/ODS", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:osovv/grace-marketplace", "modalities": ["text", "search", "agent_tools", "memory"], "primary": "text", "source": "field"}
+{"id": "oss:mit-sweep:osovv/grace-marketplace", "modalities": ["code", "text", "search", "agent_tools", "memory"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:OthmanAdi/planning-with-files", "modalities": ["text", "document_processing", "agent_tools"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:OvidijusParsiunas/deep-chat", "modalities": ["text"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:pablo-reyes8/sme-financial-ai-agent", "modalities": ["text", "search", "agent_tools", "memory"], "primary": "text", "source": "field"}
@@ -1247,7 +1236,7 @@
 {"id": "oss:mit-sweep:ParthKapoor-dev/devex", "modalities": ["code_execution", "agent_tools"], "primary": "code_execution", "source": "field"}
 {"id": "oss:mit-sweep:pascalorg/editor", "modalities": ["browser_automation", "agent_tools"], "primary": "browser_automation", "source": "field"}
 {"id": "oss:mit-sweep:patruff/ollama-mcp-bridge", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
-{"id": "oss:mit-sweep:PawanOsman/OpenCursor", "modalities": ["text", "search", "agent_tools"], "primary": "text", "source": "field"}
+{"id": "oss:mit-sweep:PawanOsman/OpenCursor", "modalities": ["code", "text", "search", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:pc-style/skill-view", "modalities": ["agent_tools", "memory"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:pepperoni21/ollama-rs", "modalities": ["api_calls"], "primary": "api_calls", "source": "field"}
 {"id": "oss:mit-sweep:petabridge/memorizer", "modalities": ["search", "agent_tools", "memory"], "primary": "search", "source": "field"}
@@ -1321,7 +1310,7 @@
 {"id": "oss:mit-sweep:ref-tools/ref-tools-mcp", "modalities": ["document_processing", "agent_tools"], "primary": "document_processing", "source": "field"}
 {"id": "oss:mit-sweep:refined-element/lightning-enable-mcp", "modalities": ["audio", "agent_tools", "api_calls"], "primary": "audio", "source": "field"}
 {"id": "oss:mit-sweep:reflex-dev/reflex", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:reflex-search/reflex", "modalities": ["search", "agent_tools", "api_calls"], "primary": "search", "source": "field"}
+{"id": "oss:mit-sweep:reflex-search/reflex", "modalities": ["code", "search", "agent_tools", "api_calls"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:refreshdotdev/web-eval-agent", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:refuel-ai/autolabel", "modalities": ["text"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:rehan-remade/universal-modder", "modalities": ["multimodal", "video", "audio", "agent_tools"], "primary": "multimodal", "source": "field"}
@@ -1329,10 +1318,9 @@
 {"id": "oss:mit-sweep:rekog-labs/MCP-Nest", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:REZ3LIET/Resume-Chat", "modalities": ["text", "search", "memory"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:richarvey/OmniMem", "modalities": ["database_access", "agent_tools", "memory"], "primary": "database_access", "source": "field"}
-{"id": "oss:mit-sweep:ricklamers/shell-ai", "modalities": [], "primary": null, "source": "keyword"}
+{"id": "oss:mit-sweep:ricklamers/shell-ai", "modalities": ["code", "code_execution"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:RightNow-AI/openfang", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:rimironenko/rag-staleness-check", "modalities": ["search", "memory"], "primary": "search", "source": "field"}
-{"id": "oss:mit-sweep:ritchieng/deep-learning-wizard", "modalities": [], "primary": null, "source": "keyword"}
 {"id": "oss:mit-sweep:RMA-MUN/RAGNotebook", "modalities": ["data_analysis", "agent_tools", "memory", "api_calls"], "primary": "data_analysis", "source": "field"}
 {"id": "oss:mit-sweep:roampal-ai/roampal-labs", "modalities": ["search", "memory"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:Robitx/gp.nvim", "modalities": ["multimodal", "audio", "text"], "primary": "multimodal", "source": "field"}
@@ -1393,7 +1381,6 @@
 {"id": "oss:mit-sweep:Shelpuk-AI-Technology-Consulting/kindly-web-search-mcp-server", "modalities": ["search", "agent_tools"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:ShenghaiWang/xcodebuild", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:shepsci/kaggle-skill", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:sherlock-project/sherlock", "modalities": [], "primary": null, "source": "keyword"}
 {"id": "oss:mit-sweep:shibing624/memhub", "modalities": ["text", "agent_tools", "memory"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:ShieldZCash/shieldz-mcp", "modalities": ["agent_tools", "api_calls", "auth_encryption"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:Shilo/pixellab-pip", "modalities": ["agent_tools", "api_calls"], "primary": "agent_tools", "source": "field"}
@@ -1442,9 +1429,9 @@
 {"id": "oss:mit-sweep:siruizou2005/ScrollWeaver", "modalities": ["document_processing", "agent_tools", "orchestration", "memory"], "primary": "document_processing", "source": "field"}
 {"id": "oss:mit-sweep:SivaSaiKrishnaSuryadevara/docker-mcp-guardian", "modalities": ["agent_tools", "api_calls"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:skillmds/SkillMD", "modalities": ["text", "search", "agent_tools"], "primary": "text", "source": "field"}
-{"id": "oss:mit-sweep:skills/integrate-mcp-with-copilot", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
+{"id": "oss:mit-sweep:skills/integrate-mcp-with-copilot", "modalities": ["code", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:skmandal3240/SHADE", "modalities": ["code_execution", "browser_automation", "agent_tools"], "primary": "code_execution", "source": "field"}
-{"id": "oss:mit-sweep:skyelan1999/aide", "modalities": ["agent_tools", "orchestration"], "primary": "agent_tools", "source": "field"}
+{"id": "oss:mit-sweep:skyelan1999/aide", "modalities": ["code", "agent_tools", "orchestration"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:SLEEPYBQ/MemoSync", "modalities": ["text", "file_system", "agent_tools", "memory", "auth_encryption"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:slothflowlabs/duckle", "modalities": ["data_analysis", "database_access", "agent_tools"], "primary": "data_analysis", "source": "field"}
 {"id": "oss:mit-sweep:slow-stack/mneme", "modalities": ["document_processing", "database_access", "agent_tools", "memory"], "primary": "document_processing", "source": "field"}
@@ -1456,7 +1443,7 @@
 {"id": "oss:mit-sweep:solanabr/ai-kit", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:solid-shuwen/shuttleslide", "modalities": ["text", "search", "agent_tools", "memory"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:sopaco/cortex-mem", "modalities": ["search", "agent_tools", "memory", "api_calls", "math"], "primary": "search", "source": "field"}
-{"id": "oss:mit-sweep:soumatheusgomes/vibe-coding-toolkit", "modalities": ["text", "agent_tools", "orchestration"], "primary": "text", "source": "field"}
+{"id": "oss:mit-sweep:soumatheusgomes/vibe-coding-toolkit", "modalities": ["code", "text", "agent_tools", "orchestration"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:SpaceZephyr/build-your-harness", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:sparfenyuk/mcp-proxy", "modalities": ["video", "agent_tools", "api_calls"], "primary": "video", "source": "field"}
 {"id": "oss:mit-sweep:Spark-To-Paper-Skills/paperjury", "modalities": ["text", "search", "agent_tools"], "primary": "text", "source": "field"}
@@ -1466,7 +1453,6 @@
 {"id": "oss:mit-sweep:Spitfire-Cowboy/alcove", "modalities": ["document_processing", "search", "memory"], "primary": "document_processing", "source": "field"}
 {"id": "oss:mit-sweep:Spitfire-Cowboy/alcove-dux", "modalities": ["image", "memory"], "primary": "image", "source": "field"}
 {"id": "oss:mit-sweep:SqueezeAILab/LLMCompiler", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
-{"id": "oss:mit-sweep:srikanth235/privy", "modalities": [], "primary": null, "source": "keyword"}
 {"id": "oss:mit-sweep:sruthik27/creating-claude-md", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:ssrajadh/sentrysearch", "modalities": ["video", "search", "memory"], "primary": "video", "source": "field"}
 {"id": "oss:mit-sweep:stackql/stackql", "modalities": ["image", "search", "database_access", "agent_tools", "api_calls"], "primary": "image", "source": "field"}
@@ -1508,7 +1494,7 @@
 {"id": "oss:mit-sweep:Text2SqlAgent/text2sql-framework", "modalities": ["text", "search", "database_access", "agent_tools", "memory"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:thaoluon/NOTATE-Desktop", "modalities": ["text", "document_processing", "search", "memory"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:thatgirlfrommoon/Doc-Chat", "modalities": ["text", "memory"], "primary": "text", "source": "field"}
-{"id": "oss:mit-sweep:the-crypt-keeper/can-ai-code", "modalities": [], "primary": null, "source": "keyword"}
+{"id": "oss:mit-sweep:the-crypt-keeper/can-ai-code", "modalities": ["code"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:The-Pocket/PocketFlow-Tutorial-Codebase-Knowledge", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:The-PR-Agent/pr-agent", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:TheAiSingularity/graphrag-local-ollama", "modalities": ["text", "memory"], "primary": "text", "source": "field"}
@@ -1517,7 +1503,7 @@
 {"id": "oss:mit-sweep:thedotmack/claude-mem", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:ThekingofAI91/cuxi", "modalities": ["text", "search", "agent_tools", "memory"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:TheR1D/shell_gpt", "modalities": ["text", "auth_encryption"], "primary": "text", "source": "field"}
-{"id": "oss:mit-sweep:thesysdev/openui", "modalities": [], "primary": null, "source": "keyword"}
+{"id": "oss:mit-sweep:thesysdev/openui", "modalities": ["code"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:thetahealth/mirobody", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:theYahia/WWmcp", "modalities": ["agent_tools", "api_calls"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:ThinkFlowLab/agentdescent", "modalities": ["text", "file_system", "agent_tools"], "primary": "text", "source": "field"}
@@ -1530,12 +1516,12 @@
 {"id": "oss:mit-sweep:Timefiles404/lean-mode-skill", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:timescale/pg-aiguide", "modalities": ["document_processing", "database_access", "agent_tools"], "primary": "document_processing", "source": "field"}
 {"id": "oss:mit-sweep:tinkerologie/unraid-management-agent", "modalities": ["agent_tools", "api_calls"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:tirth8205/code-review-graph", "modalities": ["agent_tools", "orchestration"], "primary": "agent_tools", "source": "field"}
+{"id": "oss:mit-sweep:tirth8205/code-review-graph", "modalities": ["code", "agent_tools", "orchestration"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:tmc/langchaingo", "modalities": ["text"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:tmchow/agent-skills", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:tmgthb/Autonomous-Agents", "modalities": ["text", "search", "agent_tools"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:TokenRhythm/opensquilla", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
-{"id": "oss:mit-sweep:tomkrikorian/visionOSAgents", "modalities": ["image", "agent_tools"], "primary": "image", "source": "field"}
+{"id": "oss:mit-sweep:tomkrikorian/visionOSAgents", "modalities": ["image", "code", "agent_tools"], "primary": "image", "source": "keyword"}
 {"id": "oss:mit-sweep:tonykipkemboi/ollama_pdf_rag", "modalities": ["text", "document_processing", "search", "memory"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:towardsai/ai-tutor-app", "modalities": ["text", "search", "agent_tools", "memory", "api_calls"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:trailhq/Trail-Code", "modalities": ["agent_tools", "memory"], "primary": "agent_tools", "source": "field"}
@@ -1543,12 +1529,12 @@
 {"id": "oss:mit-sweep:triggerdotdev/trigger.dev", "modalities": ["agent_tools", "orchestration"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:truefoundry/cognita", "modalities": ["search", "memory"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:trustgraph-ai/trustgraph", "modalities": ["agent_tools", "memory"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:tryAGI/LangChain", "modalities": [], "primary": null, "source": "keyword"}
+{"id": "oss:mit-sweep:tryAGI/LangChain", "modalities": ["text", "agent_tools"], "primary": "text", "source": "keyword"}
 {"id": "oss:mit-sweep:tt-a1i/archify", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:ttxttx1111/sts2-llm", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:tutti-os/tutti", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:Twigpine/zero", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:twinnydotdev/twinny", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
+{"id": "oss:mit-sweep:Twigpine/zero", "modalities": ["code", "agent_tools"], "primary": "code", "source": "keyword"}
+{"id": "oss:mit-sweep:twinnydotdev/twinny", "modalities": ["code", "text", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:twolven/mcp-server-puppeteer-py", "modalities": ["text", "browser_automation", "agent_tools"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:u14app/deep-research", "modalities": ["text", "search", "agent_tools", "api_calls", "auth_encryption"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:uclanlp/OpenVLHarness", "modalities": ["text", "agent_tools", "memory"], "primary": "text", "source": "field"}
@@ -1569,8 +1555,7 @@
 {"id": "oss:mit-sweep:venkat-0706/ai_task_management", "modalities": ["data_analysis", "search", "database_access", "memory", "api_calls", "auth_encryption"], "primary": "data_analysis", "source": "field"}
 {"id": "oss:mit-sweep:venkat-0706/RAG-AGENT", "modalities": ["search", "agent_tools", "orchestration", "memory"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:vercel-labs/agent-desktop", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:vercel/modelfusion", "modalities": [], "primary": null, "source": "keyword"}
-{"id": "oss:mit-sweep:VersusControl/devops-ai-guidelines", "modalities": [], "primary": null, "source": "keyword"}
+{"id": "oss:mit-sweep:vercel/modelfusion", "modalities": ["text", "agent_tools"], "primary": "text", "source": "keyword"}
 {"id": "oss:mit-sweep:vespa-engine/vespa", "modalities": ["search", "memory"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:Vexa-ai/vexa", "modalities": ["audio", "agent_tools", "api_calls"], "primary": "audio", "source": "field"}
 {"id": "oss:mit-sweep:vibheksoni/stealth-browser-mcp", "modalities": ["browser_automation", "agent_tools"], "primary": "browser_automation", "source": "field"}
@@ -1582,7 +1567,7 @@
 {"id": "oss:mit-sweep:volcengine/MineContext", "modalities": ["text", "memory"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:VoltAgent/voltagent", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:vstorm-co/pydantic-ai-backend", "modalities": ["code_execution", "agent_tools", "memory", "auth_encryption"], "primary": "code_execution", "source": "field"}
-{"id": "oss:mit-sweep:Vuk97/forward-implementation-first", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
+{"id": "oss:mit-sweep:Vuk97/forward-implementation-first", "modalities": ["code", "text", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:w0h1v/mcp-maigret", "modalities": ["search", "agent_tools"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:w1u2d3i4/multitown", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:WalidAlsafadi/Recipa-RAG-Assistant", "modalities": ["text", "document_processing", "search", "memory", "api_calls"], "primary": "text", "source": "field"}
@@ -1609,15 +1594,15 @@
 {"id": "oss:mit-sweep:XBlueSky/cortexes", "modalities": ["search", "memory"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:xbtlin/ai-berkshire", "modalities": ["search", "agent_tools"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:xcodebeast/flashwright", "modalities": ["browser_automation", "agent_tools", "api_calls"], "primary": "browser_automation", "source": "field"}
-{"id": "oss:mit-sweep:xerj-org/xerj", "modalities": ["document_processing", "search", "agent_tools", "memory", "api_calls"], "primary": "document_processing", "source": "field"}
+{"id": "oss:mit-sweep:xerj-org/xerj", "modalities": ["code", "document_processing", "search", "agent_tools", "memory", "api_calls"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:xerrors/Yuxi", "modalities": ["search", "agent_tools", "orchestration", "memory"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:XiaoDuoYa/codex-with-chatgpt", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:xingjian-bai/opal", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:xinnan-tech/xiaozhi-esp32-server", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:xpzouying/xiaohongshu-mcp", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:xvhuan/xiaoi", "modalities": ["agent_tools", "api_calls"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:xyTom/coding-tools-mcp", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:yakami129/VirtualWife", "modalities": [], "primary": null, "source": "keyword"}
+{"id": "oss:mit-sweep:xyTom/coding-tools-mcp", "modalities": ["code", "agent_tools"], "primary": "code", "source": "keyword"}
+{"id": "oss:mit-sweep:yakami129/VirtualWife", "modalities": ["multimodal", "voice_generation", "audio", "text"], "primary": "multimodal", "source": "keyword"}
 {"id": "oss:mit-sweep:yamadashy/repomix", "modalities": ["text", "agent_tools", "auth_encryption"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:yasewang1337-svg/winutil-cn", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:yash9439/chat-with-multiple-pdf", "modalities": ["text", "document_processing", "memory", "api_calls", "auth_encryption"], "primary": "text", "source": "field"}
@@ -1655,14 +1640,14 @@
 {"id": "oss:mit-sweep:zahidkhawaja/langchain-chat-nextjs", "modalities": ["text"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:zaizaizhao/mcp-swagger-server", "modalities": ["agent_tools", "api_calls"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:zamalali/DeepGit", "modalities": ["search", "agent_tools"], "primary": "search", "source": "field"}
-{"id": "oss:mit-sweep:zanaat-dev/baron", "modalities": ["agent_tools", "orchestration", "api_calls", "notifications"], "primary": "agent_tools", "source": "field"}
+{"id": "oss:mit-sweep:zanaat-dev/baron", "modalities": ["code", "agent_tools", "orchestration", "api_calls", "notifications"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:Zaneris/passenger", "modalities": ["agent_tools", "memory", "auth_encryption"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:zapier/zapier-mcp", "modalities": ["agent_tools", "orchestration", "api_calls"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:zarazhangrui/frontend-slides", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:zarcherlot/code-relay", "modalities": ["agent_tools", "api_calls"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:zauberzeug/nicegui", "modalities": ["browser_automation"], "primary": "browser_automation", "source": "field"}
 {"id": "oss:mit-sweep:zax0rz/birdnet-go-mcp", "modalities": ["multimodal", "video", "audio", "image", "agent_tools", "api_calls"], "primary": "multimodal", "source": "field"}
-{"id": "oss:mit-sweep:ZaxbyHub/opencode-swarm", "modalities": ["agent_tools", "orchestration"], "primary": "agent_tools", "source": "field"}
+{"id": "oss:mit-sweep:ZaxbyHub/opencode-swarm", "modalities": ["code", "agent_tools", "orchestration"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:Zay-M3/NaturalSQL", "modalities": ["text", "database_access", "memory"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:zazencodes/public-apis-mcp", "modalities": ["search", "agent_tools", "api_calls"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:zazencodes/random-number-mcp", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
@@ -1685,15 +1670,15 @@
 {"id": "oss:mit-sweep:zhouxiaoka/autoclip", "modalities": ["video", "agent_tools"], "primary": "video", "source": "field"}
 {"id": "oss:mit-sweep:zhuyansen/new-term-radar", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:zi-yue-1129/DATAGEN", "modalities": ["data_analysis", "search", "agent_tools"], "primary": "data_analysis", "source": "field"}
-{"id": "oss:mit-sweep:zilliztech/claude-context", "modalities": ["search", "agent_tools"], "primary": "search", "source": "field"}
+{"id": "oss:mit-sweep:zilliztech/claude-context", "modalities": ["code", "search", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:zilliztech/deep-searcher", "modalities": ["search", "memory"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:ZipengWu365/TOMC", "modalities": ["agent_tools", "memory"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:mit-sweep:zmy15/DeepSeek-for-VisualStudio", "modalities": ["text", "agent_tools", "api_calls"], "primary": "text", "source": "field"}
+{"id": "oss:mit-sweep:zmy15/DeepSeek-for-VisualStudio", "modalities": ["code", "text", "agent_tools", "api_calls"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:zosmaai/pi-llm-wiki", "modalities": ["text", "agent_tools", "memory"], "primary": "text", "source": "field"}
 {"id": "oss:mit-sweep:ZSeven-W/openpencil", "modalities": ["agent_tools", "memory"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:zvec-ai/zvec-grep", "modalities": ["search", "agent_tools"], "primary": "search", "source": "field"}
 {"id": "oss:mit-sweep:zylon-ai/private-gpt", "modalities": ["text", "search", "database_access", "agent_tools", "memory", "api_calls"], "primary": "text", "source": "field"}
-{"id": "oss:mit-sweep:zzet/gortex", "modalities": ["text", "agent_tools", "api_calls", "notifications", "auth_encryption"], "primary": "text", "source": "field"}
+{"id": "oss:mit-sweep:zzet/gortex", "modalities": ["code", "text", "agent_tools", "api_calls", "notifications", "auth_encryption"], "primary": "code", "source": "keyword"}
 {"id": "oss:mit-sweep:npm/@modelcontextprotocol/inspector", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:npm/@modelcontextprotocol/sdk", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:mit-sweep:npm/@modelcontextprotocol/server-filesystem", "modalities": ["file_system", "agent_tools"], "primary": "file_system", "source": "field"}
@@ -1743,12 +1728,12 @@
 {"id": "oss:tsf:SecretiveShell/MCP-Bridge", "modalities": ["agent_tools", "api_calls"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:tsf:lastmile-ai/openai-agents-mcp", "modalities": ["agent_tools", "api_calls"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:tsf:wong2/mcp-cli", "modalities": ["agent_tools", "api_calls"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:tsf:Aider-AI/aider", "modalities": ["code_execution", "agent_tools", "cli"], "primary": "code_execution", "source": "field"}
+{"id": "oss:tsf:Aider-AI/aider", "modalities": ["code", "code_execution", "agent_tools", "cli"], "primary": "code", "source": "keyword"}
 {"id": "oss:tsf:simonw/llm", "modalities": ["code_execution", "agent_tools", "cli"], "primary": "code_execution", "source": "field"}
 {"id": "oss:tsf:charmbracelet/mods", "modalities": ["code_execution", "agent_tools", "cli"], "primary": "code_execution", "source": "field"}
 {"id": "oss:tsf:danielmiessler/Fabric", "modalities": ["code_execution", "agent_tools", "cli"], "primary": "code_execution", "source": "field"}
-{"id": "oss:tsf:continuedev/continue", "modalities": ["code_execution", "agent_tools", "cli"], "primary": "code_execution", "source": "field"}
-{"id": "oss:tsf:QwenLM/qwen-code", "modalities": ["code_execution", "agent_tools", "cli"], "primary": "code_execution", "source": "field"}
+{"id": "oss:tsf:continuedev/continue", "modalities": ["code", "code_execution", "agent_tools", "cli"], "primary": "code", "source": "keyword"}
+{"id": "oss:tsf:QwenLM/qwen-code", "modalities": ["code", "code_execution", "agent_tools", "cli"], "primary": "code", "source": "keyword"}
 {"id": "oss:tsf:valkey-io/valkey", "modalities": ["database_access"], "primary": "database_access", "source": "field"}
 {"id": "oss:tsf:lancedb/lancedb", "modalities": ["embedding", "search", "database_access", "memory"], "primary": "embedding", "source": "field"}
 {"id": "oss:tsf:nmslib/hnswlib", "modalities": ["embedding", "search", "database_access", "memory"], "primary": "embedding", "source": "field"}
@@ -1793,7 +1778,7 @@
 {"id": "oss:tsf:coder/code-server", "modalities": ["code", "code_execution"], "primary": "code", "source": "keyword"}
 {"id": "oss:tsf:jupyter/docker-stacks", "modalities": ["code_execution"], "primary": "code_execution", "source": "field"}
 {"id": "oss:tsf:obra/superpowers", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:tsf:github/awesome-copilot", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
+{"id": "oss:tsf:github/awesome-copilot", "modalities": ["code", "agent_tools"], "primary": "code", "source": "keyword"}
 {"id": "oss:tsf:microsoft/skills", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:tsf:K-Dense-AI/scientific-agent-skills", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:tsf:PatrickJS/awesome-cursorrules", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
@@ -1843,7 +1828,7 @@
 {"id": "oss:tsf:Rapptz/discord.py", "modalities": ["agent_tools", "chat_platforms"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:tsf:hubotio/hubot", "modalities": ["agent_tools", "chat_platforms"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:tsf:slackapi/bolt-python", "modalities": ["agent_tools", "chat_platforms"], "primary": "agent_tools", "source": "field"}
-{"id": "oss:tsf:gptme/gptme", "modalities": ["code_execution", "agent_tools", "cli"], "primary": "code_execution", "source": "field"}
+{"id": "oss:tsf:gptme/gptme", "modalities": ["code", "code_execution", "agent_tools", "cli"], "primary": "code", "source": "keyword"}
 {"id": "oss:tsf:asg017/sqlite-vec", "modalities": ["embedding", "search", "rag", "database_access"], "primary": "embedding", "source": "field"}
 {"id": "oss:tsf:rq/rq", "modalities": ["queues"], "primary": "queues", "source": "field"}
 {"id": "oss:tsf:rabbitmq/rabbitmq-server", "modalities": ["queues"], "primary": "queues", "source": "field"}
@@ -1852,7 +1837,7 @@
 {"id": "oss:tsf:agent0ai/agent-zero", "modalities": ["agent_tools"], "primary": "agent_tools", "source": "field"}
 {"id": "oss:tsf:MemoriLabs/Memori", "modalities": ["database_access", "memory"], "primary": "database_access", "source": "field"}
 {"id": "oss:tsf:janhq/jan", "modalities": ["chat_ui"], "primary": "chat_ui", "source": "field"}
-{"id": "oss:tsf:anomalyco/opencode", "modalities": ["code_execution", "agent_tools", "cli"], "primary": "code_execution", "source": "field"}
+{"id": "oss:tsf:anomalyco/opencode", "modalities": ["code", "code_execution", "agent_tools", "cli"], "primary": "code", "source": "keyword"}
 {"id": "oss:hf:Qwen/Qwen3-0.6B-GGUF", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
 {"id": "oss:hf:Qwen/Qwen3-1.7B-GGUF", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}
 {"id": "oss:hf:Qwen/Qwen3-4B-GGUF", "modalities": ["text", "agent_tools"], "primary": "text", "source": "field"}

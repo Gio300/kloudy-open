@@ -249,7 +249,8 @@ export function applyModalityTags(bots,tags){
 
 export function mergeOverrideTags(tags){
   const map=tags?new Map(tags):new Map();
-  for(const [id,tag] of OSS_OVERRIDES.tag)map.set(id,tag);
+  // Override tags are a fallback only when v2 (or another tag file) lacks the id.
+  for(const [id,tag] of OSS_OVERRIDES.tag)if(!map.has(id))map.set(id,tag);
   return map.size?map:tags;
 }
 
