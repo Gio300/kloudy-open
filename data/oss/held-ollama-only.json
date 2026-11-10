@@ -1,5 +1,5 @@
 {
-  "rule": "Ollama-only projects held out of the 0.5.0 catalog, awaiting a decision from Johnny.",
+  "rule": "Ollama-only projects held out of the 1.0 catalog, awaiting a decision from Johnny.",
   "reason": "ollama-only, awaiting Johnny",
   "ids": [
     {
