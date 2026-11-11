@@ -1,0 +1,18 @@
+import fs from 'node:fs/promises';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';
+import {Client} from '@modelcontextprotocol/sdk/client/index.js';import {StdioClientTransport} from '@modelcontextprotocol/sdk/client/stdio.js';
+const installed=process.argv.includes('--installed'),entry=installed?'proof/registry-install/node_modules/kloudy/bin/entry.mjs':'bin/entry.mjs',prefix=installed?'registry-':'';
+const client=new Client({name:'kloudy-live-release-check',version:'0.4.8'},{capabilities:{experimental:{'io.modelcontextprotocol/ui':{mimeTypes:['text/html;profile=mcp-app']}}}}),transport=new StdioClientTransport({command:process.execPath,args:[entry,'mcp'],stderr:'pipe',env:{PATH:process.env.PATH,SystemRoot:process.env.SystemRoot,USERPROFILE:process.env.USERPROFILE}}),proof={version:'0.4.8',artifact:installed?'fresh npm registry install':'local release candidate',realCloudEndpoint:'https://kloudy.ai/mcp',sameMcpConnection:true,nativeIdeDisplayVerified:false,accountBindingVerified:false,providerCalls:0,selections:[]};
+try{
+ await client.connect(transport,{timeout:30000});assert.equal(client.getServerVersion().version,'0.4.8');const tools=await client.listTools();assert(tools.tools.some(t=>t.name==='show_pending_chooser_link'));
+ const offered=await client.callTool({name:'show_visual_setup_choices',arguments:{goal:'Build an event site with an RSVP form.'}},undefined,{timeout:25000}),set=offered.structuredContent.choiceSetId;
+ assert(offered._meta.ui.resourceUri);assert(offered.content.some(c=>c.type==='text'&&c.text.includes('https://kloudy.ai/api/customer/visual-chooser/')));
+ const resource=await client.readResource({uri:offered._meta.ui.resourceUri});const html=resource.contents[0].text;proof.resource={uri:offered._meta.ui.resourceUri,mimeType:resource.contents[0].mimeType,bytes:Buffer.byteLength(html),sha256:createHash('sha256').update(html).digest('hex')};
+ for(const optionId of ['vite-workbench','astro-publishing']){
+  const result=await client.callTool({name:'show_visual_setup_choices',arguments:{choiceSetId:set,optionId}},undefined,{timeout:25000});assert.equal(result.structuredContent.selectedOptionId,optionId);assert.equal(result.structuredContent.executed,false);assert(result._meta.ui.resourceUri);assert(result.content.some(c=>c.type==='text'&&c.text.includes(result.structuredContent.chooser.url)));
+  const pending=await client.callTool({name:'show_pending_chooser_link',arguments:{}});assert.deepEqual(pending,result);assert.equal(result.structuredContent.chooser.request,'Build an event site with an RSVP form.');
+  proof.selections.push(result);await fs.writeFile('proof/'+prefix+'response-'+optionId+'.json',JSON.stringify(result,null,2));
+ }
+ let staleRejected=false;try{await client.callTool({name:'show_visual_setup_choices',arguments:{choiceSetId:'visual-stale-set',optionId:'vite-workbench'}});}catch(error){staleRejected=error.code===-32602;}assert(staleRejected);proof.staleChoiceRejected=true;
+ const pending=await client.callTool({name:'show_pending_chooser_link',arguments:{}});assert.equal(pending.structuredContent.selectedOptionId,'astro-publishing');
+ proof.passed=true;await fs.writeFile('proof/'+prefix+'live-chooser.json',JSON.stringify(proof,null,2));console.log(JSON.stringify({passed:true,version:proof.version,artifact:proof.artifact,cardMetadataAndAlwaysLink:true,sameMcpConnection:true,selections:proof.selections.map(s=>s.structuredContent.selectedOptionId),staleChoiceRejected:true,url:pending.structuredContent.chooser.url,nativeIdeDisplayVerified:false,accountBindingVerified:false}));
+}finally{await client.close();}

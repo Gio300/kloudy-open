@@ -1,0 +1,6 @@
+{
+  "rule": "A/B audit survivors held out of the 1.0 catalog because no payload size could be obtained. Held, not deleted, awaiting a later decision.",
+  "reason": "size_unknown",
+  "count": 0,
+  "ids": []
+}

@@ -1,0 +1,68 @@
+{
+  "subset": "full",
+  "baseBots": 13440,
+  "shipped": 13440,
+  "gzBytes": 436543,
+  "classes": {
+    "A": 26,
+    "O": 1886,
+    "B": 11528
+  },
+  "oss": [
+    {
+      "file": "/data/oss/manifests-OSS.jsonl",
+      "in": 314,
+      "kept": 314,
+      "added": 314,
+      "duplicatesSkipped": 0,
+      "superseded": 0,
+      "dropped": {}
+    },
+    {
+      "file": "/data/oss/manifests-OSS-batch2.jsonl",
+      "in": 1401,
+      "kept": 1374,
+      "added": 1374,
+      "duplicatesSkipped": 0,
+      "superseded": 0,
+      "dropped": {
+        "rule-3": 8,
+        "ollama-only": 7,
+        "discord-telegram-bot-token": 11,
+        "rule-4": 1
+      }
+    },
+    {
+      "file": "/data/oss/manifests-OSS-batch3.jsonl",
+      "in": 151,
+      "kept": 144,
+      "added": 144,
+      "duplicatesSkipped": 0,
+      "superseded": 0,
+      "dropped": {
+        "discord-telegram-bot-token": 6,
+        "awesome-list": 1
+      }
+    },
+    {
+      "file": "/data/oss/manifests-OSS-hf-ollama-twins.jsonl",
+      "in": 20,
+      "kept": 20,
+      "added": 20,
+      "duplicatesSkipped": 0,
+      "superseded": 0,
+      "dropped": {}
+    },
+    {
+      "file": "/data/oss/manifests-OSS-hf.jsonl",
+      "in": 41,
+      "kept": 41,
+      "added": 41,
+      "duplicatesSkipped": 0,
+      "superseded": 7,
+      "dropped": {}
+    }
+  ],
+  "officialRevision": "e3f9d3d461f3b7f5",
+  "note": "Packed gzip replaced with the identical 13,440-row Gio300/kloudy catalog so npm 1.0.0 and the registry share revision e3f9d3d461f3b7f5. Tuples matched; only revision and built timestamp differed."
+}

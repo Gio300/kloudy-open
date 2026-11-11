@@ -1,0 +1,83 @@
+{
+  "readOnly": true,
+  "configurationChanged": false,
+  "results": [
+    {
+      "client": "Cursor",
+      "configPath": "C:/Users/Flying Phoenix PCs/.cursor/mcp.json",
+      "configPresent": true,
+      "entries": [
+        {
+          "serverName": "kloudy",
+          "transport": "remote-http",
+          "endpointIsPublicKloudy": true,
+          "commandBasename": null,
+          "packageSelector": null,
+          "localPackageVersion": null,
+          "mcpArgumentPresent": false,
+          "credentialConfigurationPresent": false,
+          "secretValuesReadOrPrinted": false,
+          "receiverExpected": "not established by this configuration"
+        }
+      ]
+    },
+    {
+      "client": "Claude Desktop",
+      "configPath": "C:/Users/Flying Phoenix PCs/AppData/Roaming/Claude/claude_desktop_config.json",
+      "configPresent": true,
+      "entries": [
+        {
+          "serverName": "kloudy",
+          "transport": "stdio",
+          "endpointIsPublicKloudy": false,
+          "commandBasename": "npx",
+          "packageSelector": "kloudy",
+          "localPackageVersion": null,
+          "mcpArgumentPresent": true,
+          "credentialConfigurationPresent": false,
+          "secretValuesReadOrPrinted": false,
+          "receiverExpected": "not established by this configuration"
+        }
+      ]
+    },
+    {
+      "client": "Claude Code",
+      "configPath": "C:/Users/Flying Phoenix PCs/.claude.json",
+      "configPresent": true,
+      "entries": [
+        {
+          "serverName": "kloudy",
+          "transport": "remote-http",
+          "endpointIsPublicKloudy": true,
+          "commandBasename": null,
+          "packageSelector": null,
+          "localPackageVersion": null,
+          "mcpArgumentPresent": false,
+          "credentialConfigurationPresent": false,
+          "secretValuesReadOrPrinted": false,
+          "receiverExpected": "not established by this configuration"
+        }
+      ]
+    },
+    {
+      "client": "Codex",
+      "configPath": "C:/Users/Flying Phoenix PCs/.codex/config.toml",
+      "configPresent": true,
+      "entries": [
+        {
+          "serverName": "kloudy",
+          "transport": "remote-http",
+          "endpointIsPublicKloudy": true,
+          "commandBasename": null,
+          "packageSelector": null,
+          "localPackageVersion": null,
+          "mcpArgumentPresent": false,
+          "credentialConfigurationPresent": false,
+          "secretValuesReadOrPrinted": false,
+          "receiverExpected": "not established by this configuration"
+        }
+      ]
+    }
+  ],
+  "nativeClientUiVerified": false
+}

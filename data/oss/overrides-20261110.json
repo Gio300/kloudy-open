@@ -1,0 +1,197 @@
+{
+  "asOf": "2026-11-10",
+  "source": "BBE Engine overrides for 31 untagged oss:mit-sweep rows. Do not edit BBE modality-tags.jsonl; apply these at build time.",
+  "remove": [
+    {
+      "id": "oss:mit-sweep:aerospike/aerospike-client-nodejs",
+      "reason": "rule-3",
+      "note": "Not a bot-building project (client library / resource)."
+    },
+    {
+      "id": "oss:mit-sweep:feathersjs/feathers",
+      "reason": "rule-3",
+      "note": "Not a bot-building project (web framework)."
+    },
+    {
+      "id": "oss:mit-sweep:flet-dev/flet",
+      "reason": "rule-3",
+      "note": "Not a bot-building project (UI framework)."
+    },
+    {
+      "id": "oss:mit-sweep:sherlock-project/sherlock",
+      "reason": "rule-3",
+      "note": "Not a bot-building project."
+    },
+    {
+      "id": "oss:mit-sweep:ritchieng/deep-learning-wizard",
+      "reason": "rule-3",
+      "note": "Not a bot-building project (educational material)."
+    },
+    {
+      "id": "oss:mit-sweep:VersusControl/devops-ai-guidelines",
+      "reason": "rule-3",
+      "note": "Not a bot-building project (guidelines)."
+    },
+    {
+      "id": "oss:mit-sweep:CoderSJX/AI-Resources-Central",
+      "reason": "rule-3",
+      "note": "Not a bot-building project (resource list)."
+    },
+    {
+      "id": "oss:mit-sweep:JerryZLiu/Dayflow",
+      "reason": "rule-3",
+      "note": "Not a bot-building project."
+    },
+    {
+      "id": "oss:mit-sweep:vercel/modelfusion",
+      "reason": "rule-4",
+      "note": "Archived on GitHub (confirmed 2026-11-10 via API; last push 2024-07-19). Originally proposed as a tag; dropped under rule 4."
+    }
+  ],
+  "hold": [
+    {
+      "id": "oss:mit-sweep:ollama/ollama-js",
+      "reason": "ollama-only, awaiting Johnny"
+    },
+    {
+      "id": "oss:mit-sweep:ollama-ui/ollama-ui",
+      "reason": "ollama-only, awaiting Johnny"
+    },
+    {
+      "id": "oss:mit-sweep:awaescher/OllamaSharp",
+      "reason": "ollama-only, awaiting Johnny"
+    },
+    {
+      "id": "oss:mit-sweep:hinterdupfinger/obsidian-ollama",
+      "reason": "ollama-only, awaiting Johnny"
+    },
+    {
+      "id": "oss:mit-sweep:bernardo-bruning/ollama-copilot",
+      "reason": "ollama-only, awaiting Johnny"
+    },
+    {
+      "id": "oss:mit-sweep:n4ze3m/page-assist",
+      "reason": "ollama-only, awaiting Johnny"
+    },
+    {
+      "id": "oss:mit-sweep:srikanth235/privy",
+      "reason": "ollama-only, awaiting Johnny"
+    }
+  ],
+  "tag": [
+    {
+      "id": "oss:mit-sweep:amicalhq/amical",
+      "modalities": [
+        "audio",
+        "text"
+      ],
+      "primary": "audio"
+    },
+    {
+      "id": "oss:mit-sweep:Blarc/ai-commits-intellij-plugin",
+      "modalities": [
+        "code"
+      ],
+      "primary": "code"
+    },
+    {
+      "id": "oss:mit-sweep:CoWork-OS/CoWork-OS",
+      "modalities": [
+        "agent_tools"
+      ],
+      "primary": "agent_tools"
+    },
+    {
+      "id": "oss:mit-sweep:Gentleman-Programming/gentleman-guardian-angel",
+      "modalities": [
+        "code"
+      ],
+      "primary": "code"
+    },
+    {
+      "id": "oss:mit-sweep:jiran214/langup-ai",
+      "modalities": [
+        "agent_tools",
+        "text"
+      ],
+      "primary": "agent_tools"
+    },
+    {
+      "id": "oss:mit-sweep:K-Dense-AI/k-dense-byok",
+      "modalities": [
+        "agent_tools",
+        "data_analysis"
+      ],
+      "primary": "agent_tools"
+    },
+    {
+      "id": "oss:mit-sweep:kevinpbuckley/VibeUE",
+      "modalities": [
+        "agent_tools",
+        "code"
+      ],
+      "primary": "agent_tools"
+    },
+    {
+      "id": "oss:mit-sweep:langchain-ai/langchain-extract",
+      "modalities": [
+        "document_processing",
+        "text"
+      ],
+      "primary": "document_processing"
+    },
+    {
+      "id": "oss:mit-sweep:Mobile-Artificial-Intelligence/maid",
+      "modalities": [
+        "text"
+      ],
+      "primary": "text"
+    },
+    {
+      "id": "oss:mit-sweep:nicepkg/aide",
+      "modalities": [
+        "code"
+      ],
+      "primary": "code"
+    },
+    {
+      "id": "oss:mit-sweep:ricklamers/shell-ai",
+      "modalities": [
+        "code",
+        "code_execution"
+      ],
+      "primary": "code"
+    },
+    {
+      "id": "oss:mit-sweep:the-crypt-keeper/can-ai-code",
+      "modalities": [
+        "code"
+      ],
+      "primary": "code"
+    },
+    {
+      "id": "oss:mit-sweep:thesysdev/openui",
+      "modalities": [
+        "code"
+      ],
+      "primary": "code"
+    },
+    {
+      "id": "oss:mit-sweep:tryAGI/LangChain",
+      "modalities": [
+        "agent_tools",
+        "text"
+      ],
+      "primary": "agent_tools"
+    },
+    {
+      "id": "oss:mit-sweep:yakami129/VirtualWife",
+      "modalities": [
+        "text",
+        "audio",
+        "voice_generation"
+      ],
+      "primary": "text"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "version": "0.4.8",
+  "freshRegistryArtifact": true,
+  "sameMcpConnection": true,
+  "extensionUsed": false,
+  "appsCapabilityAdvertised": false,
+  "nativeIdeDisplayVerified": false,
+  "realSignedInActorVerified": false,
+  "providerCalls": 0,
+  "anonymousAttachmentDenied": true,
+  "receiverToolAvailable": true,
+  "liveBoundedWaiting": true,
+  "twoChoicesRetainOriginalGoalAndReturnLane": true,
+  "pairedLocatorHash": "17c816801181b4a1baf65f57b296568eafede7ce9a60410e9b0b94efd93decc2",
+  "livePublicChooserStatus": 200,
+  "passed": true
+}

@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kloudy.ai/schemas/kloudy.deployable-bot.schema.json",
+  "title": "kloudy.deployable-bot/1",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "kind",
+    "modalities"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "http",
+        "npx",
+        "uvx",
+        "botboozle",
+        "hf"
+      ]
+    },
+    "tier": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "endpoints": {
+      "type": "array"
+    },
+    "free": {
+      "type": "boolean"
+    },
+    "devices": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "caps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "license": {
+      "type": "string"
+    },
+    "source_url": {
+      "type": "string"
+    },
+    "score": {
+      "type": "number"
+    },
+    "modalities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "Every fitting modality tag. Multi-select. Known values include text, code, code_execution, embedding, image, image_generation, audio, voice_generation, video, multimodal, translation, search, database_access, file_system, browser_automation, api_calls, scheduling, notifications, auth_encryption, data_analysis, document_processing, robotics, agent_tools; other tags that appear are allowed."
+    },
+    "modality_primary": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sort hint only; never used as a filter."
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,73 @@
+{
+  "rule": "Discord/Telegram frameworks that need the user's own bot token (or equivalent Telegram/Discord account credentials) are key-gated. Held out of the public catalog pending a later decision.",
+  "ids": [
+    {
+      "id": "oss:mit-sweep:emanueleielo/ciana-parrot",
+      "reason": "Self-hosted AI assistant with Telegram chat; needs a Telegram bot token."
+    },
+    {
+      "id": "oss:mit-sweep:ErisPulse/ErisPulse",
+      "reason": "Multi-platform bot framework (Telegram and others); needs the user's bot tokens."
+    },
+    {
+      "id": "oss:mit-sweep:FantomaSkaRus1/telegram-bot-mcp",
+      "reason": "MCP covering the Telegram Bot API; needs a Telegram bot token."
+    },
+    {
+      "id": "oss:mit-sweep:jakobdylanc/llmcord",
+      "reason": "Makes Discord an LLM frontend; needs a Discord bot token."
+    },
+    {
+      "id": "oss:mit-sweep:langbot-app/LangBot",
+      "reason": "Platform for building IM bots for Discord, Telegram, Slack, and others; needs those bot tokens."
+    },
+    {
+      "id": "oss:mit-sweep:mcp-telegram/mcp-telegram",
+      "reason": "Connects a personal Telegram account over MTProto (user session credentials, not a bot token); held as Telegram credential-gated under the same rule."
+    },
+    {
+      "id": "oss:mit-sweep:moltis-org/moltis",
+      "reason": "Personal agent server with Telegram, Discord, WhatsApp, and Teams channels; needs those platform tokens to use the IM interfaces."
+    },
+    {
+      "id": "oss:mit-sweep:paulpierre/RasaGPT",
+      "reason": "Headless LLM chatbot platform built with a Telegram channel; needs a Telegram bot token for that channel."
+    },
+    {
+      "id": "oss:mit-sweep:s-nagaev/chibi",
+      "reason": "Self-hosted Telegram bot orchestrating multiple AI providers; needs a Telegram bot token."
+    },
+    {
+      "id": "oss:mit-sweep:SharimAli/discp",
+      "reason": "Discord MCP server with user/bot account support; needs a Discord user or bot token."
+    },
+    {
+      "id": "oss:mit-sweep:wangrongding/wechat-bot",
+      "reason": "Multi-platform IM agent for Telegram, WhatsApp, Lark, and WeChat; needs those platform tokens including Telegram."
+    },
+    {
+      "id": "oss:tsf:python-telegram-bot/python-telegram-bot",
+      "reason": "Python Telegram Bot API wrapper; needs the user's Telegram bot token."
+    },
+    {
+      "id": "oss:tsf:grammyjs/grammY",
+      "reason": "TypeScript framework for Telegram bots; needs the user's Telegram bot token."
+    },
+    {
+      "id": "oss:tsf:telegraf/telegraf",
+      "reason": "Node.js Telegram bot framework; needs the user's Telegram bot token."
+    },
+    {
+      "id": "oss:tsf:go-telegram-bot-api/telegram-bot-api",
+      "reason": "Golang bindings for the Telegram Bot API; needs the user's Telegram bot token."
+    },
+    {
+      "id": "oss:tsf:Rapptz/discord.py",
+      "reason": "The standard Python library for Discord bots; needs the user's Discord bot token."
+    },
+    {
+      "id": "oss:tsf:mautrix/telegram",
+      "reason": "Matrix-Telegram puppeting bridge; needs Telegram account or bot credentials. Held as Telegram credential-gated under the same rule."
+    }
+  ]
+}
