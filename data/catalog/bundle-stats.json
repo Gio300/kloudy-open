@@ -1,11 +1,12 @@
 {
-  "subset": "verified-oss",
-  "baseBots": 13577,
-  "shipped": 1915,
-  "gzBytes": 99741,
+  "subset": "full",
+  "baseBots": 13440,
+  "shipped": 13440,
+  "gzBytes": 436543,
   "classes": {
-    "A": 29,
-    "O": 1886
+    "A": 26,
+    "O": 1886,
+    "B": 11528
   },
   "oss": [
     {
@@ -61,5 +62,7 @@
       "superseded": 7,
       "dropped": {}
     }
-  ]
+  ],
+  "officialRevision": "e3f9d3d461f3b7f5",
+  "note": "Packed gzip replaced with the identical 13,440-row Gio300/kloudy catalog so npm 1.0.0 and the registry share revision e3f9d3d461f3b7f5. Tuples matched; only revision and built timestamp differed."
 }

@@ -8,9 +8,10 @@
 //   node scripts/bundle-bots-catalog.mjs --subset full
 //   node scripts/bundle-bots-catalog.mjs --oss path/to/manifests-OSS-batch2.jsonl
 //
-// Default --subset verified-oss keeps class A (the build's verified HTTP class) and class O (OSS).
-// The full A/B/C/O catalog packed over ~2 MB, so the npm snapshot omits class B (untested npx/uvx).
-// `kloudy bots sync` downloads that remainder into the local cache. Pass --subset full to write it anyway.
+// Default --subset full ships the 1.0 set: passing A/B rows (known size of at least 5 KB) plus approved OSS/HF.
+// verified-oss (class A + O only) remains available for a smaller snapshot. Class B is included in 1.0.0
+// because default `kloudy bots sync` uses https://kloudy.ai/api/deployable-bots/export, which will not have
+// this catalog until a later deploy (not part of this pack). The gzip stays well under the historical ~2 MB cap.
 import {readFileSync,writeFileSync,mkdirSync,existsSync,readdirSync} from 'node:fs';
 import {gunzipSync,gzipSync} from 'node:zlib';
 import {createHash} from 'node:crypto';
@@ -177,7 +178,7 @@ export function mergeOssIntoBots(bots,ossRows,existingIds){
 }
 
 function parseArgs(argv){
-  const out={subset:'verified-oss',base:resolve(root,'data/catalog/deployable-bots-base.json.gz'),oss:[],dest:resolve(root,'src/deployable-bots.json.gz'),stats:resolve(root,'data/catalog/bundle-stats.json')};
+  const out={subset:'full',base:resolve(root,'data/catalog/deployable-bots-base.json.gz'),oss:[],dest:resolve(root,'src/deployable-bots.json.gz'),stats:resolve(root,'data/catalog/bundle-stats.json')};
   for(let i=0;i<argv.length;i++){
     const a=argv[i];
     if(a==='--subset')out.subset=argv[++i];

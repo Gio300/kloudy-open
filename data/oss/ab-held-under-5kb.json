@@ -1,0 +1,1378 @@
+{
+  "rule": "A/B audit survivors held out of the 1.0 catalog because the known payload size is under 5 KB (5120 bytes). Held, not deleted, awaiting a later decision.",
+  "reason": "size_under_5kb",
+  "threshold_bytes": 5120,
+  "count": 137,
+  "ids": [
+    {
+      "id": "httpk:mcp:ai.iturri:market-data",
+      "name": "ai.iturri/market-data",
+      "cls": "A",
+      "kind": "http",
+      "package": "",
+      "canonical_repo": "iturri-ai/iturri-mcp",
+      "size_source": "GET https://api.github.com/repos/iturri-ai/iturri-mcp size_kb*1024",
+      "size_bytes": 4096
+    },
+    {
+      "id": "httpk:mcp:com.saaskly:mcp",
+      "name": "Saaskly: B2B software reviews and comparisons",
+      "cls": "A",
+      "kind": "http",
+      "package": "",
+      "canonical_repo": "timmeredith/saaskly-mcp",
+      "size_source": "GET https://api.github.com/repos/timmeredith/saaskly-mcp size_kb*1024",
+      "size_bytes": 4096
+    },
+    {
+      "id": "httpk:mcp:io.github.kodandy:jp-biz-opportunity",
+      "name": "io.github.kodandy/jp-biz-opportunity",
+      "cls": "A",
+      "kind": "http",
+      "package": "",
+      "canonical_repo": "kodandy/jp-biz-opportunity-mcp",
+      "size_source": "GET https://api.github.com/repos/kodandy/jp-biz-opportunity-mcp size_kb*1024",
+      "size_bytes": 3072
+    },
+    {
+      "id": "httpk:npm:acetamido:agentsession-mcp",
+      "name": "@acetamido/agentsession-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@acetamido/agentsession-mcp",
+      "canonical_repo": "guanzhw/agentsession",
+      "size_source": "GET https://registry.npmjs.org/@acetamido%2Fagentsession-mcp/latest dist.unpackedSize",
+      "size_bytes": 2939
+    },
+    {
+      "id": "httpk:npm:acp-protocol:mcp",
+      "name": "@acp-protocol/mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@acp-protocol/mcp",
+      "canonical_repo": "acp-protocol/acp-mcp",
+      "size_source": "GET https://registry.npmjs.org/@acp-protocol%2Fmcp/latest dist.unpackedSize",
+      "size_bytes": 2276
+    },
+    {
+      "id": "httpk:npm:agentika:grepika",
+      "name": "@agentika/grepika",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@agentika/grepika",
+      "canonical_repo": "adamthewilliam/grepika",
+      "size_source": "GET https://registry.npmjs.org/@agentika%2Fgrepika/latest dist.unpackedSize",
+      "size_bytes": 3971
+    },
+    {
+      "id": "httpk:npm:alifurkangokce:driftlint-mcp",
+      "name": "@alifurkangokce/driftlint-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@alifurkangokce/driftlint-mcp",
+      "canonical_repo": "alifurkangokce/driftlint",
+      "size_source": "GET https://registry.npmjs.org/@alifurkangokce%2Fdriftlint-mcp/latest dist.unpackedSize",
+      "size_bytes": 4682
+    },
+    {
+      "id": "httpk:npm:anchormem:anchor",
+      "name": "@anchormem/anchor",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@anchormem/anchor",
+      "canonical_repo": "priyank766/anchor",
+      "size_source": "GET https://registry.npmjs.org/@anchormem%2Fanchor/latest dist.unpackedSize",
+      "size_bytes": 2250
+    },
+    {
+      "id": "httpk:npm:autotranslate:mcp",
+      "name": "@autotranslate/mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@autotranslate/mcp",
+      "canonical_repo": "ruwadgroup/autotranslate",
+      "size_source": "GET https://registry.npmjs.org/@autotranslate%2Fmcp/latest dist.unpackedSize",
+      "size_bytes": 4717
+    },
+    {
+      "id": "httpk:npm:bce-tool",
+      "name": "bce-tool",
+      "cls": "B",
+      "kind": "npx",
+      "package": "bce-tool",
+      "canonical_repo": "linqiu919/bce-tool-rs",
+      "size_source": "GET https://registry.npmjs.org/bce-tool/latest dist.unpackedSize",
+      "size_bytes": 4981
+    },
+    {
+      "id": "httpk:npm:book-recommendations",
+      "name": "book-recommendations",
+      "cls": "B",
+      "kind": "npx",
+      "package": "book-recommendations",
+      "canonical_repo": "surendranb/book-recommendations",
+      "size_source": "GET https://registry.npmjs.org/book-recommendations/latest dist.unpackedSize",
+      "size_bytes": 1853
+    },
+    {
+      "id": "httpk:npm:buttery-mcp",
+      "name": "buttery-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "buttery-mcp",
+      "canonical_repo": "fletchgraham/buttery",
+      "size_source": "GET https://registry.npmjs.org/buttery-mcp/latest dist.unpackedSize",
+      "size_bytes": 3792
+    },
+    {
+      "id": "httpk:npm:c3-oss:slack-mcp-server",
+      "name": "@c3-oss/slack-mcp-server",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@c3-oss/slack-mcp-server",
+      "canonical_repo": "c3-oss/slack-mcp-server",
+      "size_source": "GET https://registry.npmjs.org/@c3-oss%2Fslack-mcp-server/latest dist.unpackedSize",
+      "size_bytes": 2756
+    },
+    {
+      "id": "httpk:npm:carlwr:zshref-mcp",
+      "name": "@carlwr/zshref-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@carlwr/zshref-mcp",
+      "canonical_repo": "carlwr/zsh-lexicon",
+      "size_source": "GET https://registry.npmjs.org/@carlwr%2Fzshref-mcp/latest dist.unpackedSize",
+      "size_bytes": 2846
+    },
+    {
+      "id": "httpk:npm:chapeaux:beret",
+      "name": "@chapeaux/beret",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@chapeaux/beret",
+      "canonical_repo": "chapeaux/beret",
+      "size_source": "GET https://registry.npmjs.org/@chapeaux%2Fberet/latest dist.unpackedSize",
+      "size_bytes": 4073
+    },
+    {
+      "id": "httpk:npm:chatwoot-mcp",
+      "name": "chatwoot-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "chatwoot-mcp",
+      "canonical_repo": "gobenpark/chatwoot-mcp",
+      "size_source": "GET https://registry.npmjs.org/chatwoot-mcp/latest dist.unpackedSize",
+      "size_bytes": 3328
+    },
+    {
+      "id": "httpk:npm:che-word-mcp-kosta",
+      "name": "che-word-mcp-kosta",
+      "cls": "B",
+      "kind": "npx",
+      "package": "che-word-mcp-kosta",
+      "canonical_repo": "ildunari/che-word-mcp-eng",
+      "size_source": "GET https://registry.npmjs.org/che-word-mcp-kosta/latest dist.unpackedSize",
+      "size_bytes": 4748
+    },
+    {
+      "id": "httpk:npm:cheongyak-rag-mcp",
+      "name": "cheongyak-rag-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "cheongyak-rag-mcp",
+      "canonical_repo": "ssuksak/cheongyak-rag-mcp",
+      "size_source": "GET https://registry.npmjs.org/cheongyak-rag-mcp/latest dist.unpackedSize",
+      "size_bytes": 3113
+    },
+    {
+      "id": "httpk:npm:codex-web-search-mcp",
+      "name": "codex-web-search-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "codex-web-search-mcp",
+      "canonical_repo": "dhicoc/codex-web-search-mcp",
+      "size_source": "GET https://registry.npmjs.org/codex-web-search-mcp/latest dist.unpackedSize",
+      "size_bytes": 3257
+    },
+    {
+      "id": "httpk:npm:codo-tech:slack-mcp-server",
+      "name": "@codo-tech/slack-mcp-server",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@codo-tech/slack-mcp-server",
+      "canonical_repo": "codotech/slack-mcp-server",
+      "size_source": "GET https://registry.npmjs.org/@codo-tech%2Fslack-mcp-server/latest dist.unpackedSize",
+      "size_bytes": 3871
+    },
+    {
+      "id": "httpk:npm:continuum-mcp",
+      "name": "continuum-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "continuum-mcp",
+      "canonical_repo": "redstone-md/continuum",
+      "size_source": "GET https://registry.npmjs.org/continuum-mcp/latest dist.unpackedSize",
+      "size_bytes": 4286
+    },
+    {
+      "id": "httpk:npm:daipendency:mcp",
+      "name": "@daipendency/mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@daipendency/mcp",
+      "canonical_repo": "daipendency/daipendency-mcp",
+      "size_source": "GET https://registry.npmjs.org/@daipendency%2Fmcp/latest dist.unpackedSize",
+      "size_bytes": 4205
+    },
+    {
+      "id": "httpk:npm:danielrosehill:google-contacts-mcp",
+      "name": "@danielrosehill/google-contacts-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@danielrosehill/google-contacts-mcp",
+      "canonical_repo": "danielrosehill/google-contacts-mcp",
+      "size_source": "GET https://registry.npmjs.org/@danielrosehill%2Fgoogle-contacts-mcp/latest dist.unpackedSize",
+      "size_bytes": 4727
+    },
+    {
+      "id": "httpk:npm:dormon:ultraforce-mcp",
+      "name": "@dormon/ultraforce-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@dormon/ultraforce-mcp",
+      "canonical_repo": "dormonbear/ultraforce-desktop",
+      "size_source": "GET https://registry.npmjs.org/@dormon%2Fultraforce-mcp/latest dist.unpackedSize",
+      "size_bytes": 3518
+    },
+    {
+      "id": "httpk:npm:engramo:mcp",
+      "name": "@engramo/mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@engramo/mcp",
+      "canonical_repo": "engramo-developer/engramo-mcp",
+      "size_source": "GET https://registry.npmjs.org/@engramo%2Fmcp/latest dist.unpackedSize",
+      "size_bytes": 2885
+    },
+    {
+      "id": "httpk:npm:esetnik:mssql-mcp-reader",
+      "name": "@esetnik/mssql-mcp-reader",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@esetnik/mssql-mcp-reader",
+      "canonical_repo": "esetnik/mssql-mcp-reader",
+      "size_source": "GET https://registry.npmjs.org/@esetnik%2Fmssql-mcp-reader/latest dist.unpackedSize",
+      "size_bytes": 4866
+    },
+    {
+      "id": "httpk:npm:extuitive",
+      "name": "extuitive",
+      "cls": "B",
+      "kind": "npx",
+      "package": "extuitive",
+      "canonical_repo": "fl100inc/extuitive-skill",
+      "size_source": "GET https://registry.npmjs.org/extuitive/latest dist.unpackedSize",
+      "size_bytes": 3649
+    },
+    {
+      "id": "httpk:npm:facesign-mcp",
+      "name": "facesign-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "facesign-mcp",
+      "canonical_repo": "facesignai/facesign-api",
+      "size_source": "GET https://registry.npmjs.org/facesign-mcp/latest dist.unpackedSize",
+      "size_bytes": 1801
+    },
+    {
+      "id": "httpk:npm:fastmcp-me:growthbook-mcp",
+      "name": "@fastmcp-me/growthbook-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@fastmcp-me/growthbook-mcp",
+      "canonical_repo": "fastmcp-me/growthbook-mcp",
+      "size_source": "GET https://registry.npmjs.org/@fastmcp-me%2Fgrowthbook-mcp/latest dist.unpackedSize",
+      "size_bytes": 4353
+    },
+    {
+      "id": "httpk:npm:fastmcp-me:markdown2pdf-mcp",
+      "name": "@fastmcp-me/markdown2pdf-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@fastmcp-me/markdown2pdf-mcp",
+      "canonical_repo": "fastmcp-me/markdown2pdf-mcp",
+      "size_source": "GET https://registry.npmjs.org/@fastmcp-me%2Fmarkdown2pdf-mcp/latest dist.unpackedSize",
+      "size_bytes": 4657
+    },
+    {
+      "id": "httpk:npm:fastmcp-me:mcp-server-bfl",
+      "name": "@fastmcp-me/mcp-server-bfl",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@fastmcp-me/mcp-server-bfl",
+      "canonical_repo": "fastmcp-me/mcp-server-bfl",
+      "size_source": "GET https://registry.npmjs.org/@fastmcp-me%2Fmcp-server-bfl/latest dist.unpackedSize",
+      "size_bytes": 4509
+    },
+    {
+      "id": "httpk:npm:fastmcp-me:mcp-server-bluesky",
+      "name": "@fastmcp-me/mcp-server-bluesky",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@fastmcp-me/mcp-server-bluesky",
+      "canonical_repo": "fastmcp-me/mcp-server-bluesky",
+      "size_source": "GET https://registry.npmjs.org/@fastmcp-me%2Fmcp-server-bluesky/latest dist.unpackedSize",
+      "size_bytes": 4043
+    },
+    {
+      "id": "httpk:npm:fastmcp-me:pickapicon-mcp",
+      "name": "@fastmcp-me/pickapicon-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@fastmcp-me/pickapicon-mcp",
+      "canonical_repo": "fastmcp-me/pickapicon-mcp",
+      "size_source": "GET https://registry.npmjs.org/@fastmcp-me%2Fpickapicon-mcp/latest dist.unpackedSize",
+      "size_bytes": 4635
+    },
+    {
+      "id": "httpk:npm:fixel-mcp",
+      "name": "fixel-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "fixel-mcp",
+      "canonical_repo": "akollu72/fixel",
+      "size_source": "GET https://registry.npmjs.org/fixel-mcp/latest dist.unpackedSize",
+      "size_bytes": 2098
+    },
+    {
+      "id": "httpk:npm:free-image-library",
+      "name": "free-image-library",
+      "cls": "B",
+      "kind": "npx",
+      "package": "free-image-library",
+      "canonical_repo": "surendranb/free-image-library",
+      "size_source": "GET https://registry.npmjs.org/free-image-library/latest dist.unpackedSize",
+      "size_bytes": 1858
+    },
+    {
+      "id": "httpk:npm:fsa1-mcp",
+      "name": "fsa1-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "fsa1-mcp",
+      "canonical_repo": "fredrikolis/fsa1",
+      "size_source": "GET https://registry.npmjs.org/fsa1-mcp/latest dist.unpackedSize",
+      "size_bytes": 2784
+    },
+    {
+      "id": "httpk:npm:gooliya:port-bar-mcp",
+      "name": "@gooliya/port-bar-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@gooliya/port-bar-mcp",
+      "canonical_repo": "imsyuan/gooliya-port-bar",
+      "size_source": "GET https://registry.npmjs.org/@gooliya%2Fport-bar-mcp/latest dist.unpackedSize",
+      "size_bytes": 2068
+    },
+    {
+      "id": "httpk:npm:grok-search-rs",
+      "name": "grok-search-rs",
+      "cls": "B",
+      "kind": "npx",
+      "package": "grok-search-rs",
+      "canonical_repo": "episkey-g/groksearch-rs",
+      "size_source": "GET https://registry.npmjs.org/grok-search-rs/latest dist.unpackedSize",
+      "size_bytes": 3569
+    },
+    {
+      "id": "httpk:npm:herdown:mcp",
+      "name": "@herdown/mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@herdown/mcp",
+      "canonical_repo": "less1001/herdown",
+      "size_source": "GET https://registry.npmjs.org/@herdown%2Fmcp/latest dist.unpackedSize",
+      "size_bytes": 4714
+    },
+    {
+      "id": "httpk:npm:httpstatus:mcp-server",
+      "name": "@httpstatus/mcp-server",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@httpstatus/mcp-server",
+      "canonical_repo": "httpstatus-com/httpstatus-mcp-server",
+      "size_source": "GET https://registry.npmjs.org/@httpstatus%2Fmcp-server/latest dist.unpackedSize",
+      "size_bytes": 5082
+    },
+    {
+      "id": "httpk:npm:huginn-mcp",
+      "name": "huginn-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "huginn-mcp",
+      "canonical_repo": "toki0413/matsci",
+      "size_source": "GET https://registry.npmjs.org/huginn-mcp/latest dist.unpackedSize",
+      "size_bytes": 4107
+    },
+    {
+      "id": "httpk:npm:humanizer-mcp",
+      "name": "humanizer-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "humanizer-mcp",
+      "canonical_repo": "aousabdo/humanizer-mcp",
+      "size_source": "GET https://registry.npmjs.org/humanizer-mcp/latest dist.unpackedSize",
+      "size_bytes": 3915
+    },
+    {
+      "id": "httpk:npm:jotai-mcp-server",
+      "name": "jotai-mcp-server",
+      "cls": "B",
+      "kind": "npx",
+      "package": "jotai-mcp-server",
+      "canonical_repo": "jotaijs/jotai-mcp-server",
+      "size_source": "GET https://registry.npmjs.org/jotai-mcp-server/latest dist.unpackedSize",
+      "size_bytes": 5104
+    },
+    {
+      "id": "httpk:npm:junie-mcp-figma-proxy",
+      "name": "junie-mcp-figma-proxy",
+      "cls": "B",
+      "kind": "npx",
+      "package": "junie-mcp-figma-proxy",
+      "canonical_repo": "arhx/junie-mcp-figma-proxy",
+      "size_source": "GET https://registry.npmjs.org/junie-mcp-figma-proxy/latest dist.unpackedSize",
+      "size_bytes": 3754
+    },
+    {
+      "id": "httpk:npm:kembec:ical-mcp",
+      "name": "@kembec/ical-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@kembec/ical-mcp",
+      "canonical_repo": "kembec/ical-mcp",
+      "size_source": "GET https://registry.npmjs.org/@kembec%2Fical-mcp/latest dist.unpackedSize",
+      "size_bytes": 4388
+    },
+    {
+      "id": "httpk:npm:kembec:ruc-mcp",
+      "name": "@kembec/ruc-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@kembec/ruc-mcp",
+      "canonical_repo": "kembec/ruc-mcp",
+      "size_source": "GET https://registry.npmjs.org/@kembec%2Fruc-mcp/latest dist.unpackedSize",
+      "size_bytes": 3002
+    },
+    {
+      "id": "httpk:npm:maestro-mcp",
+      "name": "maestro-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "maestro-mcp",
+      "canonical_repo": "costasoftware/maestro",
+      "size_source": "GET https://registry.npmjs.org/maestro-mcp/latest dist.unpackedSize",
+      "size_bytes": 1310
+    },
+    {
+      "id": "httpk:npm:mcp-agent",
+      "name": "mcp-agent",
+      "cls": "B",
+      "kind": "npx",
+      "package": "mcp-agent",
+      "canonical_repo": "lastmile-ai/mcp-agent",
+      "size_source": "GET https://registry.npmjs.org/mcp-agent/latest dist.unpackedSize",
+      "size_bytes": 487
+    },
+    {
+      "id": "httpk:npm:mcp-page-bridge",
+      "name": "mcp-page-bridge",
+      "cls": "B",
+      "kind": "npx",
+      "package": "mcp-page-bridge",
+      "canonical_repo": "rytsh/mcp-page-bridge",
+      "size_source": "GET https://registry.npmjs.org/mcp-page-bridge/latest dist.unpackedSize",
+      "size_bytes": 3500
+    },
+    {
+      "id": "httpk:npm:mcp-reticle",
+      "name": "mcp-reticle",
+      "cls": "B",
+      "kind": "npx",
+      "package": "mcp-reticle",
+      "canonical_repo": "soth-ai/mcp-reticle",
+      "size_source": "GET https://registry.npmjs.org/mcp-reticle/latest dist.unpackedSize",
+      "size_bytes": 4430
+    },
+    {
+      "id": "httpk:npm:mcp-safeguard:config-recommended",
+      "name": "@mcp-safeguard/config-recommended",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@mcp-safeguard/config-recommended",
+      "canonical_repo": "apeironics/mcp-safeguard",
+      "size_source": "GET https://registry.npmjs.org/@mcp-safeguard%2Fconfig-recommended/latest dist.unpackedSize",
+      "size_bytes": 3539
+    },
+    {
+      "id": "httpk:npm:mcp-tester",
+      "name": "mcp-tester",
+      "cls": "B",
+      "kind": "npx",
+      "package": "mcp-tester",
+      "canonical_repo": "l-qun/mcp-proxy",
+      "size_source": "GET https://registry.npmjs.org/mcp-tester/latest dist.unpackedSize",
+      "size_bytes": 3300
+    },
+    {
+      "id": "httpk:npm:nativectx",
+      "name": "nativectx",
+      "cls": "B",
+      "kind": "npx",
+      "package": "nativectx",
+      "canonical_repo": "nativectx/ui",
+      "size_source": "GET https://registry.npmjs.org/nativectx/latest dist.unpackedSize",
+      "size_bytes": 2977
+    },
+    {
+      "id": "httpk:npm:new-mcp",
+      "name": "new-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "new-mcp",
+      "canonical_repo": "ezraapple/new-mcp",
+      "size_source": "GET https://registry.npmjs.org/new-mcp/latest dist.unpackedSize",
+      "size_bytes": 3097
+    },
+    {
+      "id": "httpk:npm:nightscape:debugger-mcp",
+      "name": "@nightscape/debugger-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@nightscape/debugger-mcp",
+      "canonical_repo": "nightscape/debugger-mcp",
+      "size_source": "GET https://registry.npmjs.org/@nightscape%2Fdebugger-mcp/latest dist.unpackedSize",
+      "size_bytes": 4499
+    },
+    {
+      "id": "httpk:npm:oneidentity:safeguard-mcp",
+      "name": "@oneidentity/safeguard-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@oneidentity/safeguard-mcp",
+      "canonical_repo": "oneidentity/safeguard-mcp",
+      "size_source": "GET https://registry.npmjs.org/@oneidentity%2Fsafeguard-mcp/latest dist.unpackedSize",
+      "size_bytes": 2966
+    },
+    {
+      "id": "httpk:npm:orchestra-mcp:devtools",
+      "name": "@orchestra-mcp/devtools",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@orchestra-mcp/devtools",
+      "canonical_repo": "orchestra-mcp/devtools",
+      "size_source": "GET https://registry.npmjs.org/@orchestra-mcp%2Fdevtools/latest dist.unpackedSize",
+      "size_bytes": 2933
+    },
+    {
+      "id": "httpk:npm:payfirewall-mcp",
+      "name": "payfirewall-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "payfirewall-mcp",
+      "canonical_repo": "roshaninfordham/sentinelpay",
+      "size_source": "GET https://registry.npmjs.org/payfirewall-mcp/latest dist.unpackedSize",
+      "size_bytes": 1144
+    },
+    {
+      "id": "httpk:npm:planmonster:olkcli",
+      "name": "@planmonster/olkcli",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@planmonster/olkcli",
+      "canonical_repo": "planmonster/olkcli",
+      "size_source": "GET https://registry.npmjs.org/@planmonster%2Folkcli/latest dist.unpackedSize",
+      "size_bytes": 3420
+    },
+    {
+      "id": "httpk:npm:podcast-recommendations",
+      "name": "podcast-recommendations",
+      "cls": "B",
+      "kind": "npx",
+      "package": "podcast-recommendations",
+      "canonical_repo": "surendranb/podcast-recommendations",
+      "size_source": "GET https://registry.npmjs.org/podcast-recommendations/latest dist.unpackedSize",
+      "size_bytes": 1903
+    },
+    {
+      "id": "httpk:npm:proappstore:mcp",
+      "name": "@proappstore/mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@proappstore/mcp",
+      "canonical_repo": "proappstore-online/platform",
+      "size_source": "GET https://registry.npmjs.org/@proappstore%2Fmcp/latest dist.unpackedSize",
+      "size_bytes": 4145
+    },
+    {
+      "id": "httpk:npm:rechakra:react-mcp",
+      "name": "@rechakra/react-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@rechakra/react-mcp",
+      "canonical_repo": "teunlao/rechakra",
+      "size_source": "GET https://registry.npmjs.org/@rechakra%2Freact-mcp/latest dist.unpackedSize",
+      "size_bytes": 4190
+    },
+    {
+      "id": "httpk:npm:rhinomcp",
+      "name": "rhinomcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "rhinomcp",
+      "canonical_repo": "jingcheng-chen/rhinomcp",
+      "size_source": "GET https://registry.npmjs.org/rhinomcp/latest dist.unpackedSize",
+      "size_bytes": 725
+    },
+    {
+      "id": "httpk:npm:roam-tui",
+      "name": "roam-tui",
+      "cls": "B",
+      "kind": "npx",
+      "package": "roam-tui",
+      "canonical_repo": "avelino/roam-tui",
+      "size_source": "GET https://registry.npmjs.org/roam-tui/latest dist.unpackedSize",
+      "size_bytes": 3217
+    },
+    {
+      "id": "httpk:npm:selenide:mcp",
+      "name": "@selenide/mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@selenide/mcp",
+      "canonical_repo": "selenide/selenide",
+      "size_source": "GET https://registry.npmjs.org/@selenide%2Fmcp/latest dist.unpackedSize",
+      "size_bytes": 3368
+    },
+    {
+      "id": "httpk:npm:seoo2001:mcp-gate",
+      "name": "@seoo2001/mcp-gate",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@seoo2001/mcp-gate",
+      "canonical_repo": "seoo2001/mcp-gate",
+      "size_source": "GET https://registry.npmjs.org/@seoo2001%2Fmcp-gate/latest dist.unpackedSize",
+      "size_bytes": 3191
+    },
+    {
+      "id": "httpk:npm:skillflow:mcp",
+      "name": "@skillflow/mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@skillflow/mcp",
+      "canonical_repo": "maugus2/skillflow",
+      "size_source": "GET https://registry.npmjs.org/@skillflow%2Fmcp/latest dist.unpackedSize",
+      "size_bytes": 747
+    },
+    {
+      "id": "httpk:npm:spss-mcp-extended",
+      "name": "spss-mcp-extended",
+      "cls": "B",
+      "kind": "npx",
+      "package": "spss-mcp-extended",
+      "canonical_repo": "rasitnarcicek/spss-mcp-extended",
+      "size_source": "GET https://registry.npmjs.org/spss-mcp-extended/latest dist.unpackedSize",
+      "size_bytes": 5048
+    },
+    {
+      "id": "httpk:npm:sylphx:mcp",
+      "name": "@sylphx/mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@sylphx/mcp",
+      "canonical_repo": "sylphxai/sylphx-clients",
+      "size_source": "GET https://registry.npmjs.org/@sylphx%2Fmcp/latest dist.unpackedSize",
+      "size_bytes": 2424
+    },
+    {
+      "id": "httpk:npm:uipin-mcp",
+      "name": "uipin-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "uipin-mcp",
+      "canonical_repo": "noyhkos/uipin",
+      "size_source": "GET https://registry.npmjs.org/uipin-mcp/latest dist.unpackedSize",
+      "size_bytes": 4987
+    },
+    {
+      "id": "httpk:npm:usecreable-mcp",
+      "name": "usecreable-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "usecreable-mcp",
+      "canonical_repo": "usecreable/usecreable-mcp",
+      "size_source": "GET https://registry.npmjs.org/usecreable-mcp/latest dist.unpackedSize",
+      "size_bytes": 1849
+    },
+    {
+      "id": "httpk:npm:v-rapper-mcp",
+      "name": "v-rapper-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "v-rapper-mcp",
+      "canonical_repo": "w2xi/v-rapper-mcp",
+      "size_source": "GET https://registry.npmjs.org/v-rapper-mcp/latest dist.unpackedSize",
+      "size_bytes": 3633
+    },
+    {
+      "id": "httpk:npm:veloria:mcp",
+      "name": "@veloria/mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@veloria/mcp",
+      "canonical_repo": "peterbooker/veloria",
+      "size_source": "GET https://registry.npmjs.org/@veloria%2Fmcp/latest dist.unpackedSize",
+      "size_bytes": 4896
+    },
+    {
+      "id": "httpk:npm:vividcodeai:embedded-gdb-mcp",
+      "name": "@vividcodeai/embedded-gdb-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@vividcodeai/embedded-gdb-mcp",
+      "canonical_repo": "vividcode-ai/embedded-gdb-mcp",
+      "size_source": "GET https://registry.npmjs.org/@vividcodeai%2Fembedded-gdb-mcp/latest dist.unpackedSize",
+      "size_bytes": 3474
+    },
+    {
+      "id": "httpk:npm:vividcodeai:embedded-xlink-mcp",
+      "name": "@vividcodeai/embedded-xlink-mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@vividcodeai/embedded-xlink-mcp",
+      "canonical_repo": "vividcode-ai/embedded-xlink-mcp",
+      "size_source": "GET https://registry.npmjs.org/@vividcodeai%2Fembedded-xlink-mcp/latest dist.unpackedSize",
+      "size_bytes": 3617
+    },
+    {
+      "id": "httpk:npm:wunderfrucht:jira-mcp-server-darwin-arm64",
+      "name": "@wunderfrucht/jira-mcp-server-darwin-arm64",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@wunderfrucht/jira-mcp-server-darwin-arm64",
+      "canonical_repo": "wunderfrucht/gouqi-mcp-server",
+      "size_source": "GET https://registry.npmjs.org/@wunderfrucht%2Fjira-mcp-server-darwin-arm64/latest dist.unpackedSize",
+      "size_bytes": 662
+    },
+    {
+      "id": "httpk:npm:yaotech:codex-collab",
+      "name": "@yaotech/codex-collab",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@yaotech/codex-collab",
+      "canonical_repo": "yaotechio/codex-collab",
+      "size_source": "GET https://registry.npmjs.org/@yaotech%2Fcodex-collab/latest dist.unpackedSize",
+      "size_bytes": 2363
+    },
+    {
+      "id": "httpk:npm:zeitflow:mcp",
+      "name": "@zeitflow/mcp",
+      "cls": "B",
+      "kind": "npx",
+      "package": "@zeitflow/mcp",
+      "canonical_repo": "benzend/zeitflow",
+      "size_source": "GET https://registry.npmjs.org/@zeitflow%2Fmcp/latest dist.unpackedSize",
+      "size_bytes": 4815
+    },
+    {
+      "id": "httpk:pypi:airbook-mcp-server",
+      "name": "airbook-mcp-server",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "airbook-mcp-server",
+      "canonical_repo": "pypa/sampleproject",
+      "size_source": "GET https://pypi.org/pypi/airbook-mcp-server/json releases[0.0.1] sdist file size",
+      "size_bytes": 2561
+    },
+    {
+      "id": "httpk:pypi:autogen-mcp",
+      "name": "autogen-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "autogen-mcp",
+      "canonical_repo": "microsoft/autogen",
+      "size_source": "GET https://pypi.org/pypi/autogen-mcp/json releases[0.0.1] sdist file size",
+      "size_bytes": 2827
+    },
+    {
+      "id": "httpk:pypi:brein",
+      "name": "brein",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "brein",
+      "canonical_repo": "brein-sh/brein",
+      "size_source": "GET https://pypi.org/pypi/brein/json releases[0.0.1] sdist file size",
+      "size_bytes": 786
+    },
+    {
+      "id": "httpk:pypi:caracal-mcp",
+      "name": "caracal-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "caracal-mcp",
+      "canonical_repo": "garudex-labs/caracal",
+      "size_source": "GET https://pypi.org/pypi/caracal-mcp/json releases[0.1.0] sdist file size",
+      "size_bytes": 1749
+    },
+    {
+      "id": "httpk:pypi:casual-mcp-server-time",
+      "name": "casual-mcp-server-time",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "casual-mcp-server-time",
+      "canonical_repo": "casualgenius/mcp-servers",
+      "size_source": "GET https://pypi.org/pypi/casual-mcp-server-time/json releases[1.0.0] sdist file size",
+      "size_bytes": 4197
+    },
+    {
+      "id": "httpk:pypi:coglog-mcp",
+      "name": "coglog-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "coglog-mcp",
+      "canonical_repo": "harmoniaepic/coglog",
+      "size_source": "GET https://pypi.org/pypi/coglog-mcp/json releases[0.9.1] sdist file size",
+      "size_bytes": 4960
+    },
+    {
+      "id": "httpk:pypi:contractscan-mcp",
+      "name": "contractscan-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "contractscan-mcp",
+      "canonical_repo": "h33min/contractscan-action",
+      "size_source": "GET https://pypi.org/pypi/contractscan-mcp/json releases[0.1.1] sdist file size",
+      "size_bytes": 4679
+    },
+    {
+      "id": "httpk:pypi:crowdbench-mcp",
+      "name": "crowdbench-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "crowdbench-mcp",
+      "canonical_repo": "crowdbench/crowdbench",
+      "size_source": "GET https://pypi.org/pypi/crowdbench-mcp/json releases[0.0.1] sdist file size",
+      "size_bytes": 955
+    },
+    {
+      "id": "httpk:pypi:datasource-mcp",
+      "name": "datasource-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "datasource-mcp",
+      "canonical_repo": "wangguoxi0814/datasource-mcp",
+      "size_source": "GET https://pypi.org/pypi/datasource-mcp/json releases[0.1.0] sdist file size",
+      "size_bytes": 3785
+    },
+    {
+      "id": "httpk:pypi:datasphere-mcp",
+      "name": "Datasphere-MCP",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "Datasphere-MCP",
+      "canonical_repo": "openscilab/reserver",
+      "size_source": "GET https://pypi.org/pypi/Datasphere-MCP/json releases[0.0.0] sdist file size",
+      "size_bytes": 1511
+    },
+    {
+      "id": "httpk:pypi:depthy-mcp",
+      "name": "depthy-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "depthy-mcp",
+      "canonical_repo": "depthy-io/depthy-mcp",
+      "size_source": "GET https://pypi.org/pypi/depthy-mcp/json releases[0.1.0] sdist file size",
+      "size_bytes": 4383
+    },
+    {
+      "id": "httpk:pypi:doclex-mcp",
+      "name": "doclex-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "doclex-mcp",
+      "canonical_repo": "enpaiva93/doclex-cli",
+      "size_source": "GET https://pypi.org/pypi/doclex-mcp/json releases[0.0.1] sdist file size",
+      "size_bytes": 844
+    },
+    {
+      "id": "httpk:pypi:douyin-live-mcp",
+      "name": "douyin-live-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "douyin-live-mcp",
+      "canonical_repo": "jiaoziqiang/douyin-live-mcp",
+      "size_source": "GET https://pypi.org/pypi/douyin-live-mcp/json releases[0.1.2] sdist file size",
+      "size_bytes": 3597
+    },
+    {
+      "id": "httpk:pypi:etlantic-mcp",
+      "name": "etlantic-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "etlantic-mcp",
+      "canonical_repo": "eddiethedean/etlantic",
+      "size_source": "GET https://pypi.org/pypi/etlantic-mcp/json releases[0.59.0] sdist file size",
+      "size_bytes": 3625
+    },
+    {
+      "id": "httpk:pypi:fast-html-mcp-server",
+      "name": "fast-html-mcp-server",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "fast-html-mcp-server",
+      "canonical_repo": "aimino-tech/opentalk2html-notmd",
+      "size_source": "GET https://pypi.org/pypi/fast-html-mcp-server/json releases[0.1.2] sdist file size",
+      "size_bytes": 2327
+    },
+    {
+      "id": "httpk:pypi:flox-mcp",
+      "name": "flox-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "flox-mcp",
+      "canonical_repo": "lrvx/lrvx",
+      "size_source": "GET https://pypi.org/pypi/flox-mcp/json releases[0.10.2] sdist file size",
+      "size_bytes": 2693
+    },
+    {
+      "id": "httpk:pypi:flurry-server",
+      "name": "flurry-server",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "flurry-server",
+      "canonical_repo": "deepburger/flurry-code",
+      "size_source": "GET https://pypi.org/pypi/flurry-server/json releases[0.0.1] sdist file size",
+      "size_bytes": 1315
+    },
+    {
+      "id": "httpk:pypi:forge-cu-mcp",
+      "name": "forge-cu-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "forge-cu-mcp",
+      "canonical_repo": "clearclown/tirami",
+      "size_source": "GET https://pypi.org/pypi/forge-cu-mcp/json releases[0.2.0] sdist file size",
+      "size_bytes": 2023
+    },
+    {
+      "id": "httpk:pypi:gemini-audio-mcp",
+      "name": "gemini-audio-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "gemini-audio-mcp",
+      "canonical_repo": "anteqkois/gemini-audio-mcp",
+      "size_source": "GET https://pypi.org/pypi/gemini-audio-mcp/json releases[0.1.4] sdist file size",
+      "size_bytes": 4701
+    },
+    {
+      "id": "httpk:pypi:handlebar-mcp",
+      "name": "handlebar-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "handlebar-mcp",
+      "canonical_repo": "gethandlebar/handlebar-python",
+      "size_source": "GET https://pypi.org/pypi/handlebar-mcp/json releases[0.0.1] sdist file size",
+      "size_bytes": 801
+    },
+    {
+      "id": "httpk:pypi:indian-kanoon-mcp",
+      "name": "indian-kanoon-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "indian-kanoon-mcp",
+      "canonical_repo": "mr-dilshad/ikapi",
+      "size_source": "GET https://pypi.org/pypi/indian-kanoon-mcp/json releases[0.1.0] sdist file size",
+      "size_bytes": 4653
+    },
+    {
+      "id": "httpk:pypi:kavach-mcp-events",
+      "name": "kavach-mcp-events",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "kavach-mcp-events",
+      "canonical_repo": "shivamnamdeo0101/kavach-agent-ecosystem",
+      "size_source": "GET https://pypi.org/pypi/kavach-mcp-events/json releases[0.0.3] sdist file size",
+      "size_bytes": 3708
+    },
+    {
+      "id": "httpk:pypi:langobs-mcp",
+      "name": "langobs-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "langobs-mcp",
+      "canonical_repo": "langobs/langobs",
+      "size_source": "GET https://pypi.org/pypi/langobs-mcp/json releases[0.2.0] sdist file size",
+      "size_bytes": 4288
+    },
+    {
+      "id": "httpk:pypi:limex-mcp",
+      "name": "limex-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "limex-mcp",
+      "canonical_repo": "limex-hq/limex-mcp",
+      "size_source": "GET https://pypi.org/pypi/limex-mcp/json releases[0.1.2] sdist file size",
+      "size_bytes": 5038
+    },
+    {
+      "id": "httpk:pypi:ljj-apollo-mcp",
+      "name": "ljj-apollo-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "ljj-apollo-mcp",
+      "canonical_repo": "anthropics/knowledge-work-plugins",
+      "size_source": "GET https://pypi.org/pypi/ljj-apollo-mcp/json releases[0.1.0] sdist file size",
+      "size_bytes": 4332
+    },
+    {
+      "id": "httpk:pypi:mcp-config-manager",
+      "name": "mcp-config-manager",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "mcp-config-manager",
+      "canonical_repo": "easytocloud/mcp-config-manager",
+      "size_source": "GET https://pypi.org/pypi/mcp-config-manager/json releases[0.1.1] sdist file size",
+      "size_bytes": 4412
+    },
+    {
+      "id": "httpk:pypi:mcp-email-sender",
+      "name": "mcp-email-sender",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "mcp-email-sender",
+      "canonical_repo": "uaniay/plugins",
+      "size_source": "GET https://pypi.org/pypi/mcp-email-sender/json releases[0.1.2] sdist file size",
+      "size_bytes": 3809
+    },
+    {
+      "id": "httpk:pypi:mcp-glama-registry",
+      "name": "mcp-glama-registry",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "mcp-glama-registry",
+      "canonical_repo": "meetmatt/glama-mcp-registry-mcp-server",
+      "size_source": "GET https://pypi.org/pypi/mcp-glama-registry/json releases[0.1.1] sdist file size",
+      "size_bytes": 3083
+    },
+    {
+      "id": "httpk:pypi:mcp-grpc-transport",
+      "name": "mcp-grpc-transport",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "mcp-grpc-transport",
+      "canonical_repo": "googlecloudplatform/mcp-grpc-transport-py",
+      "size_source": "GET https://pypi.org/pypi/mcp-grpc-transport/json releases[0.0.1] sdist file size",
+      "size_bytes": 2123
+    },
+    {
+      "id": "httpk:pypi:mcp-lite",
+      "name": "mcp-lite",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "mcp-lite",
+      "canonical_repo": "fomenko-ai/mcp-lite",
+      "size_source": "GET https://pypi.org/pypi/mcp-lite/json releases[0.1.0] sdist file size",
+      "size_bytes": 3981
+    },
+    {
+      "id": "httpk:pypi:mcp-retry",
+      "name": "mcp-retry",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "mcp-retry",
+      "canonical_repo": "buer2333/mcp-retry",
+      "size_source": "GET https://pypi.org/pypi/mcp-retry/json releases[0.1.0] sdist file size",
+      "size_bytes": 3743
+    },
+    {
+      "id": "httpk:pypi:mcp-scan",
+      "name": "mcp-scan",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "mcp-scan",
+      "canonical_repo": "snyk/agent-scan",
+      "size_source": "GET https://pypi.org/pypi/mcp-scan/json releases[0.4.3] sdist file size",
+      "size_bytes": 2056
+    },
+    {
+      "id": "httpk:pypi:mcp-server-gemini-bridge",
+      "name": "mcp-server-gemini-bridge",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "mcp-server-gemini-bridge",
+      "canonical_repo": "jaspertvdm/mcp-server-gemini-bridge",
+      "size_source": "GET https://pypi.org/pypi/mcp-server-gemini-bridge/json releases[1.0.0] sdist file size",
+      "size_bytes": 4367
+    },
+    {
+      "id": "httpk:pypi:mcp-server-ollama-bridge",
+      "name": "mcp-server-ollama-bridge",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "mcp-server-ollama-bridge",
+      "canonical_repo": "jaspertvdm/mcp-server-ollama-bridge",
+      "size_source": "GET https://pypi.org/pypi/mcp-server-ollama-bridge/json releases[1.0.0] sdist file size",
+      "size_bytes": 3754
+    },
+    {
+      "id": "httpk:pypi:mcp-server-openai-bridge",
+      "name": "mcp-server-openai-bridge",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "mcp-server-openai-bridge",
+      "canonical_repo": "jaspertvdm/mcp-server-openai-bridge",
+      "size_source": "GET https://pypi.org/pypi/mcp-server-openai-bridge/json releases[1.0.0] sdist file size",
+      "size_bytes": 4297
+    },
+    {
+      "id": "httpk:pypi:mcp-serverchan-turbo",
+      "name": "mcp-serverchan-turbo",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "mcp-serverchan-turbo",
+      "canonical_repo": "zhengxiaowai/mcps",
+      "size_source": "GET https://pypi.org/pypi/mcp-serverchan-turbo/json releases[0.1.0] sdist file size",
+      "size_bytes": 2616
+    },
+    {
+      "id": "httpk:pypi:mcp-snap7",
+      "name": "mcp-snap7",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "mcp-snap7",
+      "canonical_repo": "daedalus/mcp-snap7",
+      "size_source": "GET https://pypi.org/pypi/mcp-snap7/json releases[0.1.0] sdist file size",
+      "size_bytes": 4919
+    },
+    {
+      "id": "httpk:pypi:mozichem-mcp-fastmcp",
+      "name": "mozichem-mcp-fastmcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "mozichem-mcp-fastmcp",
+      "canonical_repo": "fastmcp-me/mozichem-mcp",
+      "size_source": "GET https://pypi.org/pypi/mozichem-mcp-fastmcp/json releases[0.1.1] sdist file size",
+      "size_bytes": 4694
+    },
+    {
+      "id": "httpk:pypi:ollama-almasrv-mcp",
+      "name": "ollama-almasrv-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "ollama-almasrv-mcp",
+      "canonical_repo": "vankasins/ollama-almasrv-mcp",
+      "size_source": "GET https://pypi.org/pypi/ollama-almasrv-mcp/json releases[1.0.0] sdist file size",
+      "size_bytes": 4601
+    },
+    {
+      "id": "httpk:pypi:proton-bridge-mcp",
+      "name": "proton-bridge-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "proton-bridge-mcp",
+      "canonical_repo": "alpharomercoma/proton-bridge-mcp-py",
+      "size_source": "GET https://pypi.org/pypi/proton-bridge-mcp/json releases[1.0.1] sdist file size",
+      "size_bytes": 3622
+    },
+    {
+      "id": "httpk:pypi:qiye-wechat-mcp",
+      "name": "qiye-wechat-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "qiye-wechat-mcp",
+      "canonical_repo": "shellus/qiye_wechat_mcp",
+      "size_source": "GET https://pypi.org/pypi/qiye-wechat-mcp/json releases[0.1.5] sdist file size",
+      "size_bytes": 4767
+    },
+    {
+      "id": "httpk:pypi:rag-retrieval-mcp",
+      "name": "rag-retrieval-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "rag-retrieval-mcp",
+      "canonical_repo": "maryamzi/rag-retrieval-mcp",
+      "size_source": "GET https://pypi.org/pypi/rag-retrieval-mcp/json releases[0.2.0] sdist file size",
+      "size_bytes": 4697
+    },
+    {
+      "id": "httpk:pypi:replicate-nano-banana-mcp",
+      "name": "replicate-nano-banana-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "replicate-nano-banana-mcp",
+      "canonical_repo": "sugarforever/replicate-nano-banana-mcp",
+      "size_source": "GET https://pypi.org/pypi/replicate-nano-banana-mcp/json releases[0.1.0] sdist file size",
+      "size_bytes": 4247
+    },
+    {
+      "id": "httpk:pypi:rewind-mcp",
+      "name": "rewind-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "rewind-mcp",
+      "canonical_repo": "agentoptics/rewind",
+      "size_source": "GET https://pypi.org/pypi/rewind-mcp/json releases[0.13.12] sdist file size",
+      "size_bytes": 4303
+    },
+    {
+      "id": "httpk:pypi:ryeos-mcp",
+      "name": "ryeos-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "ryeos-mcp",
+      "canonical_repo": "leolilley/ryeos",
+      "size_source": "GET https://pypi.org/pypi/ryeos-mcp/json releases[0.1.12] sdist file size",
+      "size_bytes": 3637
+    },
+    {
+      "id": "httpk:pypi:scrybe.ai",
+      "name": "scrybe.ai",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "scrybe.ai",
+      "canonical_repo": "hartsock/scrybe",
+      "size_source": "GET https://pypi.org/pypi/scrybe.ai/json releases[0.6.3] sdist file size",
+      "size_bytes": 2375
+    },
+    {
+      "id": "httpk:pypi:seashail-mcp",
+      "name": "seashail-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "seashail-mcp",
+      "canonical_repo": "seashail/seashail",
+      "size_source": "GET https://pypi.org/pypi/seashail-mcp/json releases[0.1.0] sdist file size",
+      "size_bytes": 2981
+    },
+    {
+      "id": "httpk:pypi:shout-run-mcp",
+      "name": "shout-run-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "shout-run-mcp",
+      "canonical_repo": "pavanmadiraju91/shout-run",
+      "size_source": "GET https://pypi.org/pypi/shout-run-mcp/json releases[0.2.0] sdist file size",
+      "size_bytes": 4033
+    },
+    {
+      "id": "httpk:pypi:skyboy-mcp",
+      "name": "skyboy-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "skyboy-mcp",
+      "canonical_repo": "aijadugar/skyboy",
+      "size_source": "GET https://pypi.org/pypi/skyboy-mcp/json releases[0.1.0] sdist file size",
+      "size_bytes": 3607
+    },
+    {
+      "id": "httpk:pypi:slug-forge-mcp",
+      "name": "slug-forge-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "slug-forge-mcp",
+      "canonical_repo": "techtenstein-labs/slug-forge",
+      "size_source": "GET https://pypi.org/pypi/slug-forge-mcp/json releases[1.0.0] sdist file size",
+      "size_bytes": 1704
+    },
+    {
+      "id": "httpk:pypi:sonaloop-mcp",
+      "name": "sonaloop-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "sonaloop-mcp",
+      "canonical_repo": "jhoetter/sonaloop-research",
+      "size_source": "GET https://pypi.org/pypi/sonaloop-mcp/json releases[0.2.0] sdist file size",
+      "size_bytes": 2799
+    },
+    {
+      "id": "httpk:pypi:techtenstein-color-palette-mcp",
+      "name": "techtenstein-color-palette-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "techtenstein-color-palette-mcp",
+      "canonical_repo": "techtenstein-labs/color-palette",
+      "size_source": "GET https://pypi.org/pypi/techtenstein-color-palette-mcp/json releases[1.0.0] sdist file size",
+      "size_bytes": 2285
+    },
+    {
+      "id": "httpk:pypi:techtenstein-password-strength-mcp",
+      "name": "techtenstein-password-strength-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "techtenstein-password-strength-mcp",
+      "canonical_repo": "techtenstein-labs/password-strength",
+      "size_source": "GET https://pypi.org/pypi/techtenstein-password-strength-mcp/json releases[1.0.0] sdist file size",
+      "size_bytes": 2340
+    },
+    {
+      "id": "httpk:pypi:techtenstein-timezone-convert-mcp",
+      "name": "techtenstein-timezone-convert-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "techtenstein-timezone-convert-mcp",
+      "canonical_repo": "techtenstein-labs/timezone-convert",
+      "size_source": "GET https://pypi.org/pypi/techtenstein-timezone-convert-mcp/json releases[1.0.0] sdist file size",
+      "size_bytes": 2321
+    },
+    {
+      "id": "httpk:pypi:think_mcp",
+      "name": "think_mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "think_mcp",
+      "canonical_repo": "rai220/think-mcp",
+      "size_source": "GET https://pypi.org/pypi/think_mcp/json releases[0.1.16] sdist file size",
+      "size_bytes": 4715
+    },
+    {
+      "id": "httpk:pypi:tibet-ipoll-mcp",
+      "name": "tibet-ipoll-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "tibet-ipoll-mcp",
+      "canonical_repo": "humotica/tibet-ipoll-mcp",
+      "size_source": "GET https://pypi.org/pypi/tibet-ipoll-mcp/json releases[0.1.0] sdist file size",
+      "size_bytes": 4615
+    },
+    {
+      "id": "httpk:pypi:webquest-mcp",
+      "name": "webquest-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "webquest-mcp",
+      "canonical_repo": "mustafametesengul/webquest-mcp",
+      "size_source": "GET https://pypi.org/pypi/webquest-mcp/json releases[0.16.0] sdist file size",
+      "size_bytes": 3956
+    },
+    {
+      "id": "httpk:pypi:yarxiv-mcp",
+      "name": "yarxiv-mcp",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "yarxiv-mcp",
+      "canonical_repo": "ilyagusev/academia_mcp",
+      "size_source": "GET https://pypi.org/pypi/yarxiv-mcp/json releases[0.0.1] sdist file size",
+      "size_bytes": 4949
+    },
+    {
+      "id": "httpk:pypi:yuppie-mcp-tts",
+      "name": "yuppie-mcp-tts",
+      "cls": "B",
+      "kind": "uvx",
+      "package": "yuppie-mcp-tts",
+      "canonical_repo": "yuppie1949/yuppie-mcp-tts",
+      "size_source": "GET https://pypi.org/pypi/yuppie-mcp-tts/json releases[0.3.0] sdist file size",
+      "size_bytes": 4657
+    }
+  ]
+}

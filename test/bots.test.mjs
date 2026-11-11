@@ -137,3 +137,18 @@ test('repeated --modality is OR; --all-modalities is AND; primary is a sort hint
   assert.equal(hinted.items[0].id,'b');
   assert.equal(hinted.matched,1);
 });
+
+test('bundled 1.0 snapshot is the full passing A/B plus OSS/HF set',()=>{
+  const data=JSON.parse(gunzipSync(readFileSync(resolve(root,'src/deployable-bots.json.gz'))));
+  const classes={};
+  const kinds=new Map();
+  for(const r of data.bots){
+    classes[r[3]]=(classes[r[3]]||0)+1;
+    kinds.set(r[2],(kinds.get(r[2])||0)+1);
+  }
+  assert.equal(data.bots.length,13440);
+  assert.equal(classes.A,26);
+  assert.equal(classes.B,11528);
+  assert.equal(classes.O,1886);
+  assert.equal(kinds.get('ollama')||0,0);
+});
