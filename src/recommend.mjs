@@ -1,15 +1,23 @@
-// Offline stack recommender. No network and no model call.
-// `kloudy recommend <goal> [--json]` and `kloudy stack <goal> [--json]`.
+// Stack recommender. Kloudy never runs an LLM.
+// `kloudy recommend <goal> [--json] [--limit N] [--offline]`
+// `kloudy stack` is the same command.
+// Ranking reads the bundled catalog. recommendCommand may apply cached score overrides.
+import {createHash} from 'node:crypto';
 import {readFileSync} from 'node:fs';
 import {flags,loadLocal,localEndpoints} from './bots.mjs';
 import {primarySortHint} from './modalities.mjs';
+import {loadScoreOverrides,normalizeScores} from './scores.mjs';
 
 export const RECOMMEND_SCHEMA='kloudy.recommend/1';
 export const CATALOG_NAME='kloudy 1.0';
-const PER_MODALITY=5;
+export const DEFAULT_LIMIT=5;
+export const MIN_LIMIT=1;
+export const MAX_LIMIT=20;
+const PER_MODALITY=DEFAULT_LIMIT;
 // Class order for recommendations is A, then B, then O.
-// Primary-modality hint, keyword hits, catalog score, and index tie-break
-// follow the comparator in localSearch.
+// Score overrides apply after class: boost, then unchanged, then demote.
+// Exclude drops a bot before the cap. Primary-modality hint, keyword hits,
+// catalog score, and index tie-break follow the comparator in localSearch.
 const CLASS_TIER={A:0,B:1,O:2};
 const words=s=>String(s||'').toLowerCase().split(/[^\p{L}\p{N}_]+/u).filter(w=>w.length>1);
 
@@ -562,12 +570,46 @@ function familyHit(family,tokens,raw,keywords){
   return null;
 }
 
-function selectFamily(bots,piece,limit){
+function overrideRank(scores,id){
+  const action=scores?.bots?.[id]?.action;
+  if(action==='boost')return -1;
+  if(action==='demote')return 1;
+  return 0;
+}
+
+function excluded(scores,id){
+  return scores?.bots?.[id]?.action==='exclude';
+}
+
+export function parseLimit(value){
+  if(value==null||value==='')return DEFAULT_LIMIT;
+  const text=String(value);
+  if(!/^\d+$/.test(text))throw new Error('Limit must be an integer from 1 to 20');
+  const n=Number(text);
+  if(!Number.isInteger(n)||n<MIN_LIMIT||n>MAX_LIMIT)throw new Error('Limit must be an integer from 1 to 20');
+  return n;
+}
+
+export function stackIdFor(parts,unmatched=[]){
+  const lines=[];
+  for(const part of parts){
+    lines.push('part:'+part.part);
+    for(const bot of part.bots)lines.push('bot:'+bot.id);
+  }
+  for(const item of unmatched)lines.push('unmatched:'+item.part);
+  return createHash('sha256').update(lines.join('\n')).digest('hex');
+}
+
+export function feedbackLine(stackId){
+  return `kloudy feedback --stack ${stackId} --bot <id> --result worked|failed|partial [--reason <short>]`;
+}
+
+function selectFamily(bots,piece,limit,scores){
   const want=piece.modalities||[];
   const pool=[];
   for(let i=0;i<bots.length;i++){
     const bot=bots[i];
-    if(!installCommand(bot))continue;
+    if(!installCommand(bot)||excluded(scores,bot.id))continue;
     const raw=botBlob(bot);
     const tokens=botTokens(bot);
     const hit=familyHit(piece.family,tokens,raw,piece.keywords);
@@ -577,11 +619,11 @@ function selectFamily(bots,piece,limit){
     pool.push({b:bot,i,hits,direct:hit==='direct'||need.some(keyword=>tokenCovers(tokens,raw,keyword))?1:0});
   }
   const tier=cls=>CLASS_TIER[cls]??9;
-  pool.sort((x,y)=>y.direct-x.direct||tier(x.b.cls)-tier(y.b.cls)||primarySortHint(y.b.modality_primary,want)-primarySortHint(x.b.modality_primary,want)||y.hits-x.hits||(y.b.score||0)-(x.b.score||0)||x.i-y.i||String(x.b.id).localeCompare(String(y.b.id)));
+  pool.sort((x,y)=>y.direct-x.direct||tier(x.b.cls)-tier(y.b.cls)||overrideRank(scores,x.b.id)-overrideRank(scores,y.b.id)||primarySortHint(y.b.modality_primary,want)-primarySortHint(x.b.modality_primary,want)||y.hits-x.hits||(y.b.score||0)-(x.b.score||0)||x.i-y.i||String(x.b.id).localeCompare(String(y.b.id)));
   const chosen=pool.slice(0,limit).map(x=>x.b);
   const need=contentKeywords(piece.keywords);
   const confidence=!chosen.length?'none':!need.length||need.every(keyword=>chosen.some(bot=>tokenCovers(botTokens(bot),botBlob(bot),keyword)))?'match':'weak';
-  return {bots:chosen,confidence};
+  return {bots:chosen,confidence,candidatesTotal:pool.length};
 }
 
 function botItem(bot,modality,keywords,tail){
@@ -597,23 +639,23 @@ function botItem(bot,modality,keywords,tail){
   };
 }
 
-function rankModality(bots,modality,keywords,limit){
+function rankModality(bots,modality,keywords,scores){
   const terms=[...new Set((keywords||[]).flatMap(words))];
   const want=[modality];
   const pool=[];
   for(let i=0;i<bots.length;i++){
     const b=bots[i];
-    if(!(b.modalities||[]).includes(modality))continue;
+    if(!(b.modalities||[]).includes(modality)||excluded(scores,b.id))continue;
     const blob=(b.name+' '+b.id+' '+(b.caps||[]).join(' ')).toLowerCase();
     pool.push({b,i,hits:terms.filter(t=>blob.includes(t)).length});
   }
   const tier=cls=>CLASS_TIER[cls]??9;
-  pool.sort((x,y)=>tier(x.b.cls)-tier(y.b.cls)||primarySortHint(y.b.modality_primary,want)-primarySortHint(x.b.modality_primary,want)||y.hits-x.hits||(y.b.score||0)-(x.b.score||0)||x.i-y.i||String(x.b.id).localeCompare(String(y.b.id)));
-  return pool.slice(0,limit).map(x=>x.b);
+  pool.sort((x,y)=>tier(x.b.cls)-tier(y.b.cls)||overrideRank(scores,x.b.id)-overrideRank(scores,y.b.id)||primarySortHint(y.b.modality_primary,want)-primarySortHint(x.b.modality_primary,want)||y.hits-x.hits||(y.b.score||0)-(x.b.score||0)||x.i-y.i||String(x.b.id).localeCompare(String(y.b.id)));
+  return pool.map(x=>x.b);
 }
 
-function recordPiece(piece,bots,confidence,parts,unmatched,gaps){
-  if(bots.length)parts.push({part:piece.text,modalities:piece.modalities,confidence,bots});
+function recordPiece(piece,bots,confidence,parts,unmatched,gaps,candidatesTotal=bots.length){
+  if(bots.length)parts.push({part:piece.text,modalities:piece.modalities,confidence,candidatesTotal,bots});
   else unmatched.push({part:piece.text,reason:'no modality or catalog match'});
   if(confidence==='match')return;
   if(bots.length)gaps.push({part:piece.text,confidence,reason:WEAK_REASON[piece.family]||'Catalog hits only partly overlap this part.',kind:KIND_CATALOG});
@@ -625,7 +667,8 @@ function recordPiece(piece,bots,confidence,parts,unmatched,gaps){
 export function recommendGoal(goal,options={}){
   const source=options.bots?{bots:options.bots}:loadLocal();
   if(!source?.bots)throw new Error('No local catalog. Run `kloudy bots sync`.');
-  const limit=options.perModality??PER_MODALITY;
+  const limit=parseLimit(options.limit??options.perModality??PER_MODALITY);
+  const scores=normalizeScores(options.scores);
   const pieces=decomposeGoal(goal);
   const parts=[];
   const unmatched=[];
@@ -634,41 +677,47 @@ export function recommendGoal(goal,options={}){
   for(const piece of consider){
     if(!piece.text)continue;
     if(piece.family){
-      const picked=selectFamily(source.bots,piece,limit);
+      const picked=selectFamily(source.bots,piece,limit,scores);
       const modality=piece.modalities[0];
       const bots=picked.bots.map(bot=>botItem(bot,modality,piece.keywords,'catalog name search'));
       for(const bot of bots)bot.modalities=[...piece.modalities];
-      recordPiece(piece,bots,picked.confidence,parts,unmatched,gaps);
+      recordPiece(piece,bots,picked.confidence,parts,unmatched,gaps,picked.candidatesTotal);
       continue;
     }
     if(!piece.modalities.length){
-      recordPiece(piece,[], 'none',parts,unmatched,gaps);
+      recordPiece(piece,[], 'none',parts,unmatched,gaps,0);
       continue;
     }
     const seen=new Map();
-    const bots=[];
+    const ranked=[];
     for(const modality of piece.modalities){
-      for(const bot of rankModality(source.bots,modality,piece.keywords,limit)){
+      for(const bot of rankModality(source.bots,modality,piece.keywords,scores)){
         const prev=seen.get(bot.id);
         if(prev){
           if(!prev.modalities.includes(modality))prev.modalities.push(modality);
           continue;
         }
-        const item=botItem(bot,modality,piece.keywords);
+        const item={bot,modalities:[modality]};
         seen.set(bot.id,item);
-        bots.push(item);
+        ranked.push(item);
       }
     }
-    recordPiece(piece,bots,bots.length?'match':'none',parts,unmatched,gaps);
+    const bots=ranked.slice(0,limit).map(({bot,modalities})=>{
+      const item=botItem(bot,modalities[0],piece.keywords);
+      item.modalities=modalities;
+      return item;
+    });
+    recordPiece(piece,bots,bots.length?'match':'none',parts,unmatched,gaps,ranked.length);
   }
   const complete=parts.length>0&&parts.every(part=>part.confidence==='match')&&gaps.length===0&&unmatched.length===0;
-  return {schema:RECOMMEND_SCHEMA,catalog:CATALOG_NAME,version:options.version||packageVersion(),goal:String(goal??''),complete,parts,unmatched,gaps};
+  const stackId=stackIdFor(parts,unmatched);
+  return {schema:RECOMMEND_SCHEMA,catalog:CATALOG_NAME,version:options.version||packageVersion(),goal:String(goal??''),limit,stackId,feedback:feedbackLine(stackId),complete,parts,unmatched,gaps};
 }
 
 export function formatRecommend(result){
-  const lines=[`${result.catalog}  ·  package ${result.version}`,`Goal: ${result.goal}`,`complete=${result.complete?'true':'false'}`];
+  const lines=[`${result.catalog}  ·  package ${result.version}`,`Goal: ${result.goal}`,`complete=${result.complete?'true':'false'}`,`limit=${result.limit}`,`stackId: ${result.stackId}`,`feedback: ${result.feedback}`];
   result.parts.forEach((part,index)=>{
-    lines.push('',`${index+1}. ${part.part}`,`Modalities: ${part.modalities.join(', ')}`,`Confidence: ${part.confidence}`);
+    lines.push('',`${index+1}. ${part.part}`,`Modalities: ${part.modalities.join(', ')}`,`Confidence: ${part.confidence}`,`Candidates: ${part.candidatesTotal}`);
     part.bots.forEach((bot,n)=>{
       lines.push(`  ${n+1}) ${bot.id}  [${bot.class}]  ${bot.license||'unknown license'}`,`     ${bot.command}`,`     ${bot.description}`,`     why: ${bot.why}`);
     });
@@ -683,12 +732,14 @@ export function formatRecommend(result){
   return lines.join('\n');
 }
 
-export function recommendCommand(args,opts={}){
+export async function recommendCommand(args,opts={}){
   const out=opts.out||(s=>console.log(s));
   const o=flags(args);
   const goal=o._.join(' ').trim();
-  if(!goal)throw new Error('Usage: kloudy recommend <goal> [--json]');
-  const result=recommendGoal(goal);
+  if(!goal)throw new Error('Usage: kloudy recommend <goal> [--json] [--limit N]');
+  const limit=parseLimit(o.limit);
+  const scores=opts.scores!==undefined?opts.scores:await loadScoreOverrides({offline:!!o.offline,fetchImpl:opts.fetch,now:opts.now,dir:opts.dataDir,url:opts.scoresUrl});
+  const result=recommendGoal(goal,{limit,scores});
   out(o.json?JSON.stringify(result,null,2):formatRecommend(result));
   return result;
 }
