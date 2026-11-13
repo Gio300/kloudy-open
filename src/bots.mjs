@@ -24,7 +24,7 @@ export function loadLocal(){
   return null;
 }
 
-function localEndpoints(b){
+export function localEndpoints(b){
   if(Array.isArray(b.meta?.connect)&&b.meta.connect.length){
     return b.meta.connect.map(ep=>{
       const out={type:ep.type};

@@ -20,7 +20,65 @@ Interactive cards require a host that supports MCP Apps. The proxy relays the su
 
 The existing SDK exports remain available under `kloudy/*`. For the pre-0.4 specialized engine CLI commands documented below, use `kloudy legacy <command>` (for example, `kloudy legacy init my-app`). The original CLI is retained in `bin/kloudy.mjs`.
 
-Offline bot catalog: `npx kloudy bots list|search|get|sync|works|broken`. Kloudy 1.0 bundles the full passing catalog (13,440 listings: 26 verified class A, 11,528 untested class B, 1,886 OSS/HF). Search uses that bundled snapshot, then the local cache. `get` uses a live hit when the API has one, and falls back to that snapshot when the live call misses, including HTTP 404. `--offline` stays on the snapshot. Default `kloudy bots sync` still fetches `https://kloudy.ai/api/deployable-bots/export`; that production URL will not have this 1.0 catalog until a later deploy, so the published tarball does not depend on sync for class B.
+Offline bot catalog: `npx kloudy bots list|search|get|sync|works|broken|modalities`. Kloudy 1.0 bundles the full passing catalog (13,440 listings: 26 verified class A, 11,528 untested class B, 1,886 OSS/HF). Search uses that bundled snapshot, then the local cache. `get` uses a live hit when the API has one, and falls back to that snapshot when the live call misses, including HTTP 404. `--offline` stays on the snapshot. Default `kloudy bots sync` still fetches `https://kloudy.ai/api/deployable-bots/export`; that production URL will not have this 1.0 catalog until a later deploy, so the published tarball does not depend on sync for class B.
+
+## For AI agents: how to use Kloudy
+
+The catalog is **kloudy 1.0**: 13,440 bots and 44 modality tags, shipped in this package (npm version 1.0.1). Recommend and the offline bots commands read that bundled snapshot, then the local cache. They do not call the network, and Kloudy does not run an LLM to pick a stack.
+
+Classes:
+
+- **A** — live HTTP MCP endpoints.
+- **B** — npx or uvx packages.
+- **O** — open source and Hugging Face listings.
+
+List the modality tags:
+
+```sh
+npx kloudy@latest bots modalities --offline
+```
+
+Turn a plain-language goal into a stack. `recommend` and `stack` are the same command. Add `--json` when you need parseable output (`schema` is `kloudy.recommend/1`).
+
+```sh
+npx kloudy@latest recommend "<goal>" --json
+npx kloudy@latest stack "<goal>" --json
+npx kloudy@latest bots search <words> --offline
+npx kloudy@latest bots get <id> --offline
+```
+
+Each recommended bot includes `id`, `class` (A, B, or O), `command`, `license`, a one-line `description`, and `why`. `command` is an `npx` or `uvx` invocation, or a URL for a live endpoint or source repo. Run or open that command when you want to install or connect. `recommend` itself does not install anything. Inspect a pick with `bots get` before running it.
+
+`recommend` splits the goal on commas, semicolons, and the words `and` and `then`, and it also splits a clause when keywords hit different modalities. You get one section per part, with the top bots in each needed modality (class A, then B, then O, then the same primary-modality, score, and index ordering as catalog search). A part with no modality or no catalog row stays in `unmatched` with the part text and a reason. It is not dropped.
+
+Single-part example:
+
+```sh
+npx kloudy@latest recommend "voice assistant that transcribes phone calls" --json
+```
+
+That goal is one audio part. The first of the five bots is `httpk:npm:mendelio-voice-mcp` (class B, MIT, `npx -y mendelio-voice-mcp`).
+
+Multi-part example:
+
+```sh
+npx kloudy@latest recommend "voice assistant that transcribes calls, summarizes them, and stores them in a database" --json
+```
+
+That becomes three parts, not one blended search:
+
+1. `voice assistant that transcribes calls` — `audio` — `httpk:npm:mendelio-voice-mcp` — `npx -y mendelio-voice-mcp`
+2. `summarizes them` — `text` — `httpk:mcp:ai.liquidagent.api:liquid-agent` — `https://api.liquidagent.ai/mcp`
+3. `stores them in a database` — `database_access` — `httpk:npm:microsoft:postgres-mcp` — `npx -y @microsoft/postgres-mcp`
+
+A leftover clause such as `weave a basket` is listed under Unmatched (`no modality or catalog match`) instead of disappearing.
+
+On first contact, read the agent guide and the command list:
+
+```sh
+npx kloudy@latest agents
+npx kloudy@latest --help
+```
 
 One-click Cursor / VS Code setup: https://kloudy.ai/install. Browser deep links ask the editor to install; opening a link is not proof that installation completed. ChatGPT requires its directory program; this package does not modify ChatGPT.
 
