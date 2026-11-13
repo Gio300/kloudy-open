@@ -1,7 +1,8 @@
 // Multi-select modality matching for `kloudy bots`.
 // `--modality <m>` may be repeated. Default match is ANY (OR). `--all-modalities` switches to AND.
 // `primary` / modality_primary is a sort hint only; it never filters.
-export const KNOWN_MODALITIES=['text','code','code_execution','embedding','image','image_generation','audio','voice_generation','video','multimodal','translation','search','database_access','file_system','browser_automation','api_calls','scheduling','notifications','auth_encryption','data_analysis','document_processing','robotics','agent_tools','web','data','cloud','finance','productivity','comms','security','maps'];
+// These 44 tags are the kloudy 1.0 bundled catalog modalities.
+export const KNOWN_MODALITIES=['agent_tools','api_calls','audio','auth_encryption','browser_automation','chat_platforms','chat_ui','cli','cloud','code','code_execution','comms','data','data_analysis','database_access','document_processing','embedding','evaluation','file_system','finance','gpu_compute','image','image_generation','inference','maps','math','memory','multimodal','notifications','observability','orchestration','productivity','queues','rag','robotics','scheduling','search','security','simulation','text','translation','video','voice_generation','web'];
 
 export function modalityWant(value){
   if(value==null||value==='')return [];
