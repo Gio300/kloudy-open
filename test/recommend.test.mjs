@@ -94,9 +94,16 @@ test('the same goal returns the same stack from the bundled catalog',()=>{
   assert.deepEqual(once,twice);
   assert.equal(once.schema,'kloudy.recommend/1');
   assert.equal(once.catalog,'kloudy 1.0');
-  assert.equal(once.version,'1.0.1');
+  assert.equal(once.version,'1.0.2');
   assert.equal(once.unmatched.length,0);
+  assert.equal(once.complete,true);
+  assert.deepEqual(once.gaps,[]);
   assert.equal(once.parts.length,3);
+  assert.deepEqual(once.parts.map(part=>part.confidence),['match','match','match']);
+  assert.deepEqual(once.parts.map(part=>part.modalities[0]),['audio','text','database_access']);
+  assert.equal(once.parts[0].bots[0].id,'httpk:npm:mendelio-voice-mcp');
+  assert.equal(once.parts[1].bots[0].id,'httpk:mcp:ai.liquidagent.api:liquid-agent');
+  assert.equal(once.parts[2].bots[0].id,'httpk:npm:microsoft:postgres-mcp');
   for(const part of once.parts){
     assert.equal(part.bots.length,5);
     for(const bot of part.bots){
@@ -122,23 +129,29 @@ test('recommend --json is parseable and stack matches it',()=>{
   const body=JSON.parse(fromEntry.stdout);
   assert.equal(body.schema,'kloudy.recommend/1');
   assert.equal(body.catalog,'kloudy 1.0');
-  assert.equal(body.version,'1.0.1');
+  assert.equal(body.version,'1.0.2');
   assert.equal(body.goal,'voice assistant that transcribes phone calls');
   assert.equal(body.parts.length,1);
   assert.deepEqual(body.parts[0].modalities,['audio']);
   assert.equal(body.parts[0].bots.length,5);
+  assert.equal(body.parts[0].confidence,'match');
+  assert.equal(body.complete,true);
+  assert.deepEqual(body.gaps,[]);
   assert.deepEqual(body.unmatched,[]);
   assert.equal(fromEntry.stdout.trim().startsWith('{'),true);
   const text=run(entry,['recommend','transcribe phone calls, then weave a basket']);
   assert.equal(text.status,0,text.stderr);
   assert.match(text.stdout,/Unmatched/);
   assert.match(text.stdout,/weave a basket: no modality or catalog match/);
+  assert.match(text.stdout,/Confidence: match/);
+  assert.match(text.stdout,/complete=false/);
+  assert.match(text.stdout,/Gaps/);
   assert.equal(text.stdout.trim().startsWith('{'),false);
 });
 
 test('help and agents are visible on first contact',()=>{
   const pkg=JSON.parse(readFileSync(resolve(root,'package.json'),'utf8'));
-  assert.equal(pkg.version,'1.0.1');
+  assert.equal(pkg.version,'1.0.2');
   assert.ok(pkg.files.includes('AGENTS.md'));
   const readme=readFileSync(resolve(root,'README.md'),'utf8');
   assert.match(readme,/## For AI agents: how to use Kloudy/);
@@ -163,4 +176,81 @@ test('help and agents are visible on first contact',()=>{
   assert.notEqual(missing.status,0);
   assert.equal(missing.stdout,'');
   assert.match(missing.stderr,/Usage: kloudy recommend/);
+});
+
+const watchGoal='Create an experience for a Galaxy Watch 4 that detects steps, starts a timer based on movement, sends step data to an Android phone, uses it in a meal/calorie planner, and optionally shares results to Facebook.';
+const filler=/voice|music|whisper|mendelio|ffmpeg|transcri|voicemeeter|sonic-pi|obs-studio|phonepe|figma|framewatch|cloudwatch|watchtower|swatch|opencode|angular-movement|faiss|fasttext|facebookresearch/i;
+
+test('the watch goal splits device needs and does not fill gaps with audio tools',()=>{
+  const result=recommendGoal(watchGoal);
+  assert.equal(result.schema,'kloudy.recommend/1');
+  assert.equal(result.catalog,'kloudy 1.0');
+  assert.equal(result.version,'1.0.2');
+  assert.equal(result.complete,false);
+  assert.equal(result.parts.length,5);
+  assert.deepEqual(result.unmatched,[]);
+  const texts=result.parts.map(part=>part.part);
+  assert.match(texts[0],/Galaxy Watch/);
+  assert.match(texts[0],/steps/);
+  assert.match(texts[1],/timer/);
+  assert.match(texts[1],/movement/);
+  assert.match(texts[2],/Android/);
+  assert.match(texts[2],/phone/);
+  assert.match(texts[3],/meal\/calorie/);
+  assert.match(texts[4],/Facebook/);
+  assert.deepEqual(result.parts.map(part=>part.confidence),['weak','weak','weak','match','match']);
+  assert.ok(!result.parts[2].modalities.includes('audio'));
+  for(const part of result.parts){
+    assert.ok(['match','weak','none'].includes(part.confidence));
+    assert.ok(!part.modalities.includes('audio'));
+    for(const bot of part.bots){
+      assert.doesNotMatch(`${bot.id} ${bot.name}`,filler);
+      assert.ok(bot.command);
+    }
+  }
+  for(const bot of result.parts[0].bots)assert.match(`${bot.id} ${bot.name}`,/garmin|fitbit|apple-health/i);
+  for(const bot of result.parts[1].bots)assert.match(`${bot.id} ${bot.name}`,/timer|schedul|cron/i);
+  for(const bot of result.parts[2].bots)assert.match(`${bot.id} ${bot.name}`,/android|\badb\b/i);
+  for(const bot of result.parts[3].bots)assert.match(`${bot.id} ${bot.name}`,/meal|calorie|nutrition|diet|recipe/i);
+  for(const bot of result.parts[4].bots)assert.match(`${bot.id} ${bot.name}`,/\bfacebook\b/i);
+  assert.ok(result.gaps.length>=4);
+  for(const gap of result.gaps){
+    assert.equal(typeof gap.part,'string');
+    assert.ok(['match','weak','none'].includes(gap.confidence));
+    assert.equal(typeof gap.reason,'string');
+    if(gap.kind)assert.ok(['catalog integration','suggestion: build yourself / platform API'].includes(gap.kind));
+  }
+  const suggestions=result.gaps.filter(gap=>gap.kind==='suggestion: build yourself / platform API');
+  assert.ok(suggestions.length>=2);
+  assert.match(suggestions.map(gap=>gap.reason).join('\n'),/Wear OS sensor APIs/);
+  assert.match(suggestions.map(gap=>gap.reason).join('\n'),/Health Connect/);
+  assert.match(suggestions.map(gap=>gap.reason).join('\n'),/Unverified non-catalog guidance/);
+  assert.match(suggestions.map(gap=>gap.reason).join('\n'),/not a catalog bot/);
+  assert.ok(result.gaps.some(gap=>gap.kind==='catalog integration'&&gap.confidence==='weak'));
+  const text=formatRecommend(result);
+  assert.match(text,/complete=false/);
+  assert.match(text,/Confidence: weak/);
+  assert.match(text,/Confidence: match/);
+  assert.match(text,/Gaps/);
+  assert.doesNotMatch(text,/Modalities: audio/);
+});
+
+test('phone calls stay audio and bare phone does not',()=>{
+  for(const goal of ['transcribe phone calls','phone call transcription']){
+    const result=recommendGoal(goal);
+    assert.equal(result.parts.length,1);
+    assert.deepEqual(result.parts[0].modalities,['audio']);
+    assert.equal(result.parts[0].confidence,'match');
+    assert.equal(result.complete,true);
+    assert.ok(result.parts[0].bots.length>=1);
+    assert.match(result.parts[0].bots.map(bot=>`${bot.id} ${bot.name}`).join('\n'),/voice|call|transcri|speech|audio/i);
+  }
+  assert.equal(recommendGoal('transcribe phone calls').parts[0].bots[0].id,'httpk:npm:mendelio-voice-mcp');
+  const phone=decomposeGoal('sends step data to an Android phone');
+  assert.equal(phone.length,1);
+  assert.ok(!phone[0].modalities.includes('audio'));
+  const ranked=recommendGoal('sends step data to an Android phone');
+  assert.equal(ranked.parts[0].confidence,'weak');
+  assert.equal(ranked.complete,false);
+  for(const bot of ranked.parts[0].bots)assert.doesNotMatch(`${bot.id} ${bot.name}`,/voice|music|whisper|transcri|mendelio/i);
 });

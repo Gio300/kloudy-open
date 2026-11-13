@@ -24,7 +24,7 @@ Offline bot catalog: `npx kloudy bots list|search|get|sync|works|broken|modaliti
 
 ## For AI agents: how to use Kloudy
 
-The catalog is **kloudy 1.0**: 13,440 bots and 44 modality tags, shipped in this package (npm version 1.0.1). Recommend and the offline bots commands read that bundled snapshot, then the local cache. They do not call the network, and Kloudy does not run an LLM to pick a stack.
+The catalog is **kloudy 1.0**: 13,440 bots and 44 modality tags, shipped in this package (npm version 1.0.2). Recommend and the offline bots commands read that bundled snapshot, then the local cache. They do not call the network, and Kloudy does not run an LLM to pick a stack.
 
 Classes:
 
@@ -49,7 +49,15 @@ npx kloudy@latest bots get <id> --offline
 
 Each recommended bot includes `id`, `class` (A, B, or O), `command`, `license`, a one-line `description`, and `why`. `command` is an `npx` or `uvx` invocation, or a URL for a live endpoint or source repo. Run or open that command when you want to install or connect. `recommend` itself does not install anything. Inspect a pick with `bots get` before running it.
 
-`recommend` splits the goal on commas, semicolons, and the words `and` and `then`, and it also splits a clause when keywords hit different modalities. You get one section per part, with the top bots in each needed modality (class A, then B, then O, then the same primary-modality, score, and index ordering as catalog search). A part with no modality or no catalog row stays in `unmatched` with the part text and a reason. It is not dropped.
+Write the goal as one sentence per need, or as a comma-separated list of needs. A long sentence is still accepted. Clearer parts produce a clearer stack.
+
+`recommend` splits the goal on commas, semicolons, and the words `and` and `then`, and it also splits a clause when keywords hit different modalities. You get one section per part, with the top bots in each needed modality (class A, then B, then O, then the same primary-modality, score, and index ordering as catalog search). Familiar modality words such as transcribe, summarize, and database still return the top bots in that modality. A narrower need, such as a watch, a timer, Android sync, a meal plan, or a social post, keeps only bots that share a real keyword or a clearly related catalog name, id, or cap with that part. Unrelated bots are not filler. A part with no modality or no catalog row stays in `unmatched` with the part text and a reason. It is not dropped.
+
+`phone`, `call`, and `calls` are `audio` only when an audio cue is in the same part or clause (transcribe, transcription, voice, speech, audio, whisper, microphone, asr, phone call, or call audio). Otherwise phone, Android, and mobile are device sync, not audio.
+
+Each part includes `confidence` (`match`, `weak`, or `none`). Top-level `complete` is true only when every part is `match` and `gaps` is empty. `complete` false means the stack is partial. `gaps` lists unmatched and weak parts with the part text, confidence, and a reason. `kind` `catalog integration` means a catalog bot with an install or run command is a real but weak hit. `kind` `suggestion: build yourself / platform API` means the catalog does not cover the need (Wear OS sensor APIs, Health Connect, or the Facebook Graph API, for example). That suggestion is unverified non-catalog guidance, not a catalog bot.
+
+Text output includes Confidence, Gaps, and `complete=true` or `complete=false`. `--json` still prints only the JSON object.
 
 Single-part example:
 
@@ -71,7 +79,9 @@ That becomes three parts, not one blended search:
 2. `summarizes them` — `text` — `httpk:mcp:ai.liquidagent.api:liquid-agent` — `https://api.liquidagent.ai/mcp`
 3. `stores them in a database` — `database_access` — `httpk:npm:microsoft:postgres-mcp` — `npx -y @microsoft/postgres-mcp`
 
-A leftover clause such as `weave a basket` is listed under Unmatched (`no modality or catalog match`) instead of disappearing.
+That control stack is complete (`complete` true). Each part is confidence `match`.
+
+A leftover clause such as `weave a basket` is listed under Unmatched (`no modality or catalog match`) and under Gaps. The goal is then `complete` false.
 
 On first contact, read the agent guide and the command list:
 
