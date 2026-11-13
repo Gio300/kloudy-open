@@ -1,6 +1,6 @@
 {
   "name": "kloudy",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Ask for Kloudy: CLI, MCP and SDK clients for the same scoped engine session.",
   "type": "module",
   "license": "Apache-2.0",
@@ -39,7 +39,7 @@
   ],
   "scripts": {
     "test": "node --test test/*.test.mjs",
-    "check": "node --check bin/kloudy.mjs && node --check bin/entry.mjs && node --check src/bots.mjs && node --check src/recommend.mjs && node --check src/client.mjs && npm test",
+    "check": "node --check bin/kloudy.mjs && node --check bin/entry.mjs && node --check src/bots.mjs && node --check src/recommend.mjs && node --check src/scores.mjs && node --check src/feedback.mjs && node --check scripts/aggregate-feedback-scores.mjs && node --check src/client.mjs && npm test",
     "bots:bundle": "node scripts/bundle-bots-catalog.mjs --subset full",
     "start": "node bin/kloudy.mjs",
     "proof": "node scripts/prove.mjs",

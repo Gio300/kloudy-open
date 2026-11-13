@@ -24,7 +24,9 @@ Offline bot catalog: `npx kloudy bots list|search|get|sync|works|broken|modaliti
 
 ## For AI agents: how to use Kloudy
 
-The catalog is **kloudy 1.0**: 13,440 bots and 44 modality tags, shipped in this package (npm version 1.0.1). Recommend and the offline bots commands read that bundled snapshot, then the local cache. They do not call the network, and Kloudy does not run an LLM to pick a stack.
+The catalog is **kloudy 1.0**: 13,440 bots and 44 modality tags, shipped in this package (npm version 1.0.2). Recommend and the offline bots commands read that bundled snapshot, then the local cache. Kloudy never runs an LLM. Ranking is deterministic: the same goal and the same score overrides return the same JSON.
+
+When a network is available, `recommend` may GET `https://kloudy.ai/api/feedback/scores` and cache those overrides for about 24 hours in the Kloudy data directory (`~/.kloudy`, or `KLOUDY_DATA_DIR`). Overrides demote, exclude, or boost a bot after the class tier. `--offline`, a failed request, or a missing scores file leaves ranking on the bundled catalog order.
 
 Classes:
 
@@ -38,18 +40,43 @@ List the modality tags:
 npx kloudy@latest bots modalities --offline
 ```
 
-Turn a plain-language goal into a stack. `recommend` and `stack` are the same command. Add `--json` when you need parseable output (`schema` is `kloudy.recommend/1`).
+Turn a plain-language goal into a stack. `recommend` and `stack` are the same command. Add `--json` when you need parseable output (`schema` is `kloudy.recommend/1`). `--limit <n>` caps each part (`n` is an integer from 1 to 20; the default is 5). `--offline` skips the score-override request.
 
 ```sh
 npx kloudy@latest recommend "<goal>" --json
-npx kloudy@latest stack "<goal>" --json
+npx kloudy@latest recommend "<goal>" --json --limit 5
+npx kloudy@latest stack "<goal>" --json --limit 5 --offline
+npx kloudy@latest feedback --stack <stackId> --bot <botId> --result worked|failed|partial [--reason <short>] [--client <name>]
+npx kloudy@latest feedback --flush
 npx kloudy@latest bots search <words> --offline
 npx kloudy@latest bots get <id> --offline
 ```
 
 Each recommended bot includes `id`, `class` (A, B, or O), `command`, `license`, a one-line `description`, and `why`. `command` is an `npx` or `uvx` invocation, or a URL for a live endpoint or source repo. Run or open that command when you want to install or connect. `recommend` itself does not install anything. Inspect a pick with `bots get` before running it.
 
-`recommend` splits the goal on commas, semicolons, and the words `and` and `then`, and it also splits a clause when keywords hit different modalities. You get one section per part, with the top bots in each needed modality (class A, then B, then O, then the same primary-modality, score, and index ordering as catalog search). A part with no modality or no catalog row stays in `unmatched` with the part text and a reason. It is not dropped.
+Write the goal as one sentence per need, or as a comma-separated list of needs. A long sentence is still accepted. Clearer parts produce a clearer stack.
+
+`recommend` splits the goal on commas, semicolons, and the words `and` and `then`, and it also splits a clause when keywords hit different modalities. You get one section per part. Each part includes `candidatesTotal` (how many eligible candidates existed before the cap) and `bots` (the capped list). Narrow that capped list with the project you have open: language, frameworks, licenses, and tools already in the repo. Kloudy never runs an LLM and does not read the project to pick a bot.
+
+Order is class A, then B, then O, then score override (boost, then unchanged, then demote), then the same primary-modality, keyword, score, and index ordering as catalog search. Exclude removes a bot before the cap. Familiar modality words such as transcribe, summarize, and database still return the top bots in that modality. A narrower need, such as a watch, a timer, Android sync, a meal plan, or a social post, keeps only bots that share a real keyword or a clearly related catalog name, id, or cap with that part. Unrelated bots are not filler. A part with no modality or no catalog row stays in `unmatched` with the part text and a reason. It is not dropped.
+
+`phone`, `call`, and `calls` are `audio` only when an audio cue is in the same part or clause (transcribe, transcription, voice, speech, audio, whisper, microphone, asr, phone call, or call audio). Otherwise phone, Android, and mobile are device sync, not audio.
+
+Each part includes `confidence` (`match`, `weak`, or `none`). Top-level `complete` is true only when every part is `match` and `gaps` is empty. `complete` false means the stack is partial. `gaps` lists unmatched and weak parts with the part text, confidence, and a reason. `kind` `catalog integration` means a catalog bot with an install or run command is a real but weak hit. `kind` `suggestion: build yourself / platform API` means the catalog does not cover the need (Wear OS sensor APIs, Health Connect, or the Facebook Graph API, for example). That suggestion is unverified non-catalog guidance, not a catalog bot.
+
+Every recommend result includes `limit`, `stackId`, and `feedback`. `stackId` is a sha256 of the goal's parts plus the chosen bot ids. The same parts and the same picks always produce the same `stackId`. `feedback` is the command to run after you try a bot. Put that bot's id in place of `<id>`.
+
+After you try a stack, report whether it worked:
+
+```sh
+kloudy feedback --stack <stackId> --bot <botId> --result worked|failed|partial [--reason <short>] [--client <name>]
+```
+
+`--result` is `worked`, `failed`, or `partial`. `--reason` is optional and short: it is truncated to 80 characters, and a path, token, or email is dropped. `--client` is an optional tool name such as `cursor`, `claude`, `codex`, or `vscode`. It counts distinct clients. Do not pass a person, email, or account. The report is opt-in and anonymous. The payload may include only `stackId`, `botId`, `result`, an optional short `reason`, the kloudy version, and an optional client name. It never includes the goal text, personal info, file paths, environment, or tokens. The POST goes to `https://kloudy.ai/api/feedback`. If the network is down or the POST fails, the report is queued in the Kloudy data directory and sent on the next `kloudy feedback` or `kloudy feedback --flush`.
+
+Score overrides come from those anonymous reports. `scripts/aggregate-feedback-scores.mjs` is meant to run weekly Sunday 3:00 America/Phoenix. It writes `feedback-scores.json`. Bots with fewer than 3 reports are ignored. A bot is demoted after it fails for 3 or more distinct clients with a failure ratio of 60% or more. A bot is excluded after 10 or more reports with a failure ratio of 80% or more. A bot is boosted at 5 or more reports when at least 80% are `worked` and it is not demoted or excluded. `partial` counts as a report and counts as neither worked nor failed. Failure ratio is `failed` divided by all reports. Reports without a client still count toward ratios. They do not add a distinct client.
+
+Text output includes Confidence, Candidates, Gaps, `limit`, `stackId`, `feedback`, and `complete=true` or `complete=false`. `--json` still prints only the JSON object.
 
 Single-part example:
 
@@ -57,7 +84,7 @@ Single-part example:
 npx kloudy@latest recommend "voice assistant that transcribes phone calls" --json
 ```
 
-That goal is one audio part. The first of the five bots is `httpk:npm:mendelio-voice-mcp` (class B, MIT, `npx -y mendelio-voice-mcp`).
+That goal is one audio part. The first bot in the capped list is `httpk:npm:mendelio-voice-mcp` (class B, MIT, `npx -y mendelio-voice-mcp`).
 
 Multi-part example:
 
@@ -71,7 +98,9 @@ That becomes three parts, not one blended search:
 2. `summarizes them` — `text` — `httpk:mcp:ai.liquidagent.api:liquid-agent` — `https://api.liquidagent.ai/mcp`
 3. `stores them in a database` — `database_access` — `httpk:npm:microsoft:postgres-mcp` — `npx -y @microsoft/postgres-mcp`
 
-A leftover clause such as `weave a basket` is listed under Unmatched (`no modality or catalog match`) instead of disappearing.
+That control stack is complete (`complete` true). Each part is confidence `match`.
+
+A leftover clause such as `weave a basket` is listed under Unmatched (`no modality or catalog match`) and under Gaps. The goal is then `complete` false.
 
 On first contact, read the agent guide and the command list:
 
